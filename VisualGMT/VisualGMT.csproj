@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="TabStrip, Version=2.0.2523.29272, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\TabStrip.dll</HintPath>
+      <HintPath>..\Libraries\TabStrip.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

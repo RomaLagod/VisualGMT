@@ -66,6 +66,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="VIsualGMT.resx">
       <DependentUpon>VisualGMT.cs</DependentUpon>
@@ -88,6 +89,9 @@
       <Project>{17bf47f1-8995-434d-a3af-da8c62d19797}</Project>
       <Name>GMT_GUI_component</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\outline_visibility_black_18dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FarsiLibrary;
 
-namespace GMT_GUI_component
+namespace GMT_GUI_component.ComponentInterface
 {
-    public class Class1
+    public interface IGMT_FATabStripItem
     {
     }
 }

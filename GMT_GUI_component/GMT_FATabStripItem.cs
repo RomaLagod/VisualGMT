@@ -3,7 +3,7 @@ using GMT_GUI_component.ComponentInterface;
 
 namespace GMT_GUI_component
 {
-    public class GMT_FATabStripCollection : FATabStrip, IGMT_FATabStripCollection
+    public class GMT_FATabStripItem : FATabStripItem, IGMT_FATabStripItem
     {
 
     }

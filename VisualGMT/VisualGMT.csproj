@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormInterface\IVisualGMT.cs" />
     <Compile Include="VisualGMT.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="ComponentInterface\IGMT_FATabStripCollection.cs" />
     <Compile Include="GMT_FATabStripCollection.cs">
       <SubType>Component</SubType>
     </Compile>

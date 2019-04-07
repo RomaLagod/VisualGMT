@@ -73,7 +73,7 @@
             this.splitter_first.Location = new System.Drawing.Point(0, 0);
             this.splitter_first.Name = "splitter_first";
             this.splitter_first.Size = new System.Drawing.Size(935, 1);
-            this.splitter_first.TabIndex = 0;
+            this.splitter_first.TabIndex = 2;
             this.splitter_first.TabStop = false;
             // 
             // GMT_FATabStripCollectionSet
@@ -150,7 +150,7 @@
             this.gmT_FATabStripCollection1.Location = new System.Drawing.Point(0, 54);
             this.gmT_FATabStripCollection1.Name = "gmT_FATabStripCollection1";
             this.gmT_FATabStripCollection1.Size = new System.Drawing.Size(935, 194);
-            this.gmT_FATabStripCollection1.TabIndex = 4;
+            this.gmT_FATabStripCollection1.TabIndex = 0;
             this.gmT_FATabStripCollection1.Text = "gmT_FATabStripCollection1";
             // 
             // VisualGMT

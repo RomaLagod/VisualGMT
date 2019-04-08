@@ -1,5 +1,6 @@
 ﻿using FastColoredTextBoxNS;
 using GMT_GUI_component.ComponentInterface;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -75,6 +76,8 @@ namespace GMT_GUI_component
         }
 
 
+        #region Work with Status Strip
+
         //Display number of lines and number chars in status strip
         public void ViewCountLinesColuns(StatusStrip statusStrip, int col)
         {
@@ -84,7 +87,20 @@ namespace GMT_GUI_component
         //Display caret position in status strip
         public void ViewCaretPosition(StatusStrip statusStrip, int col)
         {
-            //statusStrip.Items[col].Text = $"Ln : {this.Poi}  Col : {this.}  Sel : {}";
+            var selectionCountChars = this.Selection.Length;
+            var selectionCountLines = Math.Abs(this.Selection.End.iLine - this.Selection.Start.iLine);
+
+            statusStrip.Items[col].Text = $"Ln : {this.Selection.Start.iLine}  Col : {this.Selection.Start.iChar} " +
+                $" Sel : {selectionCountChars}|" +
+                $"{(selectionCountChars > 0 ? (selectionCountLines + 1) : selectionCountLines)}";
         }
+
+        //Display current scale
+        public void ViewScale(StatusStrip statusStrip, int col)
+        {
+            statusStrip.Items[col].Text = $"{this.Zoom}%";
+        }
+
+        #endregion
     }
 }

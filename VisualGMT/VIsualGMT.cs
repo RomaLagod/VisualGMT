@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using GMT_GUI_component;
 using GMT_GUI_component.ComponentInterface;
 using VisualGMT.FormInterface;
+using FastColoredTextBoxNS;
 
 
 namespace VisualGMT
@@ -47,7 +48,9 @@ namespace VisualGMT
         #region Properties
 
         //Current GMT FastColoredTextBox (Selected)
-        public IGMT_FastColoredTextBox GmtFastColoredTextBox { get; set; }
+        public GMT_FastColoredTextBox CurrentGMTTextBox => (gmt_FATabStripCollection.Items[gmt_FATabStripCollection .SelectedItem.TabIndex] as GMT_FATabStripItem).GmtTextBox;
+        //Keyboard KeyMode (INS, OVR)
+        private InsertKeyMode _insertKeyMode = InsertKeyMode.Insert;
 
         //On Form Load
         public event EventHandler VisualGMTLoad;
@@ -72,13 +75,11 @@ namespace VisualGMT
         // On form Visual GMT Load
         private void VisualGMT_Load(object sender, EventArgs e)
         {
-            if (VisualGMTLoad != null) VisualGMTLoad(this, e);
-
-            var fastDocumentCollection = new GMT_FATabStripCollection();
+            //var fastDocumentCollection = new GMT_FATabStripCollection();
 
             var tab = new GMT_FATabStripItem(null);
-            fastDocumentCollection.AddTab(tab);
-            fastDocumentCollection.SelectedItem = tab;
+            gmt_FATabStripCollection.AddTab(tab);
+            gmt_FATabStripCollection.SelectedItem = tab;
 
             //// Initializing ToolTips for main form
             //ToolTipsInitializing();
@@ -86,10 +87,52 @@ namespace VisualGMT
 
 
             //// Event in GMTTextBox
-            //tab.GmtTextBox.TextChanged += GmtTextBoxChanged;
-            //tab.GmtTextBox.SelectionChanged += GmtCursorChanged;
-            //tab.GmtTextBox.ZoomChanged += GmtZoomChanged;
-            //tab.GmtTextBox.KeyDown += GmtDownPress;
+            tab.GmtTextBox.TextChanged += GmtTextBoxChanged;
+            tab.GmtTextBox.SelectionChanged += GmtCursorChanged;
+            tab.GmtTextBox.ZoomChanged += GmtZoomChanged;
+            tab.GmtTextBox.KeyDown += GmtDownPress;
+
+            if (VisualGMTLoad != null) VisualGMTLoad(this, e);
+        }
+
+        #endregion
+
+        #region GmtTextBox Events
+
+        // Event (When Key press in Gmt textBox)
+        private void GmtDownPress(object sender, KeyEventArgs e)
+        {
+            if (Keys.Insert == e.KeyData)
+            {
+                if (_insertKeyMode == InsertKeyMode.Insert)
+                {
+                    _insertKeyMode = InsertKeyMode.Overwrite;
+                }
+                else
+                {
+                    _insertKeyMode = InsertKeyMode.Insert;
+                }
+            }
+
+            TextInsertMode(ssDocumentInfo, 3, _insertKeyMode == InsertKeyMode.Insert ? "INS" : "OVR");
+        }
+
+        // Set value Scale in status strip
+        private void GmtZoomChanged(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.ViewScale(ssDocumentInfo, 4);
+        }
+
+        // Set Cursor Position in status strip when Position change
+        private void GmtCursorChanged(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.ViewCaretPosition(ssDocumentInfo, 2);
+        }
+
+        // Set text count information in status strip
+        private void GmtTextBoxChanged(object sender, TextChangedEventArgs e)
+        {
+            CurrentGMTTextBox.ViewCountLinesColuns(ssDocumentInfo, 1);
         }
 
         #endregion
@@ -122,6 +165,51 @@ namespace VisualGMT
             interBtnHTPostScript = btnHTPostScript;
             interBtnHTSettings = btnHTSettings;
             interBtnHTFind = btnHTFind;
+        }
+
+        #endregion
+
+        #region Status Stip
+
+        private void tsmiScale200_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Zoom = 200;
+        }
+
+        private void tsmiScale150_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Zoom = 150;
+        }
+
+        private void tsmiScale100_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Zoom = 100;
+        }
+
+        private void tsmiScale70_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Zoom = 70;
+        }
+
+        private void tsmiScale50_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Zoom = 50;
+        }
+
+        private void tsmiScale20_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Zoom = 20;
+        }
+
+        private void tssbScaleDefault_DoubleClick(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Zoom = 100;
+        }
+
+        // Set insert mode
+        private void TextInsertMode(StatusStrip statusStrip, int col, string insertKeyMode)
+        {
+            statusStrip.Items[col].Text = $"{insertKeyMode}";
         }
 
         #endregion

@@ -134,8 +134,7 @@
             this.btnHTOpen = new System.Windows.Forms.Button();
             this.btnHTNew = new System.Windows.Forms.Button();
             this.splitter_first = new System.Windows.Forms.Splitter();
-            this.GMT_FATabStripCollectionSet = new GMT_GUI_component.GMT_FATabStripCollection();
-            this.ssDocument = new System.Windows.Forms.StatusStrip();
+            this.ssDocumentInfo = new System.Windows.Forms.StatusStrip();
             this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslDinmation = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslCursorPosition = new System.Windows.Forms.ToolStripStatusLabel();
@@ -149,11 +148,12 @@
             this.tsmiScale200 = new System.Windows.Forms.ToolStripMenuItem();
             this.tspbTime = new System.Windows.Forms.ToolStripProgressBar();
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
+            this.GMT_FATabStripCollectionSet = new GMT_GUI_component.GMT_FATabStripCollection();
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.GMT_FATabStripCollectionSet)).BeginInit();
-            this.ssDocument.SuspendLayout();
+            this.ssDocumentInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gmt_FATabStripCollection)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GMT_FATabStripCollectionSet)).BeginInit();
             this.SuspendLayout();
             // 
             // msGeneralMenu
@@ -1166,37 +1166,29 @@
             this.splitter_first.TabIndex = 2;
             this.splitter_first.TabStop = false;
             // 
-            // GMT_FATabStripCollectionSet
+            // ssDocumentInfo
             // 
-            this.GMT_FATabStripCollectionSet.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.GMT_FATabStripCollectionSet.Location = new System.Drawing.Point(0, 0);
-            this.GMT_FATabStripCollectionSet.Name = "GMT_FATabStripCollectionSet";
-            this.GMT_FATabStripCollectionSet.Size = new System.Drawing.Size(350, 200);
-            this.GMT_FATabStripCollectionSet.TabIndex = 0;
-            // 
-            // ssDocument
-            // 
-            this.ssDocument.BackColor = System.Drawing.Color.DodgerBlue;
-            this.ssDocument.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ssDocumentInfo.BackColor = System.Drawing.Color.DodgerBlue;
+            this.ssDocumentInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslStatus,
             this.tsslDinmation,
             this.tsslCursorPosition,
             this.tsslTextMode,
             this.tssbScaleDefault,
             this.tspbTime});
-            this.ssDocument.Location = new System.Drawing.Point(0, 248);
-            this.ssDocument.Name = "ssDocument";
-            this.ssDocument.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.ssDocument.Size = new System.Drawing.Size(935, 24);
-            this.ssDocument.TabIndex = 3;
-            this.ssDocument.Text = "statusStrip1";
+            this.ssDocumentInfo.Location = new System.Drawing.Point(0, 248);
+            this.ssDocumentInfo.Name = "ssDocumentInfo";
+            this.ssDocumentInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
+            this.ssDocumentInfo.Size = new System.Drawing.Size(935, 24);
+            this.ssDocumentInfo.TabIndex = 3;
+            this.ssDocumentInfo.Text = "statusStrip1";
             // 
             // tsslStatus
             // 
             this.tsslStatus.Image = global::VisualGMT.Properties.Resources.outline_visibility_black_18dp;
             this.tsslStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tsslStatus.Name = "tsslStatus";
-            this.tsslStatus.Size = new System.Drawing.Size(615, 19);
+            this.tsslStatus.Size = new System.Drawing.Size(482, 19);
             this.tsslStatus.Spring = true;
             this.tsslStatus.Text = "tsslStatus";
             this.tsslStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1225,6 +1217,7 @@
             // tssbScaleDefault
             // 
             this.tssbScaleDefault.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tssbScaleDefault.DoubleClickEnabled = true;
             this.tssbScaleDefault.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiScale20,
             this.tsmiScale50,
@@ -1237,42 +1230,49 @@
             this.tssbScaleDefault.Name = "tssbScaleDefault";
             this.tssbScaleDefault.Size = new System.Drawing.Size(48, 22);
             this.tssbScaleDefault.Text = "100%";
+            this.tssbScaleDefault.DoubleClick += new System.EventHandler(this.tssbScaleDefault_DoubleClick);
             // 
             // tsmiScale20
             // 
             this.tsmiScale20.Name = "tsmiScale20";
-            this.tsmiScale20.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale20.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale20.Text = "20%";
+            this.tsmiScale20.Click += new System.EventHandler(this.tsmiScale20_Click);
             // 
             // tsmiScale50
             // 
             this.tsmiScale50.Name = "tsmiScale50";
-            this.tsmiScale50.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale50.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale50.Text = "50%";
+            this.tsmiScale50.Click += new System.EventHandler(this.tsmiScale50_Click);
             // 
             // tsmiScale70
             // 
             this.tsmiScale70.Name = "tsmiScale70";
-            this.tsmiScale70.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale70.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale70.Text = "70%";
+            this.tsmiScale70.Click += new System.EventHandler(this.tsmiScale70_Click);
             // 
             // tsmiScale100
             // 
             this.tsmiScale100.Name = "tsmiScale100";
-            this.tsmiScale100.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale100.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale100.Text = "100%";
+            this.tsmiScale100.Click += new System.EventHandler(this.tsmiScale100_Click);
             // 
             // tsmiScale150
             // 
             this.tsmiScale150.Name = "tsmiScale150";
-            this.tsmiScale150.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale150.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale150.Text = "150%";
+            this.tsmiScale150.Click += new System.EventHandler(this.tsmiScale150_Click);
             // 
             // tsmiScale200
             // 
             this.tsmiScale200.Name = "tsmiScale200";
-            this.tsmiScale200.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale200.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale200.Text = "200%";
+            this.tsmiScale200.Click += new System.EventHandler(this.tsmiScale200_Click);
             // 
             // tspbTime
             // 
@@ -1290,6 +1290,14 @@
             this.gmt_FATabStripCollection.TabIndex = 0;
             this.gmt_FATabStripCollection.Text = "gmT_FATabStripCollection1";
             // 
+            // GMT_FATabStripCollectionSet
+            // 
+            this.GMT_FATabStripCollectionSet.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.GMT_FATabStripCollectionSet.Location = new System.Drawing.Point(0, 0);
+            this.GMT_FATabStripCollectionSet.Name = "GMT_FATabStripCollectionSet";
+            this.GMT_FATabStripCollectionSet.Size = new System.Drawing.Size(350, 200);
+            this.GMT_FATabStripCollectionSet.TabIndex = 0;
+            // 
             // VisualGMT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1297,7 +1305,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(935, 272);
             this.Controls.Add(this.gmt_FATabStripCollection);
-            this.Controls.Add(this.ssDocument);
+            this.Controls.Add(this.ssDocumentInfo);
             this.Controls.Add(this.pGMTHighlightingTools);
             this.Controls.Add(this.msGeneralMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1309,10 +1317,10 @@
             this.msGeneralMenu.PerformLayout();
             this.pGMTHighlightingTools.ResumeLayout(false);
             this.pGMTHighlightingTools.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.GMT_FATabStripCollectionSet)).EndInit();
-            this.ssDocument.ResumeLayout(false);
-            this.ssDocument.PerformLayout();
+            this.ssDocumentInfo.ResumeLayout(false);
+            this.ssDocumentInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gmt_FATabStripCollection)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GMT_FATabStripCollectionSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1323,7 +1331,7 @@
         private System.Windows.Forms.MenuStrip msGeneralMenu;
         private System.Windows.Forms.Panel pGMTHighlightingTools;
         private GMT_GUI_component.GMT_FATabStripCollection GMT_FATabStripCollectionSet;
-        private System.Windows.Forms.StatusStrip ssDocument;
+        private System.Windows.Forms.StatusStrip ssDocumentInfo;
         private System.Windows.Forms.ToolStripStatusLabel tsslStatus;
         private System.Windows.Forms.ToolStripStatusLabel tsslDinmation;
         private System.Windows.Forms.ToolStripStatusLabel tsslCursorPosition;

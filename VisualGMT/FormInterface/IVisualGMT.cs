@@ -40,9 +40,6 @@ namespace VisualGMT.FormInterface
 
         #region Properties
 
-        //Selected FastColoredTextBox
-        IGMT_FastColoredTextBox GmtFastColoredTextBox { get; set; }
-
         #endregion
 
         #region Events

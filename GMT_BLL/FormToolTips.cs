@@ -1,11 +1,12 @@
-﻿using System.Windows.Forms;
+﻿using GMT_BLL.LogicInterface;
+using System.Windows.Forms;
 
 namespace GMT_BLL
 {
     /// <summary>
     /// ToolTips (Hints) test for main form
     /// </summary>
-    public class FormToolTips
+    public class FormToolTips : IFormToolTips
     {
         public ToolTip ToolTip { get; set; }
         public string New { get; set; }

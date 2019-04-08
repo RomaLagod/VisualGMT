@@ -43,10 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormToolTips.cs" />
+    <Compile Include="LogicInterface\IFormToolTips.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="LogicInterface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

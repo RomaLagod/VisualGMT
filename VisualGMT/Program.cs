@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GMT_BLL;
 
 namespace VisualGMT
 {
@@ -16,7 +17,18 @@ namespace VisualGMT
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VisualGMT());
+
+            #region MVP
+
+            VisualGMT visualGmt = new VisualGMT();
+            FormToolTips formToolTips = new FormToolTips();
+
+            MainPresenter presenter = new MainPresenter(visualGmt, formToolTips);
+
+            #endregion
+
+
+            Application.Run(visualGmt);
         }
     }
 }

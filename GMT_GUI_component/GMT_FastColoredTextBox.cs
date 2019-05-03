@@ -15,6 +15,8 @@ namespace GMT_GUI_component
         private Style _invisibleCharsStyle = new InvisibleCharsRenderer(Pens.Gray);
         private Color _currentLineColor = Color.FromArgb(100, 210, 210, 255);
         private Color _changedLineColor = Color.FromArgb(255, 230, 230, 255);
+        // Insert Key MODE (Keyboard KeyMode (INS, OVR))
+        public InsertKeyMode InsertKeyMode = InsertKeyMode.Insert;
 
         // static constructor
         static GMT_FastColoredTextBox()
@@ -79,7 +81,7 @@ namespace GMT_GUI_component
         #region Work with Status Strip
 
         //Display number of lines and number chars in status strip
-        public void ViewCountLinesColuns(StatusStrip statusStrip, int col)
+        public void ViewCountLinesColumns(StatusStrip statusStrip, int col)
         {
             statusStrip.Items[col].Text = $"length : {this.TextLength}  lines : {this.LinesCount}";
         }

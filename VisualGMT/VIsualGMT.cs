@@ -48,9 +48,22 @@ namespace VisualGMT
         #region Properties
 
         //Current GMT FastColoredTextBox (Selected)
-        public GMT_FastColoredTextBox CurrentGMTTextBox => (gmt_FATabStripCollection.Items[gmt_FATabStripCollection .SelectedItem.TabIndex] as GMT_FATabStripItem).GmtTextBox;
-        //Keyboard KeyMode (INS, OVR)
-        private InsertKeyMode _insertKeyMode = InsertKeyMode.Insert;
+        //public GMT_FastColoredTextBox CurrentGMTTextBox => (gmt_FATabStripCollection.Items[gmt_FATabStripCollection .SelectedItem.TabIndex] as GMT_FATabStripItem).GmtTextBox;
+        GMT_FastColoredTextBox CurrentGMTTextBox
+        {
+            get
+            {
+                if (gmt_FATabStripCollection.SelectedItem == null)
+                    return null;
+                return (gmt_FATabStripCollection.SelectedItem.Controls[0] as GMT_FastColoredTextBox);
+            }
+
+            set
+            {
+                gmt_FATabStripCollection.SelectedItem = (value.Parent as GMT_FATabStripItem);
+                value.Focus();
+            }
+        }
 
         //On Form Load
         public event EventHandler VisualGMTLoad;
@@ -77,22 +90,20 @@ namespace VisualGMT
         {
             //var fastDocumentCollection = new GMT_FATabStripCollection();
 
-            var tab = new GMT_FATabStripItem(null);
-            gmt_FATabStripCollection.AddTab(tab);
-            gmt_FATabStripCollection.SelectedItem = tab;
+            //Create new GMT Document
+            NewGMTDocument();
 
             //// Initializing ToolTips for main form
             //ToolTipsInitializing();
 
-
-
-            //// Event in GMTTextBox
-            tab.GmtTextBox.TextChanged += GmtTextBoxChanged;
-            tab.GmtTextBox.SelectionChanged += GmtCursorChanged;
-            tab.GmtTextBox.ZoomChanged += GmtZoomChanged;
-            tab.GmtTextBox.KeyDown += GmtDownPress;
-
+            //On VisualGMT form Load event
             if (VisualGMTLoad != null) VisualGMTLoad(this, e);
+        }
+
+        // New Document Click
+        private void btnHTNew_Click(object sender, EventArgs e)
+        {
+            NewGMTDocument();
         }
 
         #endregion
@@ -104,40 +115,70 @@ namespace VisualGMT
         {
             if (Keys.Insert == e.KeyData)
             {
-                if (_insertKeyMode == InsertKeyMode.Insert)
+                if (CurrentGMTTextBox.InsertKeyMode == InsertKeyMode.Insert)
                 {
-                    _insertKeyMode = InsertKeyMode.Overwrite;
+                    CurrentGMTTextBox.InsertKeyMode = InsertKeyMode.Overwrite;
                 }
                 else
                 {
-                    _insertKeyMode = InsertKeyMode.Insert;
+                    CurrentGMTTextBox.InsertKeyMode = InsertKeyMode.Insert;
                 }
             }
 
-            TextInsertMode(ssDocumentInfo, 3, _insertKeyMode == InsertKeyMode.Insert ? "INS" : "OVR");
+            TextInsertMode(ssDocumentInfo, 3, CurrentGMTTextBox.InsertKeyMode == InsertKeyMode.Insert ? "INS" : "OVR");
         }
 
         // Set value Scale in status strip
         private void GmtZoomChanged(object sender, EventArgs e)
         {
-            CurrentGMTTextBox.ViewScale(ssDocumentInfo, 4);
+            (sender as GMT_FastColoredTextBox).ViewScale(ssDocumentInfo, 4);
         }
 
         // Set Cursor Position in status strip when Position change
         private void GmtCursorChanged(object sender, EventArgs e)
         {
-            CurrentGMTTextBox.ViewCaretPosition(ssDocumentInfo, 2);
+            (sender as GMT_FastColoredTextBox).ViewCaretPosition(ssDocumentInfo, 2);
         }
 
         // Set text count information in status strip
         private void GmtTextBoxChanged(object sender, TextChangedEventArgs e)
         {
-            CurrentGMTTextBox.ViewCountLinesColuns(ssDocumentInfo, 1);
+            (sender as GMT_FastColoredTextBox).ViewCountLinesColumns(ssDocumentInfo, 1);
+        }
+
+        //On selection tab changed
+        private void gmt_FATabStripCollection_TabStripItemSelectionChanged(FarsiLibrary.Win.TabStripItemChangedEventArgs e)
+        {
+            if (CurrentGMTTextBox != null)
+            {
+                CurrentGMTTextBox.Focus();
+                CurrentGMTTextBox.ViewScale(ssDocumentInfo, 4);
+                CurrentGMTTextBox.ViewCaretPosition(ssDocumentInfo, 2);
+                CurrentGMTTextBox.ViewCountLinesColumns(ssDocumentInfo, 1);
+                TextInsertMode(ssDocumentInfo, 3, CurrentGMTTextBox.InsertKeyMode == InsertKeyMode.Insert ? "INS" : "OVR");
+                //string text = CurrentTB.Text;
+                //ThreadPool.QueueUserWorkItem((o) => ReBuildObjectExplorer(text));
+            }
         }
 
         #endregion
 
         #region Methods
+
+        //Create new GMT Document
+        private void NewGMTDocument()
+        {
+            //Create new GMT document and add new tab
+            var tab = new GMT_FATabStripItem(null);
+            gmt_FATabStripCollection.AddTab(tab);
+            gmt_FATabStripCollection.SelectedItem = tab;
+
+            //// Event in GMTTextBox
+            tab.GmtTextBox.TextChanged += GmtTextBoxChanged;
+            tab.GmtTextBox.SelectionChanged += GmtCursorChanged;
+            tab.GmtTextBox.ZoomChanged += GmtZoomChanged;
+            tab.GmtTextBox.KeyDown += GmtDownPress;
+        }
 
         //Component initialization for Presetner
         private void ControlInitialization()
@@ -213,5 +254,6 @@ namespace VisualGMT
         }
 
         #endregion
+ 
     }
 }

@@ -1155,6 +1155,7 @@
             this.btnHTNew.Size = new System.Drawing.Size(30, 29);
             this.btnHTNew.TabIndex = 3;
             this.btnHTNew.UseVisualStyleBackColor = false;
+            this.btnHTNew.Click += new System.EventHandler(this.btnHTNew_Click);
             // 
             // splitter_first
             // 
@@ -1188,7 +1189,7 @@
             this.tsslStatus.Image = global::VisualGMT.Properties.Resources.outline_visibility_black_18dp;
             this.tsslStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tsslStatus.Name = "tsslStatus";
-            this.tsslStatus.Size = new System.Drawing.Size(482, 19);
+            this.tsslStatus.Size = new System.Drawing.Size(615, 19);
             this.tsslStatus.Spring = true;
             this.tsslStatus.Text = "tsslStatus";
             this.tsslStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1235,42 +1236,42 @@
             // tsmiScale20
             // 
             this.tsmiScale20.Name = "tsmiScale20";
-            this.tsmiScale20.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale20.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale20.Text = "20%";
             this.tsmiScale20.Click += new System.EventHandler(this.tsmiScale20_Click);
             // 
             // tsmiScale50
             // 
             this.tsmiScale50.Name = "tsmiScale50";
-            this.tsmiScale50.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale50.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale50.Text = "50%";
             this.tsmiScale50.Click += new System.EventHandler(this.tsmiScale50_Click);
             // 
             // tsmiScale70
             // 
             this.tsmiScale70.Name = "tsmiScale70";
-            this.tsmiScale70.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale70.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale70.Text = "70%";
             this.tsmiScale70.Click += new System.EventHandler(this.tsmiScale70_Click);
             // 
             // tsmiScale100
             // 
             this.tsmiScale100.Name = "tsmiScale100";
-            this.tsmiScale100.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale100.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale100.Text = "100%";
             this.tsmiScale100.Click += new System.EventHandler(this.tsmiScale100_Click);
             // 
             // tsmiScale150
             // 
             this.tsmiScale150.Name = "tsmiScale150";
-            this.tsmiScale150.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale150.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale150.Text = "150%";
             this.tsmiScale150.Click += new System.EventHandler(this.tsmiScale150_Click);
             // 
             // tsmiScale200
             // 
             this.tsmiScale200.Name = "tsmiScale200";
-            this.tsmiScale200.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale200.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale200.Text = "200%";
             this.tsmiScale200.Click += new System.EventHandler(this.tsmiScale200_Click);
             // 
@@ -1289,6 +1290,7 @@
             this.gmt_FATabStripCollection.Size = new System.Drawing.Size(935, 194);
             this.gmt_FATabStripCollection.TabIndex = 0;
             this.gmt_FATabStripCollection.Text = "gmT_FATabStripCollection1";
+            this.gmt_FATabStripCollection.TabStripItemSelectionChanged += new FarsiLibrary.Win.TabStripItemChangedHandler(this.gmt_FATabStripCollection_TabStripItemSelectionChanged);
             // 
             // GMT_FATabStripCollectionSet
             // 

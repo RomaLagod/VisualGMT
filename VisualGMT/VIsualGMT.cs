@@ -90,7 +90,7 @@ namespace VisualGMT
         {
             //var fastDocumentCollection = new GMT_FATabStripCollection();
 
-            //Create new GMT Document
+            //Create new GMT Document when Form Load
             NewGMTDocument();
 
             //// Initializing ToolTips for main form

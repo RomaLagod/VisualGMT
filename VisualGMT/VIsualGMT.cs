@@ -100,12 +100,6 @@ namespace VisualGMT
             if (VisualGMTLoad != null) VisualGMTLoad(this, e);
         }
 
-        // New Document Click
-        private void btnHTNew_Click(object sender, EventArgs e)
-        {
-            NewGMTDocument();
-        }
-
         #endregion
 
         #region GmtTextBox Events
@@ -254,6 +248,15 @@ namespace VisualGMT
         }
 
         #endregion
- 
+
+        #region ToolBar
+
+        // New Document Click
+        private void btnHTNew_Click(object sender, EventArgs e)
+        {
+            NewGMTDocument();
+        }
+
+        #endregion
     }
 }

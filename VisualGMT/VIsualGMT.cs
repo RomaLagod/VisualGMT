@@ -257,6 +257,36 @@ namespace VisualGMT
             NewGMTDocument();
         }
 
+        // Copy selected Text to clipboard
+        private void btnHTCopy_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Copy();
+        }
+
+        // Cut selected Text to clipboard
+        private void btnHTCut_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Cut();
+        }
+
+        // Paste Text from clipboard
+        private void btnHTPaste_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Paste();
+        }
+
+        // UNDO operation
+        private void btnHTUndo_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Undo();
+        }
+
+        // REDO operation
+        private void btnHTRedo_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Redo();
+        }
+
         #endregion
     }
 }

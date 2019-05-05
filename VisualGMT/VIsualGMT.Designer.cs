@@ -336,6 +336,7 @@
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.undoToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.btnHTUndo_Click);
             // 
             // redoToolStripMenuItem
             // 
@@ -343,6 +344,7 @@
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.redoToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.btnHTRedo_Click);
             // 
             // toolStripMenuItem6
             // 
@@ -355,6 +357,7 @@
             this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.cutToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.cutToolStripMenuItem.Text = "Cut";
+            this.cutToolStripMenuItem.Click += new System.EventHandler(this.btnHTCut_Click);
             // 
             // copyToolStripMenuItem
             // 
@@ -362,6 +365,7 @@
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.copyToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.btnHTCopy_Click);
             // 
             // pasteToolStripMenuItem
             // 
@@ -369,6 +373,7 @@
             this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.pasteToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.btnHTPaste_Click);
             // 
             // deleteToolStripMenuItem
             // 
@@ -1049,6 +1054,7 @@
             this.btnHTRedo.Size = new System.Drawing.Size(30, 29);
             this.btnHTRedo.TabIndex = 13;
             this.btnHTRedo.UseVisualStyleBackColor = false;
+            this.btnHTRedo.Click += new System.EventHandler(this.btnHTRedo_Click);
             // 
             // btnHTUndo
             // 
@@ -1065,6 +1071,7 @@
             this.btnHTUndo.Size = new System.Drawing.Size(30, 29);
             this.btnHTUndo.TabIndex = 12;
             this.btnHTUndo.UseVisualStyleBackColor = false;
+            this.btnHTUndo.Click += new System.EventHandler(this.btnHTUndo_Click);
             // 
             // splitter2
             // 
@@ -1091,6 +1098,7 @@
             this.btnHTPaste.Size = new System.Drawing.Size(30, 29);
             this.btnHTPaste.TabIndex = 10;
             this.btnHTPaste.UseVisualStyleBackColor = false;
+            this.btnHTPaste.Click += new System.EventHandler(this.btnHTPaste_Click);
             // 
             // btnHTCut
             // 
@@ -1107,6 +1115,7 @@
             this.btnHTCut.Size = new System.Drawing.Size(30, 29);
             this.btnHTCut.TabIndex = 9;
             this.btnHTCut.UseVisualStyleBackColor = false;
+            this.btnHTCut.Click += new System.EventHandler(this.btnHTCut_Click);
             // 
             // btnHTCopy
             // 
@@ -1123,6 +1132,7 @@
             this.btnHTCopy.Size = new System.Drawing.Size(30, 29);
             this.btnHTCopy.TabIndex = 8;
             this.btnHTCopy.UseVisualStyleBackColor = false;
+            this.btnHTCopy.Click += new System.EventHandler(this.btnHTCopy_Click);
             // 
             // splitter1
             // 

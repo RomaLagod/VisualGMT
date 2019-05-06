@@ -64,6 +64,9 @@
     <Compile Include="GMT_FATabStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GMT_Ruler.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="InvisibleCharsRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

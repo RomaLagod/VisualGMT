@@ -288,5 +288,41 @@ namespace VisualGMT
         }
 
         #endregion
+
+        #region MainMenu
+
+        // Edit -> Delete selected text
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.SelectedText = "";
+        }
+
+        // Edit -> Select All text
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.SelectAll();
+        }
+
+        // File -> Close program
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        // File -> Close Tab
+        private void closeTabToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //(CurrentGMTTextBox.Parent as GMT_FATabStripItem).
+        }
+
+        // View -> Ruler
+        private void rulerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //var gmtRuler = new GMT_Ruler();
+            //gmtRuler.Dock = DockStyle.Top;
+            //gmtRuler.Target = CurrentGMTTextBox;
+        }
+
+        #endregion
     }
 }

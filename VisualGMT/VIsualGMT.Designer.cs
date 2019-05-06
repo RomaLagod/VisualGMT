@@ -157,12 +157,10 @@
             this.tsmiScale200 = new System.Windows.Forms.ToolStripMenuItem();
             this.tspbTime = new System.Windows.Forms.ToolStripProgressBar();
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
-            this.GMT_FATabStripCollectionSet = new GMT_GUI_component.GMT_FATabStripCollection();
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
             this.ssDocumentInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gmt_FATabStripCollection)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GMT_FATabStripCollectionSet)).BeginInit();
             this.SuspendLayout();
             // 
             // msGeneralMenu
@@ -1418,14 +1416,6 @@
             this.gmt_FATabStripCollection.Text = "gmT_FATabStripCollection1";
             this.gmt_FATabStripCollection.TabStripItemSelectionChanged += new FarsiLibrary.Win.TabStripItemChangedHandler(this.gmt_FATabStripCollection_TabStripItemSelectionChanged);
             // 
-            // GMT_FATabStripCollectionSet
-            // 
-            this.GMT_FATabStripCollectionSet.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.GMT_FATabStripCollectionSet.Location = new System.Drawing.Point(0, 0);
-            this.GMT_FATabStripCollectionSet.Name = "GMT_FATabStripCollectionSet";
-            this.GMT_FATabStripCollectionSet.Size = new System.Drawing.Size(350, 200);
-            this.GMT_FATabStripCollectionSet.TabIndex = 0;
-            // 
             // VisualGMT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1448,7 +1438,6 @@
             this.ssDocumentInfo.ResumeLayout(false);
             this.ssDocumentInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gmt_FATabStripCollection)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GMT_FATabStripCollectionSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1458,7 +1447,6 @@
 
         private System.Windows.Forms.MenuStrip msGeneralMenu;
         private System.Windows.Forms.Panel pGMTHighlightingTools;
-        private GMT_GUI_component.GMT_FATabStripCollection GMT_FATabStripCollectionSet;
         private System.Windows.Forms.StatusStrip ssDocumentInfo;
         private System.Windows.Forms.ToolStripStatusLabel tsslStatus;
         private System.Windows.Forms.ToolStripStatusLabel tsslDinmation;
@@ -1467,7 +1455,6 @@
         private System.Windows.Forms.ToolStripDropDownButton tssbScaleDefault;
         private System.Windows.Forms.ToolStripProgressBar tspbTime;
         private System.Windows.Forms.Splitter splitter_first;
-        private GMT_GUI_component.GMT_FATabStripCollection gmt_FATabStripCollection;
         private System.Windows.Forms.ToolStripMenuItem tsmiScale150;
         private System.Windows.Forms.ToolStripMenuItem tsmiScale200;
         private System.Windows.Forms.ToolStripMenuItem tsmiScale20;
@@ -1584,6 +1571,7 @@
         private System.Windows.Forms.ToolStripMenuItem Zoom200_toolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem19;
         private System.Windows.Forms.ToolStripMenuItem expandtoolStripMenuItem;
+        private GMT_GUI_component.GMT_FATabStripCollection gmt_FATabStripCollection;
     }
 }
 

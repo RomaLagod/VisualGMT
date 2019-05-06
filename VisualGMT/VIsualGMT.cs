@@ -150,6 +150,7 @@ namespace VisualGMT
                 CurrentGMTTextBox.ViewCaretPosition(ssDocumentInfo, 2);
                 CurrentGMTTextBox.ViewCountLinesColumns(ssDocumentInfo, 1);
                 TextInsertMode(ssDocumentInfo, 3, CurrentGMTTextBox.InsertKeyMode == InsertKeyMode.Insert ? "INS" : "OVR");
+                RulerCheckState();
                 //string text = CurrentTB.Text;
                 //ThreadPool.QueueUserWorkItem((o) => ReBuildObjectExplorer(text));
             }
@@ -200,6 +201,19 @@ namespace VisualGMT
             interBtnHTPostScript = btnHTPostScript;
             interBtnHTSettings = btnHTSettings;
             interBtnHTFind = btnHTFind;
+        }
+
+        // Ruler mainMenu CheckState
+        void RulerCheckState()
+        {
+            if ((CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible)
+            {
+                rulerToolStripMenuItem.CheckState = CheckState.Checked;
+            }
+            else
+            {
+                rulerToolStripMenuItem.CheckState = CheckState.Unchecked;
+            }
         }
 
         #endregion
@@ -312,15 +326,39 @@ namespace VisualGMT
         // File -> Close Tab
         private void closeTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //(CurrentGMTTextBox.Parent as GMT_FATabStripItem).
+            try
+            {
+                gmt_FATabStripCollection.RemoveTab((CurrentGMTTextBox.Parent as GMT_FATabStripItem));
+            }
+            catch (Exception exception)
+            {
+                //Console.WriteLine(exception);
+                throw;
+            }
         }
 
         // View -> Ruler
         private void rulerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var gmtRuler = new GMT_Ruler();
-            //gmtRuler.Dock = DockStyle.Top;
-            //gmtRuler.Target = CurrentGMTTextBox;
+            try
+            {
+                if (!(CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible)
+                {
+                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtRuler.Visible = true;
+                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible = true;
+                }
+                else
+                {
+                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtRuler.Visible = false;
+                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible = false;
+                }
+            }
+            catch (Exception exception)
+            {
+                //Console.WriteLine(exception);
+                // MessageDialog here
+                throw;
+            }
         }
 
         #endregion

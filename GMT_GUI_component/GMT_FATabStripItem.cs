@@ -8,11 +8,24 @@ namespace GMT_GUI_component
     // Tab item class for component FATabStrip (library TabStrip.dll)
     public class GMT_FATabStripItem : FATabStripItem, IGMT_FATabStripItem
     {
+        #region Properties
+
         // GMT FastColoredTextBox
         public GMT_FastColoredTextBox GmtTextBox { get; }
 
+        // GMT Ruler
+        public GMT_Ruler GmtRuler { get; set; }
+
+        // IsRulerVisible
+        public bool IsRulerVisible { get; set; } = false;
+
         // File
         public String FileName { get; set; }
+
+        #endregion
+
+
+        #region Constructors
 
         // constructor by default
         public GMT_FATabStripItem() : base()
@@ -24,6 +37,7 @@ namespace GMT_GUI_component
         // include: GMT_FastColoredTextBox
         public GMT_FATabStripItem(string fileName) : base()
         {
+            // Create GMT_FastColoredTextBox
             GmtTextBox = new GMT_FastColoredTextBox();
             this.Controls.Add(GmtTextBox);
             this.Title = fileName != null ? Path.GetFileName(fileName) : "[new]";
@@ -32,6 +46,11 @@ namespace GMT_GUI_component
             //if (fileName != null)
             //    GmtTextBox.OpenFile(fileName);
 
+            // Create Ruler
+            GmtRuler = new GMT_Ruler(GmtTextBox);
+            this.Controls.Add(GmtRuler);
         }
+
+        #endregion
     }
 }

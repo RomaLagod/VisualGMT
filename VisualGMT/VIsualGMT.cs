@@ -11,7 +11,7 @@ using GMT_GUI_component;
 using GMT_GUI_component.ComponentInterface;
 using VisualGMT.FormInterface;
 using FastColoredTextBoxNS;
-
+using System.Text.RegularExpressions;
 
 namespace VisualGMT
 {
@@ -53,7 +53,7 @@ namespace VisualGMT
         {
             get
             {
-                if (gmt_FATabStripCollection.SelectedItem == null)
+                if (gmt_FATabStripCollection.SelectedItem == null || gmt_FATabStripCollection.Items.Count <= 0)
                     return null;
                 return (gmt_FATabStripCollection.SelectedItem.Controls[0] as GMT_FastColoredTextBox);
             }
@@ -65,8 +65,15 @@ namespace VisualGMT
             }
         }
 
+        //Find TextBox Changed
+        bool tbFindChanged = false;
+
         //On Form Load
         public event EventHandler VisualGMTLoad;
+        //On Ruler error
+        public event EventHandler RulerError;
+        //On CloseTab error
+        public event EventHandler CloseTabError;
 
         #endregion
 
@@ -274,31 +281,31 @@ namespace VisualGMT
         // Copy selected Text to clipboard
         private void btnHTCopy_Click(object sender, EventArgs e)
         {
-            CurrentGMTTextBox.Copy();
+            CurrentGMTTextBox?.Copy();
         }
 
         // Cut selected Text to clipboard
         private void btnHTCut_Click(object sender, EventArgs e)
         {
-            CurrentGMTTextBox.Cut();
+            CurrentGMTTextBox?.Cut();
         }
 
         // Paste Text from clipboard
         private void btnHTPaste_Click(object sender, EventArgs e)
         {
-            CurrentGMTTextBox.Paste();
+            CurrentGMTTextBox?.Paste();
         }
 
         // UNDO operation
         private void btnHTUndo_Click(object sender, EventArgs e)
         {
-            CurrentGMTTextBox.Undo();
+            CurrentGMTTextBox?.Undo();
         }
 
         // REDO operation
         private void btnHTRedo_Click(object sender, EventArgs e)
         {
-            CurrentGMTTextBox.Redo();
+            CurrentGMTTextBox?.Redo();
         }
 
         #endregion
@@ -308,13 +315,16 @@ namespace VisualGMT
         // Edit -> Delete selected text
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CurrentGMTTextBox.SelectedText = "";
+            if (CurrentGMTTextBox != null)
+            {
+                CurrentGMTTextBox.SelectedText = "";
+            }
         }
 
         // Edit -> Select All text
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CurrentGMTTextBox.SelectAll();
+            CurrentGMTTextBox?.SelectAll();
         }
 
         // File -> Close program
@@ -332,8 +342,7 @@ namespace VisualGMT
             }
             catch (Exception exception)
             {
-                //Console.WriteLine(exception);
-                throw;
+                CloseTabError(exception, e);
             }
         }
 
@@ -355,12 +364,56 @@ namespace VisualGMT
             }
             catch (Exception exception)
             {
-                //Console.WriteLine(exception);
-                // MessageDialog here
-                throw;
+                RulerError(exception, e);
+            }
+        }
+
+        // Edit -> Find
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox?.ShowFindDialog();
+        }
+
+        // Edit -> Find and Replace
+        private void findAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox?.ShowReplaceDialog();
+        }
+
+        // Find from textBox
+        private void tbHTFind_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r' && CurrentGMTTextBox != null)
+            {
+                //(sender as TextBox).Text = (sender as TextBox).Text.Remove((sender as TextBox).Text.Length);
+                Range r = tbFindChanged ? CurrentGMTTextBox.Range.Clone() : CurrentGMTTextBox.Selection.Clone();
+                tbFindChanged = false;
+                r.End = new Place(CurrentGMTTextBox[CurrentGMTTextBox.LinesCount - 1].Count, CurrentGMTTextBox.LinesCount - 1);
+                var pattern = Regex.Escape((sender as TextBox).Text);
+                foreach (var found in r.GetRanges(pattern))
+                {
+                    found.Inverse();
+                    CurrentGMTTextBox.Selection = found;
+                    CurrentGMTTextBox.DoSelectionVisible();
+                    return;
+                }
+                MessageBox.Show("Not found.");
+            }
+            else
+                tbFindChanged = true;
+        }
+
+        // Clear last enter in find TextBox
+        private void tbHTFind_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return && CurrentGMTTextBox != null)
+            {
+                (sender as TextBox).Text = (sender as TextBox).Text.Remove((sender as TextBox).Text.Length - 1);
             }
         }
 
         #endregion
+
+
     }
 }

@@ -15,23 +15,27 @@ namespace VisualGMT
 
         private readonly IVisualGMT _view;
         private readonly IFormToolTips _toolTips;
+        private readonly IMessageService _messageService;
 
         #endregion
 
         #region Constructor
 
-        public MainPresenter(IVisualGMT view, IFormToolTips toolTips)
+        public MainPresenter(IVisualGMT view, IFormToolTips toolTips, IMessageService messageService)
         {
             #region initialization
 
             _view = view;
             _toolTips = toolTips;
+            _messageService = messageService;
 
             #endregion
 
             #region Events connection
 
             _view.VisualGMTLoad += viewVisualGMTLoad;
+            _view.CloseTabError += _view_CloseTabError;
+            _view.RulerError += _view_RulerError;
 
             #endregion
         }
@@ -40,11 +44,23 @@ namespace VisualGMT
 
         #region When Event
 
-        //Event when MainForm (VisualGMT) OnLoad
+        // Event when MainForm (VisualGMT) OnLoad
         private void viewVisualGMTLoad(object sender, EventArgs e)
         {
-            //Set ToolTips in View
+            // Set ToolTips in View
             ToolTipsInitializing();
+        }
+
+        // Event when Close tab error
+        private void _view_CloseTabError(object sender, EventArgs e)
+        {
+            _messageService.ShowError(sender.ToString());
+        }
+
+        //Event when Ruler error
+        private void _view_RulerError(object sender, EventArgs e)
+        {
+            _messageService.ShowError(sender.ToString());
         }
 
         #endregion

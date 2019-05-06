@@ -206,6 +206,7 @@
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.btnHTNew_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -317,6 +318,7 @@
             this.findToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
             this.findToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.findToolStripMenuItem.Text = "Find";
+            this.findToolStripMenuItem.Click += new System.EventHandler(this.findToolStripMenuItem_Click);
             // 
             // findAndReplaceToolStripMenuItem
             // 
@@ -324,6 +326,7 @@
             this.findAndReplaceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
             this.findAndReplaceToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.findAndReplaceToolStripMenuItem.Text = "Find And Replace...";
+            this.findAndReplaceToolStripMenuItem.Click += new System.EventHandler(this.findAndReplaceToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
@@ -378,7 +381,7 @@
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.deleteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Delete)));
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
@@ -809,6 +812,7 @@
             this.btnHTFind.BackColor = System.Drawing.Color.Transparent;
             this.btnHTFind.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnHTFind.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnHTFind.Enabled = false;
             this.btnHTFind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHTFind.ForeColor = System.Drawing.Color.White;
             this.btnHTFind.ImageIndex = 22;
@@ -854,14 +858,16 @@
             this.tbHTFind.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbHTFind.CausesValidation = false;
             this.tbHTFind.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tbHTFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbHTFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbHTFind.Location = new System.Drawing.Point(835, 1);
+            this.tbHTFind.Margin = new System.Windows.Forms.Padding(5);
             this.tbHTFind.Multiline = true;
             this.tbHTFind.Name = "tbHTFind";
             this.tbHTFind.Size = new System.Drawing.Size(100, 29);
             this.tbHTFind.TabIndex = 31;
-            this.tbHTFind.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbHTFind.WordWrap = false;
+            this.tbHTFind.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbHTFind_KeyPress);
+            this.tbHTFind.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbHTFind_KeyUp);
             // 
             // btnHTSettings
             // 

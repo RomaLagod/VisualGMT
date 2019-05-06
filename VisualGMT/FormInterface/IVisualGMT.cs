@@ -46,6 +46,10 @@ namespace VisualGMT.FormInterface
 
         //Event On Main Form Load
         event EventHandler VisualGMTLoad;
+        //Event Ruler error
+        event EventHandler RulerError;
+        //Event CloseTab error
+        event EventHandler CloseTabError;
 
         #endregion
 

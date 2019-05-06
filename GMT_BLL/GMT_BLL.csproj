@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="FormToolTips.cs" />
     <Compile Include="LogicInterface\IFormToolTips.cs" />
+    <Compile Include="LogicInterface\IMessageService.cs" />
+    <Compile Include="MessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -22,8 +22,9 @@ namespace VisualGMT
 
             VisualGMT visualGmt = new VisualGMT();
             FormToolTips formToolTips = new FormToolTips();
+            MessageService messageService = new MessageService();
 
-            MainPresenter presenter = new MainPresenter(visualGmt, formToolTips);
+            MainPresenter presenter = new MainPresenter(visualGmt, formToolTips, messageService);
 
             #endregion
 

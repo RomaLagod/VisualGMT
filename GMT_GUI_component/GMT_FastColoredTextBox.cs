@@ -11,9 +11,11 @@ namespace GMT_GUI_component
     {
         // the same word selection style
         public static Style SameWordsStyle { get; set; }
+
         // Styles
-        private Style _invisibleCharsStyle = new InvisibleCharsRenderer(Pens.Gray);
-        private Color _currentLineColor = Color.FromArgb(100, 210, 210, 255);
+        public Style InvisibleCharsStyle { get; } = new InvisibleCharsRenderer(Pens.Gray);
+        public Color CurrentLineColor { get; } = Color.FromArgb(100, 210, 210, 255);
+
         private Color _changedLineColor = Color.FromArgb(255, 230, 230, 255);
         // Insert Key MODE (Keyboard KeyMode (INS, OVR))
         public InsertKeyMode InsertKeyMode = InsertKeyMode.Insert;

@@ -111,10 +111,8 @@
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pGMTHighlightingTools = new System.Windows.Forms.Panel();
-            this.btnHTFind = new System.Windows.Forms.Button();
-            this.ilToolBarImages_24 = new System.Windows.Forms.ImageList(this.components);
-            this.tbHTFind = new System.Windows.Forms.TextBox();
             this.btnHTSettings = new System.Windows.Forms.Button();
+            this.ilToolBarImages_24 = new System.Windows.Forms.ImageList(this.components);
             this.btnHTPostScript = new System.Windows.Forms.Button();
             this.btnHTConsole = new System.Windows.Forms.Button();
             this.splitter6 = new System.Windows.Forms.Splitter();
@@ -123,14 +121,16 @@
             this.btnHTBookmarks = new System.Windows.Forms.Button();
             this.btnHTGetBookmark = new System.Windows.Forms.Button();
             this.btnHTSetBookmark = new System.Windows.Forms.Button();
-            this.splitter4 = new System.Windows.Forms.Splitter();
+            this.splitter3 = new System.Windows.Forms.Splitter();
             this.btnHTUnComment = new System.Windows.Forms.Button();
             this.btnHTComment = new System.Windows.Forms.Button();
-            this.btnHTFolderLines = new System.Windows.Forms.Button();
-            this.btnHTCodeFolders = new System.Windows.Forms.Button();
-            this.btnHTInvisibleSymbols = new System.Windows.Forms.Button();
-            this.btnHTHighlightCurrentLine = new System.Windows.Forms.Button();
-            this.splitter3 = new System.Windows.Forms.Splitter();
+            this.btnHTFolderLines = new System.Windows.Forms.CheckBox();
+            this.btnHTCodeFolders = new System.Windows.Forms.CheckBox();
+            this.btnHTInvisibleSymbols = new System.Windows.Forms.CheckBox();
+            this.btnHTHighlightCurrentLine = new System.Windows.Forms.CheckBox();
+            this.btnHTFind = new System.Windows.Forms.Button();
+            this.tbHTFind = new System.Windows.Forms.TextBox();
+            this.splitter4 = new System.Windows.Forms.Splitter();
             this.btnHTRedo = new System.Windows.Forms.Button();
             this.btnHTUndo = new System.Windows.Forms.Button();
             this.splitter2 = new System.Windows.Forms.Splitter();
@@ -468,6 +468,7 @@
             this.highlightCurrentLineToolStripMenuItem.Name = "highlightCurrentLineToolStripMenuItem";
             this.highlightCurrentLineToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
             this.highlightCurrentLineToolStripMenuItem.Text = "Highlight Current Line";
+            this.highlightCurrentLineToolStripMenuItem.Click += new System.EventHandler(this.highlightCurrentLineToolStripMenuItem_Click);
             // 
             // toolStripMenuItem9
             // 
@@ -476,9 +477,11 @@
             // 
             // showInvisibleCharToolStripMenuItem
             // 
+            this.showInvisibleCharToolStripMenuItem.CheckOnClick = true;
             this.showInvisibleCharToolStripMenuItem.Name = "showInvisibleCharToolStripMenuItem";
             this.showInvisibleCharToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
             this.showInvisibleCharToolStripMenuItem.Text = "Show Invisible Chars";
+            this.showInvisibleCharToolStripMenuItem.Click += new System.EventHandler(this.showInvisibleCharToolStripMenuItem_Click);
             // 
             // toolStripMenuItem10
             // 
@@ -770,8 +773,6 @@
             // pGMTHighlightingTools
             // 
             this.pGMTHighlightingTools.BackColor = System.Drawing.Color.White;
-            this.pGMTHighlightingTools.Controls.Add(this.btnHTFind);
-            this.pGMTHighlightingTools.Controls.Add(this.tbHTFind);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTSettings);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTPostScript);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTConsole);
@@ -781,14 +782,16 @@
             this.pGMTHighlightingTools.Controls.Add(this.btnHTBookmarks);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTGetBookmark);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTSetBookmark);
-            this.pGMTHighlightingTools.Controls.Add(this.splitter4);
+            this.pGMTHighlightingTools.Controls.Add(this.splitter3);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTUnComment);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTComment);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTFolderLines);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTCodeFolders);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTInvisibleSymbols);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTHighlightCurrentLine);
-            this.pGMTHighlightingTools.Controls.Add(this.splitter3);
+            this.pGMTHighlightingTools.Controls.Add(this.btnHTFind);
+            this.pGMTHighlightingTools.Controls.Add(this.tbHTFind);
+            this.pGMTHighlightingTools.Controls.Add(this.splitter4);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTRedo);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTUndo);
             this.pGMTHighlightingTools.Controls.Add(this.splitter2);
@@ -807,22 +810,21 @@
             this.pGMTHighlightingTools.Size = new System.Drawing.Size(935, 30);
             this.pGMTHighlightingTools.TabIndex = 2;
             // 
-            // btnHTFind
+            // btnHTSettings
             // 
-            this.btnHTFind.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTFind.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTFind.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnHTFind.Enabled = false;
-            this.btnHTFind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTFind.ForeColor = System.Drawing.Color.White;
-            this.btnHTFind.ImageIndex = 22;
-            this.btnHTFind.ImageList = this.ilToolBarImages_24;
-            this.btnHTFind.Location = new System.Drawing.Point(805, 1);
-            this.btnHTFind.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTFind.Name = "btnHTFind";
-            this.btnHTFind.Size = new System.Drawing.Size(30, 29);
-            this.btnHTFind.TabIndex = 32;
-            this.btnHTFind.UseVisualStyleBackColor = false;
+            this.btnHTSettings.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTSettings.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTSettings.ForeColor = System.Drawing.Color.White;
+            this.btnHTSettings.ImageIndex = 21;
+            this.btnHTSettings.ImageList = this.ilToolBarImages_24;
+            this.btnHTSettings.Location = new System.Drawing.Point(636, 1);
+            this.btnHTSettings.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTSettings.Name = "btnHTSettings";
+            this.btnHTSettings.Size = new System.Drawing.Size(30, 29);
+            this.btnHTSettings.TabIndex = 48;
+            this.btnHTSettings.UseVisualStyleBackColor = false;
             // 
             // ilToolBarImages_24
             // 
@@ -852,6 +854,255 @@
             this.ilToolBarImages_24.Images.SetKeyName(21, "outline_settings_black_24dp.png");
             this.ilToolBarImages_24.Images.SetKeyName(22, "baseline_search_black_24dp.png");
             // 
+            // btnHTPostScript
+            // 
+            this.btnHTPostScript.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTPostScript.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTPostScript.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTPostScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTPostScript.ForeColor = System.Drawing.Color.White;
+            this.btnHTPostScript.ImageIndex = 20;
+            this.btnHTPostScript.ImageList = this.ilToolBarImages_24;
+            this.btnHTPostScript.Location = new System.Drawing.Point(606, 1);
+            this.btnHTPostScript.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTPostScript.Name = "btnHTPostScript";
+            this.btnHTPostScript.Size = new System.Drawing.Size(30, 29);
+            this.btnHTPostScript.TabIndex = 47;
+            this.btnHTPostScript.UseVisualStyleBackColor = false;
+            // 
+            // btnHTConsole
+            // 
+            this.btnHTConsole.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTConsole.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTConsole.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTConsole.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTConsole.ForeColor = System.Drawing.Color.White;
+            this.btnHTConsole.ImageIndex = 19;
+            this.btnHTConsole.ImageList = this.ilToolBarImages_24;
+            this.btnHTConsole.Location = new System.Drawing.Point(576, 1);
+            this.btnHTConsole.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTConsole.Name = "btnHTConsole";
+            this.btnHTConsole.Size = new System.Drawing.Size(30, 29);
+            this.btnHTConsole.TabIndex = 46;
+            this.btnHTConsole.UseVisualStyleBackColor = false;
+            // 
+            // splitter6
+            // 
+            this.splitter6.BackColor = System.Drawing.Color.Silver;
+            this.splitter6.Enabled = false;
+            this.splitter6.Location = new System.Drawing.Point(575, 1);
+            this.splitter6.Name = "splitter6";
+            this.splitter6.Size = new System.Drawing.Size(1, 29);
+            this.splitter6.TabIndex = 45;
+            this.splitter6.TabStop = false;
+            // 
+            // btnHTRun
+            // 
+            this.btnHTRun.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTRun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTRun.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTRun.ForeColor = System.Drawing.Color.White;
+            this.btnHTRun.ImageIndex = 18;
+            this.btnHTRun.ImageList = this.ilToolBarImages_24;
+            this.btnHTRun.Location = new System.Drawing.Point(545, 1);
+            this.btnHTRun.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTRun.Name = "btnHTRun";
+            this.btnHTRun.Size = new System.Drawing.Size(30, 29);
+            this.btnHTRun.TabIndex = 44;
+            this.btnHTRun.UseVisualStyleBackColor = false;
+            // 
+            // splitter5
+            // 
+            this.splitter5.BackColor = System.Drawing.Color.Silver;
+            this.splitter5.Enabled = false;
+            this.splitter5.Location = new System.Drawing.Point(544, 1);
+            this.splitter5.Name = "splitter5";
+            this.splitter5.Size = new System.Drawing.Size(1, 29);
+            this.splitter5.TabIndex = 43;
+            this.splitter5.TabStop = false;
+            // 
+            // btnHTBookmarks
+            // 
+            this.btnHTBookmarks.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTBookmarks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTBookmarks.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTBookmarks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTBookmarks.ForeColor = System.Drawing.Color.White;
+            this.btnHTBookmarks.ImageIndex = 17;
+            this.btnHTBookmarks.ImageList = this.ilToolBarImages_24;
+            this.btnHTBookmarks.Location = new System.Drawing.Point(514, 1);
+            this.btnHTBookmarks.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTBookmarks.Name = "btnHTBookmarks";
+            this.btnHTBookmarks.Size = new System.Drawing.Size(30, 29);
+            this.btnHTBookmarks.TabIndex = 42;
+            this.btnHTBookmarks.UseVisualStyleBackColor = false;
+            // 
+            // btnHTGetBookmark
+            // 
+            this.btnHTGetBookmark.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTGetBookmark.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTGetBookmark.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTGetBookmark.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTGetBookmark.ForeColor = System.Drawing.Color.White;
+            this.btnHTGetBookmark.ImageIndex = 16;
+            this.btnHTGetBookmark.ImageList = this.ilToolBarImages_24;
+            this.btnHTGetBookmark.Location = new System.Drawing.Point(484, 1);
+            this.btnHTGetBookmark.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTGetBookmark.Name = "btnHTGetBookmark";
+            this.btnHTGetBookmark.Size = new System.Drawing.Size(30, 29);
+            this.btnHTGetBookmark.TabIndex = 41;
+            this.btnHTGetBookmark.UseVisualStyleBackColor = false;
+            // 
+            // btnHTSetBookmark
+            // 
+            this.btnHTSetBookmark.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTSetBookmark.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTSetBookmark.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTSetBookmark.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTSetBookmark.ForeColor = System.Drawing.Color.White;
+            this.btnHTSetBookmark.ImageIndex = 15;
+            this.btnHTSetBookmark.ImageList = this.ilToolBarImages_24;
+            this.btnHTSetBookmark.Location = new System.Drawing.Point(454, 1);
+            this.btnHTSetBookmark.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTSetBookmark.Name = "btnHTSetBookmark";
+            this.btnHTSetBookmark.Size = new System.Drawing.Size(30, 29);
+            this.btnHTSetBookmark.TabIndex = 40;
+            this.btnHTSetBookmark.UseVisualStyleBackColor = false;
+            // 
+            // splitter3
+            // 
+            this.splitter3.BackColor = System.Drawing.Color.Silver;
+            this.splitter3.Enabled = false;
+            this.splitter3.Location = new System.Drawing.Point(453, 1);
+            this.splitter3.Name = "splitter3";
+            this.splitter3.Size = new System.Drawing.Size(1, 29);
+            this.splitter3.TabIndex = 39;
+            this.splitter3.TabStop = false;
+            // 
+            // btnHTUnComment
+            // 
+            this.btnHTUnComment.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTUnComment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTUnComment.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTUnComment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTUnComment.ForeColor = System.Drawing.Color.White;
+            this.btnHTUnComment.ImageIndex = 14;
+            this.btnHTUnComment.ImageList = this.ilToolBarImages_24;
+            this.btnHTUnComment.Location = new System.Drawing.Point(423, 1);
+            this.btnHTUnComment.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTUnComment.Name = "btnHTUnComment";
+            this.btnHTUnComment.Size = new System.Drawing.Size(30, 29);
+            this.btnHTUnComment.TabIndex = 38;
+            this.btnHTUnComment.UseVisualStyleBackColor = false;
+            // 
+            // btnHTComment
+            // 
+            this.btnHTComment.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTComment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTComment.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTComment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTComment.ForeColor = System.Drawing.Color.White;
+            this.btnHTComment.ImageIndex = 13;
+            this.btnHTComment.ImageList = this.ilToolBarImages_24;
+            this.btnHTComment.Location = new System.Drawing.Point(393, 1);
+            this.btnHTComment.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTComment.Name = "btnHTComment";
+            this.btnHTComment.Size = new System.Drawing.Size(30, 29);
+            this.btnHTComment.TabIndex = 37;
+            this.btnHTComment.UseVisualStyleBackColor = false;
+            // 
+            // btnHTFolderLines
+            // 
+            this.btnHTFolderLines.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnHTFolderLines.AutoSize = true;
+            this.btnHTFolderLines.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTFolderLines.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnHTFolderLines.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTFolderLines.FlatAppearance.CheckedBackColor = System.Drawing.Color.DodgerBlue;
+            this.btnHTFolderLines.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTFolderLines.ForeColor = System.Drawing.Color.White;
+            this.btnHTFolderLines.ImageIndex = 12;
+            this.btnHTFolderLines.ImageList = this.ilToolBarImages_24;
+            this.btnHTFolderLines.Location = new System.Drawing.Point(363, 1);
+            this.btnHTFolderLines.Name = "btnHTFolderLines";
+            this.btnHTFolderLines.Size = new System.Drawing.Size(30, 29);
+            this.btnHTFolderLines.TabIndex = 36;
+            this.btnHTFolderLines.UseVisualStyleBackColor = true;
+            // 
+            // btnHTCodeFolders
+            // 
+            this.btnHTCodeFolders.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnHTCodeFolders.AutoSize = true;
+            this.btnHTCodeFolders.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTCodeFolders.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnHTCodeFolders.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTCodeFolders.FlatAppearance.CheckedBackColor = System.Drawing.Color.DodgerBlue;
+            this.btnHTCodeFolders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTCodeFolders.ForeColor = System.Drawing.Color.White;
+            this.btnHTCodeFolders.ImageIndex = 11;
+            this.btnHTCodeFolders.ImageList = this.ilToolBarImages_24;
+            this.btnHTCodeFolders.Location = new System.Drawing.Point(333, 1);
+            this.btnHTCodeFolders.Name = "btnHTCodeFolders";
+            this.btnHTCodeFolders.Size = new System.Drawing.Size(30, 29);
+            this.btnHTCodeFolders.TabIndex = 35;
+            this.btnHTCodeFolders.UseVisualStyleBackColor = true;
+            // 
+            // btnHTInvisibleSymbols
+            // 
+            this.btnHTInvisibleSymbols.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnHTInvisibleSymbols.AutoSize = true;
+            this.btnHTInvisibleSymbols.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTInvisibleSymbols.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnHTInvisibleSymbols.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTInvisibleSymbols.FlatAppearance.CheckedBackColor = System.Drawing.Color.DodgerBlue;
+            this.btnHTInvisibleSymbols.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTInvisibleSymbols.ForeColor = System.Drawing.Color.White;
+            this.btnHTInvisibleSymbols.ImageIndex = 10;
+            this.btnHTInvisibleSymbols.ImageList = this.ilToolBarImages_24;
+            this.btnHTInvisibleSymbols.Location = new System.Drawing.Point(303, 1);
+            this.btnHTInvisibleSymbols.Name = "btnHTInvisibleSymbols";
+            this.btnHTInvisibleSymbols.Size = new System.Drawing.Size(30, 29);
+            this.btnHTInvisibleSymbols.TabIndex = 34;
+            this.btnHTInvisibleSymbols.UseVisualStyleBackColor = true;
+            this.btnHTInvisibleSymbols.CheckedChanged += new System.EventHandler(this.btnHTInvisibleSymbols_CheckedChanged);
+            // 
+            // btnHTHighlightCurrentLine
+            // 
+            this.btnHTHighlightCurrentLine.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnHTHighlightCurrentLine.AutoSize = true;
+            this.btnHTHighlightCurrentLine.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTHighlightCurrentLine.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnHTHighlightCurrentLine.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTHighlightCurrentLine.FlatAppearance.CheckedBackColor = System.Drawing.Color.DodgerBlue;
+            this.btnHTHighlightCurrentLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTHighlightCurrentLine.ForeColor = System.Drawing.Color.White;
+            this.btnHTHighlightCurrentLine.ImageIndex = 9;
+            this.btnHTHighlightCurrentLine.ImageList = this.ilToolBarImages_24;
+            this.btnHTHighlightCurrentLine.Location = new System.Drawing.Point(273, 1);
+            this.btnHTHighlightCurrentLine.Name = "btnHTHighlightCurrentLine";
+            this.btnHTHighlightCurrentLine.Size = new System.Drawing.Size(30, 29);
+            this.btnHTHighlightCurrentLine.TabIndex = 33;
+            this.btnHTHighlightCurrentLine.UseVisualStyleBackColor = true;
+            this.btnHTHighlightCurrentLine.CheckedChanged += new System.EventHandler(this.btnHTHighlightCurrentLine_CheckedChanged);
+            // 
+            // btnHTFind
+            // 
+            this.btnHTFind.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTFind.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTFind.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnHTFind.Enabled = false;
+            this.btnHTFind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTFind.ForeColor = System.Drawing.Color.White;
+            this.btnHTFind.ImageIndex = 22;
+            this.btnHTFind.ImageList = this.ilToolBarImages_24;
+            this.btnHTFind.Location = new System.Drawing.Point(805, 1);
+            this.btnHTFind.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTFind.Name = "btnHTFind";
+            this.btnHTFind.Size = new System.Drawing.Size(30, 29);
+            this.btnHTFind.TabIndex = 32;
+            this.btnHTFind.UseVisualStyleBackColor = false;
+            // 
             // tbHTFind
             // 
             this.tbHTFind.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -869,253 +1120,15 @@
             this.tbHTFind.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbHTFind_KeyPress);
             this.tbHTFind.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbHTFind_KeyUp);
             // 
-            // btnHTSettings
-            // 
-            this.btnHTSettings.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTSettings.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTSettings.ForeColor = System.Drawing.Color.White;
-            this.btnHTSettings.ImageIndex = 21;
-            this.btnHTSettings.ImageList = this.ilToolBarImages_24;
-            this.btnHTSettings.Location = new System.Drawing.Point(636, 1);
-            this.btnHTSettings.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTSettings.Name = "btnHTSettings";
-            this.btnHTSettings.Size = new System.Drawing.Size(30, 29);
-            this.btnHTSettings.TabIndex = 30;
-            this.btnHTSettings.UseVisualStyleBackColor = false;
-            // 
-            // btnHTPostScript
-            // 
-            this.btnHTPostScript.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTPostScript.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTPostScript.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTPostScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTPostScript.ForeColor = System.Drawing.Color.White;
-            this.btnHTPostScript.ImageIndex = 20;
-            this.btnHTPostScript.ImageList = this.ilToolBarImages_24;
-            this.btnHTPostScript.Location = new System.Drawing.Point(606, 1);
-            this.btnHTPostScript.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTPostScript.Name = "btnHTPostScript";
-            this.btnHTPostScript.Size = new System.Drawing.Size(30, 29);
-            this.btnHTPostScript.TabIndex = 29;
-            this.btnHTPostScript.UseVisualStyleBackColor = false;
-            // 
-            // btnHTConsole
-            // 
-            this.btnHTConsole.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTConsole.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTConsole.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTConsole.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTConsole.ForeColor = System.Drawing.Color.White;
-            this.btnHTConsole.ImageIndex = 19;
-            this.btnHTConsole.ImageList = this.ilToolBarImages_24;
-            this.btnHTConsole.Location = new System.Drawing.Point(576, 1);
-            this.btnHTConsole.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTConsole.Name = "btnHTConsole";
-            this.btnHTConsole.Size = new System.Drawing.Size(30, 29);
-            this.btnHTConsole.TabIndex = 28;
-            this.btnHTConsole.UseVisualStyleBackColor = false;
-            // 
-            // splitter6
-            // 
-            this.splitter6.BackColor = System.Drawing.Color.Silver;
-            this.splitter6.Enabled = false;
-            this.splitter6.Location = new System.Drawing.Point(575, 1);
-            this.splitter6.Name = "splitter6";
-            this.splitter6.Size = new System.Drawing.Size(1, 29);
-            this.splitter6.TabIndex = 27;
-            this.splitter6.TabStop = false;
-            // 
-            // btnHTRun
-            // 
-            this.btnHTRun.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTRun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTRun.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTRun.ForeColor = System.Drawing.Color.White;
-            this.btnHTRun.ImageIndex = 18;
-            this.btnHTRun.ImageList = this.ilToolBarImages_24;
-            this.btnHTRun.Location = new System.Drawing.Point(545, 1);
-            this.btnHTRun.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTRun.Name = "btnHTRun";
-            this.btnHTRun.Size = new System.Drawing.Size(30, 29);
-            this.btnHTRun.TabIndex = 26;
-            this.btnHTRun.UseVisualStyleBackColor = false;
-            // 
-            // splitter5
-            // 
-            this.splitter5.BackColor = System.Drawing.Color.Silver;
-            this.splitter5.Enabled = false;
-            this.splitter5.Location = new System.Drawing.Point(544, 1);
-            this.splitter5.Name = "splitter5";
-            this.splitter5.Size = new System.Drawing.Size(1, 29);
-            this.splitter5.TabIndex = 25;
-            this.splitter5.TabStop = false;
-            // 
-            // btnHTBookmarks
-            // 
-            this.btnHTBookmarks.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTBookmarks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTBookmarks.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTBookmarks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTBookmarks.ForeColor = System.Drawing.Color.White;
-            this.btnHTBookmarks.ImageIndex = 17;
-            this.btnHTBookmarks.ImageList = this.ilToolBarImages_24;
-            this.btnHTBookmarks.Location = new System.Drawing.Point(514, 1);
-            this.btnHTBookmarks.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTBookmarks.Name = "btnHTBookmarks";
-            this.btnHTBookmarks.Size = new System.Drawing.Size(30, 29);
-            this.btnHTBookmarks.TabIndex = 24;
-            this.btnHTBookmarks.UseVisualStyleBackColor = false;
-            // 
-            // btnHTGetBookmark
-            // 
-            this.btnHTGetBookmark.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTGetBookmark.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTGetBookmark.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTGetBookmark.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTGetBookmark.ForeColor = System.Drawing.Color.White;
-            this.btnHTGetBookmark.ImageIndex = 16;
-            this.btnHTGetBookmark.ImageList = this.ilToolBarImages_24;
-            this.btnHTGetBookmark.Location = new System.Drawing.Point(484, 1);
-            this.btnHTGetBookmark.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTGetBookmark.Name = "btnHTGetBookmark";
-            this.btnHTGetBookmark.Size = new System.Drawing.Size(30, 29);
-            this.btnHTGetBookmark.TabIndex = 23;
-            this.btnHTGetBookmark.UseVisualStyleBackColor = false;
-            // 
-            // btnHTSetBookmark
-            // 
-            this.btnHTSetBookmark.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTSetBookmark.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTSetBookmark.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTSetBookmark.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTSetBookmark.ForeColor = System.Drawing.Color.White;
-            this.btnHTSetBookmark.ImageIndex = 15;
-            this.btnHTSetBookmark.ImageList = this.ilToolBarImages_24;
-            this.btnHTSetBookmark.Location = new System.Drawing.Point(454, 1);
-            this.btnHTSetBookmark.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTSetBookmark.Name = "btnHTSetBookmark";
-            this.btnHTSetBookmark.Size = new System.Drawing.Size(30, 29);
-            this.btnHTSetBookmark.TabIndex = 22;
-            this.btnHTSetBookmark.UseVisualStyleBackColor = false;
-            // 
             // splitter4
             // 
             this.splitter4.BackColor = System.Drawing.Color.Silver;
             this.splitter4.Enabled = false;
-            this.splitter4.Location = new System.Drawing.Point(453, 1);
+            this.splitter4.Location = new System.Drawing.Point(272, 1);
             this.splitter4.Name = "splitter4";
             this.splitter4.Size = new System.Drawing.Size(1, 29);
             this.splitter4.TabIndex = 21;
             this.splitter4.TabStop = false;
-            // 
-            // btnHTUnComment
-            // 
-            this.btnHTUnComment.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTUnComment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTUnComment.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTUnComment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTUnComment.ForeColor = System.Drawing.Color.White;
-            this.btnHTUnComment.ImageIndex = 14;
-            this.btnHTUnComment.ImageList = this.ilToolBarImages_24;
-            this.btnHTUnComment.Location = new System.Drawing.Point(423, 1);
-            this.btnHTUnComment.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTUnComment.Name = "btnHTUnComment";
-            this.btnHTUnComment.Size = new System.Drawing.Size(30, 29);
-            this.btnHTUnComment.TabIndex = 20;
-            this.btnHTUnComment.UseVisualStyleBackColor = false;
-            // 
-            // btnHTComment
-            // 
-            this.btnHTComment.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTComment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTComment.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTComment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTComment.ForeColor = System.Drawing.Color.White;
-            this.btnHTComment.ImageIndex = 13;
-            this.btnHTComment.ImageList = this.ilToolBarImages_24;
-            this.btnHTComment.Location = new System.Drawing.Point(393, 1);
-            this.btnHTComment.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTComment.Name = "btnHTComment";
-            this.btnHTComment.Size = new System.Drawing.Size(30, 29);
-            this.btnHTComment.TabIndex = 19;
-            this.btnHTComment.UseVisualStyleBackColor = false;
-            // 
-            // btnHTFolderLines
-            // 
-            this.btnHTFolderLines.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTFolderLines.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTFolderLines.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTFolderLines.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTFolderLines.ForeColor = System.Drawing.Color.White;
-            this.btnHTFolderLines.ImageIndex = 12;
-            this.btnHTFolderLines.ImageList = this.ilToolBarImages_24;
-            this.btnHTFolderLines.Location = new System.Drawing.Point(363, 1);
-            this.btnHTFolderLines.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTFolderLines.Name = "btnHTFolderLines";
-            this.btnHTFolderLines.Size = new System.Drawing.Size(30, 29);
-            this.btnHTFolderLines.TabIndex = 18;
-            this.btnHTFolderLines.UseVisualStyleBackColor = false;
-            // 
-            // btnHTCodeFolders
-            // 
-            this.btnHTCodeFolders.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTCodeFolders.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTCodeFolders.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTCodeFolders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTCodeFolders.ForeColor = System.Drawing.Color.White;
-            this.btnHTCodeFolders.ImageIndex = 11;
-            this.btnHTCodeFolders.ImageList = this.ilToolBarImages_24;
-            this.btnHTCodeFolders.Location = new System.Drawing.Point(333, 1);
-            this.btnHTCodeFolders.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTCodeFolders.Name = "btnHTCodeFolders";
-            this.btnHTCodeFolders.Size = new System.Drawing.Size(30, 29);
-            this.btnHTCodeFolders.TabIndex = 17;
-            this.btnHTCodeFolders.UseVisualStyleBackColor = false;
-            // 
-            // btnHTInvisibleSymbols
-            // 
-            this.btnHTInvisibleSymbols.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTInvisibleSymbols.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTInvisibleSymbols.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTInvisibleSymbols.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTInvisibleSymbols.ForeColor = System.Drawing.Color.White;
-            this.btnHTInvisibleSymbols.ImageIndex = 10;
-            this.btnHTInvisibleSymbols.ImageList = this.ilToolBarImages_24;
-            this.btnHTInvisibleSymbols.Location = new System.Drawing.Point(303, 1);
-            this.btnHTInvisibleSymbols.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTInvisibleSymbols.Name = "btnHTInvisibleSymbols";
-            this.btnHTInvisibleSymbols.Size = new System.Drawing.Size(30, 29);
-            this.btnHTInvisibleSymbols.TabIndex = 16;
-            this.btnHTInvisibleSymbols.UseVisualStyleBackColor = false;
-            // 
-            // btnHTHighlightCurrentLine
-            // 
-            this.btnHTHighlightCurrentLine.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTHighlightCurrentLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTHighlightCurrentLine.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTHighlightCurrentLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTHighlightCurrentLine.ForeColor = System.Drawing.Color.White;
-            this.btnHTHighlightCurrentLine.ImageIndex = 9;
-            this.btnHTHighlightCurrentLine.ImageList = this.ilToolBarImages_24;
-            this.btnHTHighlightCurrentLine.Location = new System.Drawing.Point(273, 1);
-            this.btnHTHighlightCurrentLine.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTHighlightCurrentLine.Name = "btnHTHighlightCurrentLine";
-            this.btnHTHighlightCurrentLine.Size = new System.Drawing.Size(30, 29);
-            this.btnHTHighlightCurrentLine.TabIndex = 15;
-            this.btnHTHighlightCurrentLine.UseVisualStyleBackColor = false;
-            // 
-            // splitter3
-            // 
-            this.splitter3.BackColor = System.Drawing.Color.Silver;
-            this.splitter3.Enabled = false;
-            this.splitter3.Location = new System.Drawing.Point(272, 1);
-            this.splitter3.Name = "splitter3";
-            this.splitter3.Size = new System.Drawing.Size(1, 29);
-            this.splitter3.TabIndex = 14;
-            this.splitter3.TabStop = false;
             // 
             // btnHTRedo
             // 
@@ -1469,25 +1482,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiScale100;
         private System.Windows.Forms.Button btnHTFind;
         private System.Windows.Forms.TextBox tbHTFind;
-        private System.Windows.Forms.Button btnHTSettings;
-        private System.Windows.Forms.Button btnHTPostScript;
-        private System.Windows.Forms.Button btnHTConsole;
-        private System.Windows.Forms.Splitter splitter6;
-        private System.Windows.Forms.Button btnHTRun;
-        private System.Windows.Forms.Splitter splitter5;
-        private System.Windows.Forms.Button btnHTBookmarks;
-        private System.Windows.Forms.Button btnHTGetBookmark;
-        private System.Windows.Forms.Button btnHTSetBookmark;
-        private System.Windows.Forms.Splitter splitter4;
-        private System.Windows.Forms.Button btnHTUnComment;
-        private System.Windows.Forms.Button btnHTComment;
-        private System.Windows.Forms.Button btnHTFolderLines;
-        private System.Windows.Forms.Button btnHTCodeFolders;
-        private System.Windows.Forms.Button btnHTInvisibleSymbols;
-        private System.Windows.Forms.Button btnHTHighlightCurrentLine;
-        private System.Windows.Forms.Splitter splitter3;
         private System.Windows.Forms.Button btnHTRedo;
-        private System.Windows.Forms.Button btnHTUndo;
         private System.Windows.Forms.Splitter splitter2;
         private System.Windows.Forms.Button btnHTPaste;
         private System.Windows.Forms.Button btnHTCut;
@@ -1578,6 +1573,24 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem19;
         private System.Windows.Forms.ToolStripMenuItem expandtoolStripMenuItem;
         private GMT_GUI_component.GMT_FATabStripCollection gmt_FATabStripCollection;
+        private System.Windows.Forms.CheckBox btnHTHighlightCurrentLine;
+        private System.Windows.Forms.Splitter splitter4;
+        private System.Windows.Forms.CheckBox btnHTInvisibleSymbols;
+        private System.Windows.Forms.CheckBox btnHTCodeFolders;
+        private System.Windows.Forms.CheckBox btnHTFolderLines;
+        private System.Windows.Forms.Button btnHTComment;
+        private System.Windows.Forms.Button btnHTUndo;
+        private System.Windows.Forms.Button btnHTUnComment;
+        private System.Windows.Forms.Button btnHTSetBookmark;
+        private System.Windows.Forms.Splitter splitter3;
+        private System.Windows.Forms.Button btnHTGetBookmark;
+        private System.Windows.Forms.Button btnHTBookmarks;
+        private System.Windows.Forms.Button btnHTRun;
+        private System.Windows.Forms.Splitter splitter5;
+        private System.Windows.Forms.Button btnHTConsole;
+        private System.Windows.Forms.Splitter splitter6;
+        private System.Windows.Forms.Button btnHTPostScript;
+        private System.Windows.Forms.Button btnHTSettings;
     }
 }
 

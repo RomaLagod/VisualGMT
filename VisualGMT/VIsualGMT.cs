@@ -147,7 +147,7 @@ namespace VisualGMT
             (sender as GMT_FastColoredTextBox).ViewCountLinesColumns(ssDocumentInfo, 1);
         }
 
-        //On selection tab changed
+        // On selection tab changed
         private void gmt_FATabStripCollection_TabStripItemSelectionChanged(FarsiLibrary.Win.TabStripItemChangedEventArgs e)
         {
             if (CurrentGMTTextBox != null)
@@ -163,11 +163,18 @@ namespace VisualGMT
             }
         }
 
+        // On Text Changed Delayed in GMT TextBox
+        private void TextChangedDelayed(object sender, TextChangedEventArgs e)
+        {
+            // Show invisible chars
+            HighlightInvisibleChars(e.ChangedRange);
+        }
+
         #endregion
 
         #region Methods
 
-        //Create new GMT Document
+        // Create new GMT Document
         private void NewGMTDocument()
         {
             //Create new GMT document and add new tab
@@ -180,9 +187,10 @@ namespace VisualGMT
             tab.GmtTextBox.SelectionChanged += GmtCursorChanged;
             tab.GmtTextBox.ZoomChanged += GmtZoomChanged;
             tab.GmtTextBox.KeyDown += GmtDownPress;
+            tab.GmtTextBox.TextChangedDelayed += TextChangedDelayed;
         }
 
-        //Component initialization for Presetner
+        // Component initialization for Presetner
         private void ControlInitialization()
         {
             interBtnHTNew = btnHTNew;
@@ -221,6 +229,43 @@ namespace VisualGMT
             {
                 rulerToolStripMenuItem.CheckState = CheckState.Unchecked;
             }
+        }
+
+        // Highlight invisible chars in GMT TextBox method
+        private void HighlightInvisibleChars(Range range)
+        {
+            range.ClearStyle(CurrentGMTTextBox.InvisibleCharsStyle);
+            if (btnHTInvisibleSymbols.Checked)
+                range.SetStyle(CurrentGMTTextBox.InvisibleCharsStyle, @".$|.\r\n|\s");
+        }
+
+        // Invalidate GMT TextBox with invisible chars
+        private void InvalidateInvisibleChars()
+        {
+            foreach (GMT_FATabStripItem tab in gmt_FATabStripCollection.Items)
+                HighlightInvisibleChars((tab.Controls[0] as FastColoredTextBox).Range);
+            if (CurrentGMTTextBox != null)
+                CurrentGMTTextBox.Invalidate();
+        }
+
+        // Highlight Current Line in GMT TextBox
+        private void HighLightCurrentLine()
+        {
+            foreach (GMT_FATabStripItem tab in gmt_FATabStripCollection.Items)
+            {
+                if (btnHTHighlightCurrentLine.Checked)
+                    (tab.Controls[0] as FastColoredTextBox).CurrentLineColor = CurrentGMTTextBox.CurrentLineColor;
+                else
+                    (tab.Controls[0] as FastColoredTextBox).CurrentLineColor = Color.Transparent;
+            }
+        }
+
+        //Invalidate GMT TextBox with highlight Current Line
+        private void InvalidateCurrentLine()
+        {
+            HighLightCurrentLine();
+            if (CurrentGMTTextBox != null)
+                CurrentGMTTextBox.Invalidate();
         }
 
         #endregion
@@ -306,6 +351,20 @@ namespace VisualGMT
         private void btnHTRedo_Click(object sender, EventArgs e)
         {
             CurrentGMTTextBox?.Redo();
+        }
+
+        // Show Invisible chars
+        private void btnHTInvisibleSymbols_CheckedChanged(object sender, EventArgs e)
+        {
+            InvalidateInvisibleChars();
+            showInvisibleCharToolStripMenuItem.CheckState = (sender as CheckBox).CheckState;
+        }
+
+        // Highlight Current Line
+        private void btnHTHighlightCurrentLine_CheckedChanged(object sender, EventArgs e)
+        {
+            InvalidateCurrentLine();
+            highlightCurrentLineToolStripMenuItem.CheckState = (sender as CheckBox).CheckState;
         }
 
         #endregion
@@ -412,8 +471,20 @@ namespace VisualGMT
             }
         }
 
+        // Show Invisible chars
+        private void showInvisibleCharToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InvalidateInvisibleChars();
+            btnHTInvisibleSymbols.CheckState = (sender as ToolStripMenuItem).CheckState;
+        }
+
+        // Highlight Current Line
+        private void highlightCurrentLineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InvalidateCurrentLine();
+            btnHTHighlightCurrentLine.CheckState = (sender as ToolStripMenuItem).CheckState;
+        }
+
         #endregion
-
-
     }
 }

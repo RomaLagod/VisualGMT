@@ -390,7 +390,7 @@ namespace VisualGMT
             cmsBookmarks.Items.Clear();
             foreach (Control tab in gmt_FATabStripCollection.Items)
             {
-                FastColoredTextBox tb = tab.Controls[0] as FastColoredTextBox;
+                GMT_FastColoredTextBox tb = tab.Controls[0] as GMT_FastColoredTextBox;
                 foreach (var bookmark in tb.Bookmarks)
                 {
                     var item = cmsBookmarks.Items.Add(bookmark.Name + " [" + Path.GetFileNameWithoutExtension(tab.Tag as String) + "]");

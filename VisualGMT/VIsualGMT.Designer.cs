@@ -118,7 +118,10 @@
             this.splitter6 = new System.Windows.Forms.Splitter();
             this.btnHTRun = new System.Windows.Forms.Button();
             this.splitter5 = new System.Windows.Forms.Splitter();
-            this.btnHTBookmarks = new System.Windows.Forms.Button();
+            this.btnHTBookmarks = new GMT_GUI_component.SplitButton();
+            this.cmsBookmarks = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHTGetBookmark = new System.Windows.Forms.Button();
             this.btnHTSetBookmark = new System.Windows.Forms.Button();
             this.splitter3 = new System.Windows.Forms.Splitter();
@@ -159,6 +162,7 @@
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
+            this.cmsBookmarks.SuspendLayout();
             this.ssDocumentInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gmt_FATabStripCollection)).BeginInit();
             this.SuspendLayout();
@@ -819,7 +823,7 @@
             this.btnHTSettings.ForeColor = System.Drawing.Color.White;
             this.btnHTSettings.ImageIndex = 21;
             this.btnHTSettings.ImageList = this.ilToolBarImages_24;
-            this.btnHTSettings.Location = new System.Drawing.Point(636, 1);
+            this.btnHTSettings.Location = new System.Drawing.Point(658, 1);
             this.btnHTSettings.Margin = new System.Windows.Forms.Padding(0);
             this.btnHTSettings.Name = "btnHTSettings";
             this.btnHTSettings.Size = new System.Drawing.Size(30, 29);
@@ -863,7 +867,7 @@
             this.btnHTPostScript.ForeColor = System.Drawing.Color.White;
             this.btnHTPostScript.ImageIndex = 20;
             this.btnHTPostScript.ImageList = this.ilToolBarImages_24;
-            this.btnHTPostScript.Location = new System.Drawing.Point(606, 1);
+            this.btnHTPostScript.Location = new System.Drawing.Point(628, 1);
             this.btnHTPostScript.Margin = new System.Windows.Forms.Padding(0);
             this.btnHTPostScript.Name = "btnHTPostScript";
             this.btnHTPostScript.Size = new System.Drawing.Size(30, 29);
@@ -879,7 +883,7 @@
             this.btnHTConsole.ForeColor = System.Drawing.Color.White;
             this.btnHTConsole.ImageIndex = 19;
             this.btnHTConsole.ImageList = this.ilToolBarImages_24;
-            this.btnHTConsole.Location = new System.Drawing.Point(576, 1);
+            this.btnHTConsole.Location = new System.Drawing.Point(598, 1);
             this.btnHTConsole.Margin = new System.Windows.Forms.Padding(0);
             this.btnHTConsole.Name = "btnHTConsole";
             this.btnHTConsole.Size = new System.Drawing.Size(30, 29);
@@ -890,7 +894,7 @@
             // 
             this.splitter6.BackColor = System.Drawing.Color.Silver;
             this.splitter6.Enabled = false;
-            this.splitter6.Location = new System.Drawing.Point(575, 1);
+            this.splitter6.Location = new System.Drawing.Point(597, 1);
             this.splitter6.Name = "splitter6";
             this.splitter6.Size = new System.Drawing.Size(1, 29);
             this.splitter6.TabIndex = 45;
@@ -905,7 +909,7 @@
             this.btnHTRun.ForeColor = System.Drawing.Color.White;
             this.btnHTRun.ImageIndex = 18;
             this.btnHTRun.ImageList = this.ilToolBarImages_24;
-            this.btnHTRun.Location = new System.Drawing.Point(545, 1);
+            this.btnHTRun.Location = new System.Drawing.Point(567, 1);
             this.btnHTRun.Margin = new System.Windows.Forms.Padding(0);
             this.btnHTRun.Name = "btnHTRun";
             this.btnHTRun.Size = new System.Drawing.Size(30, 29);
@@ -916,7 +920,7 @@
             // 
             this.splitter5.BackColor = System.Drawing.Color.Silver;
             this.splitter5.Enabled = false;
-            this.splitter5.Location = new System.Drawing.Point(544, 1);
+            this.splitter5.Location = new System.Drawing.Point(566, 1);
             this.splitter5.Name = "splitter5";
             this.splitter5.Size = new System.Drawing.Size(1, 29);
             this.splitter5.TabIndex = 43;
@@ -929,14 +933,37 @@
             this.btnHTBookmarks.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnHTBookmarks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHTBookmarks.ForeColor = System.Drawing.Color.White;
+            this.btnHTBookmarks.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHTBookmarks.ImageIndex = 17;
             this.btnHTBookmarks.ImageList = this.ilToolBarImages_24;
             this.btnHTBookmarks.Location = new System.Drawing.Point(514, 1);
             this.btnHTBookmarks.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTBookmarks.Menu = this.cmsBookmarks;
             this.btnHTBookmarks.Name = "btnHTBookmarks";
-            this.btnHTBookmarks.Size = new System.Drawing.Size(30, 29);
+            this.btnHTBookmarks.Size = new System.Drawing.Size(52, 29);
             this.btnHTBookmarks.TabIndex = 42;
             this.btnHTBookmarks.UseVisualStyleBackColor = false;
+            // 
+            // cmsBookmarks
+            // 
+            this.cmsBookmarks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem21,
+            this.toolStripMenuItem22});
+            this.cmsBookmarks.Name = "cmsBookmarks";
+            this.cmsBookmarks.Size = new System.Drawing.Size(103, 48);
+            this.cmsBookmarks.Opening += new System.ComponentModel.CancelEventHandler(this.cmsBookmarks_Opening);
+            // 
+            // toolStripMenuItem21
+            // 
+            this.toolStripMenuItem21.Name = "toolStripMenuItem21";
+            this.toolStripMenuItem21.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem21.Text = "test 1";
+            // 
+            // toolStripMenuItem22
+            // 
+            this.toolStripMenuItem22.Name = "toolStripMenuItem22";
+            this.toolStripMenuItem22.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem22.Text = "test 2";
             // 
             // btnHTGetBookmark
             // 
@@ -953,6 +980,7 @@
             this.btnHTGetBookmark.Size = new System.Drawing.Size(30, 29);
             this.btnHTGetBookmark.TabIndex = 41;
             this.btnHTGetBookmark.UseVisualStyleBackColor = false;
+            this.btnHTGetBookmark.Click += new System.EventHandler(this.btnHTGetBookmark_Click);
             // 
             // btnHTSetBookmark
             // 
@@ -969,6 +997,7 @@
             this.btnHTSetBookmark.Size = new System.Drawing.Size(30, 29);
             this.btnHTSetBookmark.TabIndex = 40;
             this.btnHTSetBookmark.UseVisualStyleBackColor = false;
+            this.btnHTSetBookmark.Click += new System.EventHandler(this.btnHTSetBookmark_Click);
             // 
             // splitter3
             // 
@@ -1454,6 +1483,7 @@
             this.msGeneralMenu.PerformLayout();
             this.pGMTHighlightingTools.ResumeLayout(false);
             this.pGMTHighlightingTools.PerformLayout();
+            this.cmsBookmarks.ResumeLayout(false);
             this.ssDocumentInfo.ResumeLayout(false);
             this.ssDocumentInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gmt_FATabStripCollection)).EndInit();
@@ -1584,13 +1614,16 @@
         private System.Windows.Forms.Button btnHTSetBookmark;
         private System.Windows.Forms.Splitter splitter3;
         private System.Windows.Forms.Button btnHTGetBookmark;
-        private System.Windows.Forms.Button btnHTBookmarks;
+        private GMT_GUI_component.SplitButton btnHTBookmarks;
         private System.Windows.Forms.Button btnHTRun;
         private System.Windows.Forms.Splitter splitter5;
         private System.Windows.Forms.Button btnHTConsole;
         private System.Windows.Forms.Splitter splitter6;
         private System.Windows.Forms.Button btnHTPostScript;
         private System.Windows.Forms.Button btnHTSettings;
+        private System.Windows.Forms.ContextMenuStrip cmsBookmarks;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
     }
 }
 

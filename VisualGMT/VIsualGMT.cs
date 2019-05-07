@@ -12,6 +12,7 @@ using GMT_GUI_component.ComponentInterface;
 using VisualGMT.FormInterface;
 using FastColoredTextBoxNS;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace VisualGMT
 {
@@ -365,6 +366,50 @@ namespace VisualGMT
         {
             InvalidateCurrentLine();
             highlightCurrentLineToolStripMenuItem.CheckState = (sender as CheckBox).CheckState;
+        }
+
+        // Set bookmark
+        private void btnHTSetBookmark_Click(object sender, EventArgs e)
+        {
+            if (CurrentGMTTextBox == null)
+                return;
+            CurrentGMTTextBox.BookmarkLine(CurrentGMTTextBox.Selection.Start.iLine);
+        }
+
+        //Delete bookmark
+        private void btnHTGetBookmark_Click(object sender, EventArgs e)
+        {
+            if (CurrentGMTTextBox == null)
+                return;
+            CurrentGMTTextBox.UnbookmarkLine(CurrentGMTTextBox.Selection.Start.iLine);
+        }
+
+        // GOTO bookmark (when context menu opening)
+        private void cmsBookmarks_Opening(object sender, CancelEventArgs e)
+        {
+            cmsBookmarks.Items.Clear();
+            foreach (Control tab in gmt_FATabStripCollection.Items)
+            {
+                FastColoredTextBox tb = tab.Controls[0] as FastColoredTextBox;
+                foreach (var bookmark in tb.Bookmarks)
+                {
+                    var item = cmsBookmarks.Items.Add(bookmark.Name + " [" + Path.GetFileNameWithoutExtension(tab.Tag as String) + "]");
+                    item.Tag = bookmark;
+                    item.Click += (o, a) => {
+                        var b = (Bookmark)(o as ToolStripItem).Tag;
+                        try
+                        {
+                            CurrentGMTTextBox = (GMT_FastColoredTextBox)b.TB;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            return;
+                        }
+                        b.DoVisible();
+                    };
+                }
+            }
         }
 
         #endregion

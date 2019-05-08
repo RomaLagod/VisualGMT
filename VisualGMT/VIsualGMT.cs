@@ -257,10 +257,12 @@ namespace VisualGMT
                     if (documentMapToolStripMenuItem.Checked)
                     {
                         tab.GmtDocumentMap.Visible = true;
+                        tab.GmtSplitter.Visible = true;
                     }
                     else
                     {
                         tab.GmtDocumentMap.Visible = false;
+                        tab.GmtSplitter.Visible = false;
                     }
                 }
             }

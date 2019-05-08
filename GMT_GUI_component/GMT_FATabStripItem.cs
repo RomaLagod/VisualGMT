@@ -20,6 +20,9 @@ namespace GMT_GUI_component
         // GMT DocumentMap
         public GMT_DocumentMap GmtDocumentMap { get; set; }
 
+        // Splitter for Document Map
+        public GMT_Splitter GmtSplitter { get; set; }
+
         // File
         public String FileName { get; set; }
 
@@ -51,19 +54,13 @@ namespace GMT_GUI_component
             GmtRuler = new GMT_Ruler(GmtTextBox);
             this.Controls.Add(GmtRuler);
 
+            //GMT Splitter between DocumentMap and GmtTextBox
+            GmtSplitter = new GMT_Splitter();
+            this.Controls.Add(GmtSplitter);
+
             // Create Document Map
             GmtDocumentMap = new GMT_DocumentMap(GmtTextBox);
             this.Controls.Add(GmtDocumentMap);
-
-            //??
-            Splitter splitter = new Splitter();
-            splitter.Dock = DockStyle.Right;
-            splitter.Enabled = true;
-            splitter.Visible = false;
-            splitter.MinSize = 25;
-            this.Controls.Add(splitter);
-
-
         }
 
         #endregion

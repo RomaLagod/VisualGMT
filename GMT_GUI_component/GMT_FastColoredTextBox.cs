@@ -23,7 +23,7 @@ namespace GMT_GUI_component
         // static constructor
         static GMT_FastColoredTextBox()
         {
-            SameWordsStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(50, Color.Gray)));
+            SameWordsStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(50, SystemColors.Control)));
         }
 
         // default constructor
@@ -33,7 +33,8 @@ namespace GMT_GUI_component
             //this.ContextMenuStrip = cmMain;
 
             this.Dock = DockStyle.Fill;
-            this.BorderStyle = BorderStyle.FixedSingle;
+            this.BorderStyle = BorderStyle.None;
+            this.BookmarkColor = Color.DodgerBlue;
             //tb.VirtualSpace = true;
             this.LeftPadding = 50;//17 ;
             //this.Language = Language.CSharp;

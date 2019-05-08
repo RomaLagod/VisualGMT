@@ -423,18 +423,18 @@
             // toobleBookmarkToolStripMenuItem
             // 
             this.toobleBookmarkToolStripMenuItem.Name = "toobleBookmarkToolStripMenuItem";
-            this.toobleBookmarkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.K)));
-            this.toobleBookmarkToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.toobleBookmarkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.B)));
+            this.toobleBookmarkToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.toobleBookmarkToolStripMenuItem.Text = "Toogle Bookmark";
             this.toobleBookmarkToolStripMenuItem.Click += new System.EventHandler(this.btnHTSetBookmark_Click);
             // 
             // DeleteBookmarksToolStripMenuItem
             // 
             this.DeleteBookmarksToolStripMenuItem.Name = "DeleteBookmarksToolStripMenuItem";
-            this.DeleteBookmarksToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.D)));
-            this.DeleteBookmarksToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.DeleteBookmarksToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.N)));
+            this.DeleteBookmarksToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.DeleteBookmarksToolStripMenuItem.Text = "Delete Bookmark";
             this.DeleteBookmarksToolStripMenuItem.Click += new System.EventHandler(this.btnHTDeleteBookmark_Click);
             // 
@@ -443,7 +443,7 @@
             this.AllBookmarksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.test1ToolStripMenuItem});
             this.AllBookmarksToolStripMenuItem.Name = "AllBookmarksToolStripMenuItem";
-            this.AllBookmarksToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.AllBookmarksToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.AllBookmarksToolStripMenuItem.Text = "Bookmarks";
             this.AllBookmarksToolStripMenuItem.DropDownOpening += new System.EventHandler(this.AllBookmarksToolStripMenuItem_DropDownOpening);
             // 

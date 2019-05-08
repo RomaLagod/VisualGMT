@@ -55,6 +55,9 @@
     <Compile Include="ComponentInterface\IGMT_FastColoredTextBox.cs" />
     <Compile Include="ComponentInterface\IGMT_FATabStripCollection.cs" />
     <Compile Include="ComponentInterface\IGMT_FATabStripItem.cs" />
+    <Compile Include="GMT_Splitter.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GMT_DocumentMap.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -499,13 +499,19 @@ namespace VisualGMT
         private void btnHTOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Text file|*.txt|Bat file|*.bat|Script file|*.sh|All files|*.*";
+            dlg.Filter = "Text file|*.txt|BAT file|*.bat|Shell Script file|*.sh|All files|*.*";
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 FilePath = dlg.FileName;
                 if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
             }
+        }
+
+        // Save GMT File
+        private void btnHTSave_Click(object sender, EventArgs e)
+        {
+
         }
 
         #endregion
@@ -628,6 +634,11 @@ namespace VisualGMT
             ShowGmtDocumentMap();
         }
 
+        // Save As GMT File (File -> SaveAs...)
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
     }

@@ -14,5 +14,10 @@ namespace GMT_BLL
         {
             MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        public void ShowExclamation(string exclamation)
+        {
+            MessageBox.Show(exclamation, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
     }
 }

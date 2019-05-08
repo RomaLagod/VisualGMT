@@ -23,8 +23,9 @@ namespace VisualGMT
             VisualGMT visualGmt = new VisualGMT();
             FormToolTips formToolTips = new FormToolTips();
             MessageService messageService = new MessageService();
+            FileManager manager = new FileManager();
 
-            MainPresenter presenter = new MainPresenter(visualGmt, formToolTips, messageService);
+            MainPresenter presenter = new MainPresenter(visualGmt, formToolTips, messageService, manager);
 
             #endregion
 

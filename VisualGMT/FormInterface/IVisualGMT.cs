@@ -40,6 +40,11 @@ namespace VisualGMT.FormInterface
 
         #region Properties
 
+        // Path to File
+        string FilePath { get; set; }
+        // Content of File
+        string Content { get; set; }
+
         #endregion
 
         #region Events
@@ -52,6 +57,14 @@ namespace VisualGMT.FormInterface
         event EventHandler CloseTabError;
         // Event DocumentMap error
         event EventHandler DocumentMapError;
+        // Event OpenFile
+        event EventHandler FileOpenClick;
+        // Event SaveFile
+        event EventHandler FileSaveClick;
+        // Event SaveFile As
+        event EventHandler FileSaveAsClick;
+        // Event ContentChanged
+        event EventHandler ContentChanged;
 
         #endregion
 

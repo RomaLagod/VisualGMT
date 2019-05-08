@@ -49,7 +49,6 @@ namespace VisualGMT
         #region Properties
 
         // Current GMT FastColoredTextBox (Selected)
-        // public GMT_FastColoredTextBox CurrentGMTTextBox => (gmt_FATabStripCollection.Items[gmt_FATabStripCollection .SelectedItem.TabIndex] as GMT_FATabStripItem).GmtTextBox;
         GMT_FastColoredTextBox CurrentGMTTextBox
         {
             get
@@ -69,6 +68,16 @@ namespace VisualGMT
         // Find TextBox Changed
         bool tbFindChanged = false;
 
+        // Path to File
+        public string FilePath { get; set; }
+
+        // Content of File
+        public string Content
+        {
+            get { return CurrentGMTTextBox.Text; }
+            set { CurrentGMTTextBox.Text = value; }
+        }
+
         // On Form Load
         public event EventHandler VisualGMTLoad;
         // On Ruler error
@@ -77,6 +86,14 @@ namespace VisualGMT
         public event EventHandler CloseTabError;
         // On DocumentMap Error
         public event EventHandler DocumentMapError;
+        // On OpenFile
+        public event EventHandler FileOpenClick;
+        // On SaveFile
+        public event EventHandler FileSaveClick;
+        // On SaveFile As
+        public event EventHandler FileSaveAsClick;
+        // On ContentChanged
+        public event EventHandler ContentChanged;
 
         #endregion
 
@@ -243,7 +260,7 @@ namespace VisualGMT
             }
             catch (Exception exception)
             {
-                RulerError(exception, null);
+                RulerError(exception, EventArgs.Empty);
             }
         }
 
@@ -268,7 +285,7 @@ namespace VisualGMT
             }
             catch (Exception exception)
             {
-                DocumentMapError(exception, null);
+                DocumentMapError(exception, EventArgs.Empty);
             }
         }
 
@@ -478,6 +495,19 @@ namespace VisualGMT
             FillBookmarksItems(cmsBookmarks.Items);
         }
 
+        // Open GMT File
+        private void btnHTOpen_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Text file|*.txt|Bat file|*.bat|Script file|*.sh|All files|*.*";
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                FilePath = dlg.FileName;
+                if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
+            }
+        }
+
         #endregion
 
         #region MainMenu
@@ -598,8 +628,7 @@ namespace VisualGMT
             ShowGmtDocumentMap();
         }
 
+
         #endregion
-
-
     }
 }

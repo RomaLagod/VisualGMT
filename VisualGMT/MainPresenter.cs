@@ -16,18 +16,26 @@ namespace VisualGMT
         private readonly IVisualGMT _view;
         private readonly IFormToolTips _toolTips;
         private readonly IMessageService _messageService;
+        private readonly IFileManager _manager;
+
+        #endregion
+
+        #region Properties
+
+        private string _currentFilePath;
 
         #endregion
 
         #region Constructor
 
-        public MainPresenter(IVisualGMT view, IFormToolTips toolTips, IMessageService messageService)
+        public MainPresenter(IVisualGMT view, IFormToolTips toolTips, IMessageService messageService, IFileManager manager)
         {
             #region initialization
 
             _view = view;
             _toolTips = toolTips;
             _messageService = messageService;
+            _manager = manager;
 
             #endregion
 
@@ -37,6 +45,9 @@ namespace VisualGMT
             _view.CloseTabError += _view_CloseTabError;
             _view.RulerError += _view_RulerError;
             _view.DocumentMapError += _view_DocumentMapError;
+            _view.FileOpenClick += _view_FileOpenClick;
+            _view.FileSaveAsClick += _view_FileSaveAsClick;
+            _view.FileSaveClick += _view_FileSaveClick;
 
             #endregion
         }
@@ -68,6 +79,55 @@ namespace VisualGMT
         private void _view_DocumentMapError(object sender, EventArgs e)
         {
             _messageService.ShowError(sender.ToString());
+        }
+
+        // Event when File Open
+        private void _view_FileOpenClick(object sender, EventArgs e)
+        {
+            try
+            {
+                string filePath = _view.FilePath;
+
+                bool isExist = _manager.IsExist(filePath);
+
+                if (!isExist)
+                {
+                    _messageService.ShowExclamation("Selected file doesn't exist.");
+                    return;
+                }
+
+                _currentFilePath = filePath;
+                string content = _manager.GetContent(filePath);
+
+                _view.Content = content;
+            }
+            catch (Exception ex)
+            {
+                _messageService.ShowError(ex.Message);
+            }
+        }
+
+        // Event when File Save As Click
+        private void _view_FileSaveAsClick(object sender, EventArgs e)
+        {
+            try
+            {
+                string content = _view.Content;
+
+                _manager.SaveContent(content, _currentFilePath);
+
+                _messageService.ShowMessage("File successfully saved.");
+            }
+            catch (Exception ex)
+            {
+                _messageService.ShowError(ex.Message);
+            }
+        }
+
+        // Event when File Save Click
+        private void _view_FileSaveClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

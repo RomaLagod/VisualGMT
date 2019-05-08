@@ -10,5 +10,6 @@ namespace GMT_BLL.LogicInterface
     {
         void ShowMessage(string message);
         void ShowError(string error);
+        void ShowExclamation(string exclamation);
     }
 }

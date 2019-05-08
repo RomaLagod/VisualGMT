@@ -210,7 +210,7 @@ namespace VisualGMT
             interBtnHTComment = btnHTComment;
             interBtnHTUnComment = btnHTUnComment;
             interBtnHTSetBookmark = btnHTSetBookmark;
-            interBtnHTGetBookmark = btnHTGetBookmark;
+            interBtnHTGetBookmark = btnHTDeleteBookmark;
             interBtnHTBookmarks = btnHTBookmarks;
             interBtnHTRun = btnHTRun;
             interBtnHTConsole = btnHTConsole;
@@ -267,6 +267,34 @@ namespace VisualGMT
             HighLightCurrentLine();
             if (CurrentGMTTextBox != null)
                 CurrentGMTTextBox.Invalidate();
+        }
+
+        //Fill context menu with all present Bookmarks
+        private void FillBookmarksItems(ToolStripItemCollection itemsCollection)
+        {
+            itemsCollection.Clear();
+            foreach (Control tab in gmt_FATabStripCollection.Items)
+            {
+                GMT_FastColoredTextBox tb = tab.Controls[0] as GMT_FastColoredTextBox;
+                foreach (var bookmark in tb.Bookmarks)
+                {
+                    var item = itemsCollection.Add(bookmark.Name + " [" + Path.GetFileNameWithoutExtension(tab.Tag as String) + "]");
+                    item.Tag = bookmark;
+                    item.Click += (o, a) => {
+                        var b = (Bookmark)(o as ToolStripItem).Tag;
+                        try
+                        {
+                            CurrentGMTTextBox = (GMT_FastColoredTextBox)b.TB;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            return;
+                        }
+                        b.DoVisible();
+                    };
+                }
+            }
         }
 
         #endregion
@@ -377,7 +405,7 @@ namespace VisualGMT
         }
 
         //Delete bookmark
-        private void btnHTGetBookmark_Click(object sender, EventArgs e)
+        private void btnHTDeleteBookmark_Click(object sender, EventArgs e)
         {
             if (CurrentGMTTextBox == null)
                 return;
@@ -387,29 +415,7 @@ namespace VisualGMT
         // GOTO bookmark (when context menu opening)
         private void cmsBookmarks_Opening(object sender, CancelEventArgs e)
         {
-            cmsBookmarks.Items.Clear();
-            foreach (Control tab in gmt_FATabStripCollection.Items)
-            {
-                GMT_FastColoredTextBox tb = tab.Controls[0] as GMT_FastColoredTextBox;
-                foreach (var bookmark in tb.Bookmarks)
-                {
-                    var item = cmsBookmarks.Items.Add(bookmark.Name + " [" + Path.GetFileNameWithoutExtension(tab.Tag as String) + "]");
-                    item.Tag = bookmark;
-                    item.Click += (o, a) => {
-                        var b = (Bookmark)(o as ToolStripItem).Tag;
-                        try
-                        {
-                            CurrentGMTTextBox = (GMT_FastColoredTextBox)b.TB;
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                            return;
-                        }
-                        b.DoVisible();
-                    };
-                }
-            }
+            FillBookmarksItems(cmsBookmarks.Items);
         }
 
         #endregion
@@ -528,6 +534,12 @@ namespace VisualGMT
         {
             InvalidateCurrentLine();
             btnHTHighlightCurrentLine.CheckState = (sender as ToolStripMenuItem).CheckState;
+        }
+
+        // GOTO bookmark (when context menu opening)
+        private void AllBookmarksToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            FillBookmarksItems(AllBookmarksToolStripMenuItem.DropDownItems);
         }
 
         #endregion

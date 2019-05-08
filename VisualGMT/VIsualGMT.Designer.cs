@@ -62,8 +62,9 @@
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
             this.bookmarksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toobleBookmarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enableAllBookmarksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enableBookmarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteBookmarksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AllBookmarksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.test1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.highlightCurrentLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
@@ -122,7 +123,7 @@
             this.cmsBookmarks = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnHTGetBookmark = new System.Windows.Forms.Button();
+            this.btnHTDeleteBookmark = new System.Windows.Forms.Button();
             this.btnHTSetBookmark = new System.Windows.Forms.Button();
             this.splitter3 = new System.Windows.Forms.Splitter();
             this.btnHTUnComment = new System.Windows.Forms.Button();
@@ -412,8 +413,8 @@
             // 
             this.bookmarksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toobleBookmarkToolStripMenuItem,
-            this.enableAllBookmarksToolStripMenuItem,
-            this.enableBookmarkToolStripMenuItem});
+            this.DeleteBookmarksToolStripMenuItem,
+            this.AllBookmarksToolStripMenuItem});
             this.bookmarksToolStripMenuItem.Name = "bookmarksToolStripMenuItem";
             this.bookmarksToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.bookmarksToolStripMenuItem.Text = "Bookmarks";
@@ -421,20 +422,35 @@
             // toobleBookmarkToolStripMenuItem
             // 
             this.toobleBookmarkToolStripMenuItem.Name = "toobleBookmarkToolStripMenuItem";
-            this.toobleBookmarkToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.toobleBookmarkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.K)));
+            this.toobleBookmarkToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.toobleBookmarkToolStripMenuItem.Text = "Toogle Bookmark";
+            this.toobleBookmarkToolStripMenuItem.Click += new System.EventHandler(this.btnHTSetBookmark_Click);
             // 
-            // enableAllBookmarksToolStripMenuItem
+            // DeleteBookmarksToolStripMenuItem
             // 
-            this.enableAllBookmarksToolStripMenuItem.Name = "enableAllBookmarksToolStripMenuItem";
-            this.enableAllBookmarksToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.enableAllBookmarksToolStripMenuItem.Text = "Enable All Bookmarks";
+            this.DeleteBookmarksToolStripMenuItem.Name = "DeleteBookmarksToolStripMenuItem";
+            this.DeleteBookmarksToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.D)));
+            this.DeleteBookmarksToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.DeleteBookmarksToolStripMenuItem.Text = "Delete Bookmark";
+            this.DeleteBookmarksToolStripMenuItem.Click += new System.EventHandler(this.btnHTDeleteBookmark_Click);
             // 
-            // enableBookmarkToolStripMenuItem
+            // AllBookmarksToolStripMenuItem
             // 
-            this.enableBookmarkToolStripMenuItem.Name = "enableBookmarkToolStripMenuItem";
-            this.enableBookmarkToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.enableBookmarkToolStripMenuItem.Text = "Enable Bookmark";
+            this.AllBookmarksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.test1ToolStripMenuItem});
+            this.AllBookmarksToolStripMenuItem.Name = "AllBookmarksToolStripMenuItem";
+            this.AllBookmarksToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.AllBookmarksToolStripMenuItem.Text = "Bookmarks";
+            this.AllBookmarksToolStripMenuItem.DropDownOpening += new System.EventHandler(this.AllBookmarksToolStripMenuItem_DropDownOpening);
+            // 
+            // test1ToolStripMenuItem
+            // 
+            this.test1ToolStripMenuItem.Name = "test1ToolStripMenuItem";
+            this.test1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.test1ToolStripMenuItem.Text = "test1";
             // 
             // viewToolStripMenuItem
             // 
@@ -784,7 +800,7 @@
             this.pGMTHighlightingTools.Controls.Add(this.btnHTRun);
             this.pGMTHighlightingTools.Controls.Add(this.splitter5);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTBookmarks);
-            this.pGMTHighlightingTools.Controls.Add(this.btnHTGetBookmark);
+            this.pGMTHighlightingTools.Controls.Add(this.btnHTDeleteBookmark);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTSetBookmark);
             this.pGMTHighlightingTools.Controls.Add(this.splitter3);
             this.pGMTHighlightingTools.Controls.Add(this.btnHTUnComment);
@@ -965,22 +981,22 @@
             this.toolStripMenuItem22.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem22.Text = "test 2";
             // 
-            // btnHTGetBookmark
+            // btnHTDeleteBookmark
             // 
-            this.btnHTGetBookmark.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTGetBookmark.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTGetBookmark.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTGetBookmark.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTGetBookmark.ForeColor = System.Drawing.Color.White;
-            this.btnHTGetBookmark.ImageIndex = 16;
-            this.btnHTGetBookmark.ImageList = this.ilToolBarImages_24;
-            this.btnHTGetBookmark.Location = new System.Drawing.Point(484, 1);
-            this.btnHTGetBookmark.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTGetBookmark.Name = "btnHTGetBookmark";
-            this.btnHTGetBookmark.Size = new System.Drawing.Size(30, 29);
-            this.btnHTGetBookmark.TabIndex = 41;
-            this.btnHTGetBookmark.UseVisualStyleBackColor = false;
-            this.btnHTGetBookmark.Click += new System.EventHandler(this.btnHTGetBookmark_Click);
+            this.btnHTDeleteBookmark.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTDeleteBookmark.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTDeleteBookmark.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTDeleteBookmark.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTDeleteBookmark.ForeColor = System.Drawing.Color.White;
+            this.btnHTDeleteBookmark.ImageIndex = 16;
+            this.btnHTDeleteBookmark.ImageList = this.ilToolBarImages_24;
+            this.btnHTDeleteBookmark.Location = new System.Drawing.Point(484, 1);
+            this.btnHTDeleteBookmark.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTDeleteBookmark.Name = "btnHTDeleteBookmark";
+            this.btnHTDeleteBookmark.Size = new System.Drawing.Size(30, 29);
+            this.btnHTDeleteBookmark.TabIndex = 41;
+            this.btnHTDeleteBookmark.UseVisualStyleBackColor = false;
+            this.btnHTDeleteBookmark.Click += new System.EventHandler(this.btnHTDeleteBookmark_Click);
             // 
             // btnHTSetBookmark
             // 
@@ -1554,8 +1570,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem bookmarksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toobleBookmarkToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem enableAllBookmarksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem enableBookmarkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DeleteBookmarksToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AllBookmarksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem highlightCurrentLineToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
@@ -1613,7 +1629,7 @@
         private System.Windows.Forms.Button btnHTUnComment;
         private System.Windows.Forms.Button btnHTSetBookmark;
         private System.Windows.Forms.Splitter splitter3;
-        private System.Windows.Forms.Button btnHTGetBookmark;
+        private System.Windows.Forms.Button btnHTDeleteBookmark;
         private GMT_GUI_component.SplitButton btnHTBookmarks;
         private System.Windows.Forms.Button btnHTRun;
         private System.Windows.Forms.Splitter splitter5;
@@ -1624,6 +1640,7 @@
         private System.Windows.Forms.ContextMenuStrip cmsBookmarks;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
+        private System.Windows.Forms.ToolStripMenuItem test1ToolStripMenuItem;
     }
 }
 

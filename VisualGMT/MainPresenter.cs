@@ -36,6 +36,7 @@ namespace VisualGMT
             _view.VisualGMTLoad += viewVisualGMTLoad;
             _view.CloseTabError += _view_CloseTabError;
             _view.RulerError += _view_RulerError;
+            _view.DocumentMapError += _view_DocumentMapError;
 
             #endregion
         }
@@ -57,8 +58,14 @@ namespace VisualGMT
             _messageService.ShowError(sender.ToString());
         }
 
-        //Event when Ruler error
+        // Event when Ruler error
         private void _view_RulerError(object sender, EventArgs e)
+        {
+            _messageService.ShowError(sender.ToString());
+        }
+
+        // Event when DocumentMap error
+        private void _view_DocumentMapError(object sender, EventArgs e)
         {
             _messageService.ShowError(sender.ToString());
         }

@@ -48,8 +48,8 @@ namespace VisualGMT
 
         #region Properties
 
-        //Current GMT FastColoredTextBox (Selected)
-        //public GMT_FastColoredTextBox CurrentGMTTextBox => (gmt_FATabStripCollection.Items[gmt_FATabStripCollection .SelectedItem.TabIndex] as GMT_FATabStripItem).GmtTextBox;
+        // Current GMT FastColoredTextBox (Selected)
+        // public GMT_FastColoredTextBox CurrentGMTTextBox => (gmt_FATabStripCollection.Items[gmt_FATabStripCollection .SelectedItem.TabIndex] as GMT_FATabStripItem).GmtTextBox;
         GMT_FastColoredTextBox CurrentGMTTextBox
         {
             get
@@ -66,15 +66,17 @@ namespace VisualGMT
             }
         }
 
-        //Find TextBox Changed
+        // Find TextBox Changed
         bool tbFindChanged = false;
 
-        //On Form Load
+        // On Form Load
         public event EventHandler VisualGMTLoad;
-        //On Ruler error
+        // On Ruler error
         public event EventHandler RulerError;
-        //On CloseTab error
+        // On CloseTab error
         public event EventHandler CloseTabError;
+        // On DocumentMap Error
+        public event EventHandler DocumentMapError;
 
         #endregion
 
@@ -158,7 +160,8 @@ namespace VisualGMT
                 CurrentGMTTextBox.ViewCaretPosition(ssDocumentInfo, 2);
                 CurrentGMTTextBox.ViewCountLinesColumns(ssDocumentInfo, 1);
                 TextInsertMode(ssDocumentInfo, 3, CurrentGMTTextBox.InsertKeyMode == InsertKeyMode.Insert ? "INS" : "OVR");
-                ShowRuler();
+                ShowGmtRuler();
+                ShowGmtDocumentMap();
                 InvalidateCurrentLine();
                 InvalidatePreferredLine();
                 //string text = CurrentTB.Text;
@@ -222,24 +225,48 @@ namespace VisualGMT
         }
 
         // Show/Hide Ruler for GMT TextBox
-        private void ShowRuler()
+        private void ShowGmtRuler()
         {
             try
             {
-                if (rulerToolStripMenuItem.Checked)
+                foreach (GMT_FATabStripItem tab in gmt_FATabStripCollection.Items)
                 {
-                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtRuler.Visible = true;
-                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible = true;
-                }
-                else
-                {
-                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtRuler.Visible = false;
-                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible = false;
+                    if (rulerToolStripMenuItem.Checked)
+                    {
+                        tab.GmtRuler.Visible = true;
+                    }
+                    else
+                    {
+                        tab.GmtRuler.Visible = false;
+                    }
                 }
             }
             catch (Exception exception)
             {
                 RulerError(exception, null);
+            }
+        }
+
+        // Show/Hide DocumentMap for Gmt TextBox
+        private void ShowGmtDocumentMap()
+        {
+            try
+            {
+                foreach (GMT_FATabStripItem tab in gmt_FATabStripCollection.Items)
+                {
+                    if (documentMapToolStripMenuItem.Checked)
+                    {
+                        tab.GmtDocumentMap.Visible = true;
+                    }
+                    else
+                    {
+                        tab.GmtDocumentMap.Visible = false;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                DocumentMapError(exception, null);
             }
         }
 
@@ -490,7 +517,7 @@ namespace VisualGMT
         // View -> Ruler
         private void rulerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowRuler();
+            ShowGmtRuler();
         }
 
         // Edit -> Find
@@ -561,6 +588,12 @@ namespace VisualGMT
         private void preferredLineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InvalidatePreferredLine();
+        }
+
+        // View -> DocumentMap
+        private void documentMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowGmtDocumentMap();
         }
 
         #endregion

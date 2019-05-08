@@ -2,6 +2,7 @@
 using GMT_GUI_component.ComponentInterface;
 using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace GMT_GUI_component
 {
@@ -16,8 +17,8 @@ namespace GMT_GUI_component
         // GMT Ruler
         public GMT_Ruler GmtRuler { get; set; }
 
-        // IsRulerVisible
-        public bool IsRulerVisible { get; set; } = false;
+        // GMT DocumentMap
+        public GMT_DocumentMap GmtDocumentMap { get; set; }
 
         // File
         public String FileName { get; set; }
@@ -49,6 +50,20 @@ namespace GMT_GUI_component
             // Create Ruler
             GmtRuler = new GMT_Ruler(GmtTextBox);
             this.Controls.Add(GmtRuler);
+
+            // Create Document Map
+            GmtDocumentMap = new GMT_DocumentMap(GmtTextBox);
+            this.Controls.Add(GmtDocumentMap);
+
+            //??
+            Splitter splitter = new Splitter();
+            splitter.Dock = DockStyle.Right;
+            splitter.Enabled = true;
+            splitter.Visible = false;
+            splitter.MinSize = 25;
+            this.Controls.Add(splitter);
+
+
         }
 
         #endregion

@@ -161,6 +161,7 @@
             this.tsmiScale200 = new System.Windows.Forms.ToolStripMenuItem();
             this.tspbTime = new System.Windows.Forms.ToolStripProgressBar();
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
+            this.preferredLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
             this.cmsBookmarks.SuspendLayout();
@@ -478,6 +479,7 @@
             this.goRightBracketToolStripMenuItem,
             this.toolStripMenuItem16,
             this.rulerToolStripMenuItem,
+            this.preferredLineToolStripMenuItem,
             this.documentMapToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -485,6 +487,7 @@
             // 
             // highlightCurrentLineToolStripMenuItem
             // 
+            this.highlightCurrentLineToolStripMenuItem.CheckOnClick = true;
             this.highlightCurrentLineToolStripMenuItem.Name = "highlightCurrentLineToolStripMenuItem";
             this.highlightCurrentLineToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
             this.highlightCurrentLineToolStripMenuItem.Text = "Highlight Current Line";
@@ -1480,6 +1483,14 @@
             this.gmt_FATabStripCollection.Text = "gmT_FATabStripCollection1";
             this.gmt_FATabStripCollection.TabStripItemSelectionChanged += new FarsiLibrary.Win.TabStripItemChangedHandler(this.gmt_FATabStripCollection_TabStripItemSelectionChanged);
             // 
+            // preferredLineToolStripMenuItem
+            // 
+            this.preferredLineToolStripMenuItem.CheckOnClick = true;
+            this.preferredLineToolStripMenuItem.Name = "preferredLineToolStripMenuItem";
+            this.preferredLineToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.preferredLineToolStripMenuItem.Text = "Preferred Line";
+            this.preferredLineToolStripMenuItem.Click += new System.EventHandler(this.preferredLineToolStripMenuItem_Click);
+            // 
             // VisualGMT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1641,6 +1652,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
         private System.Windows.Forms.ToolStripMenuItem test1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem preferredLineToolStripMenuItem;
     }
 }
 

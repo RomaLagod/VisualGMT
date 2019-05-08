@@ -158,7 +158,9 @@ namespace VisualGMT
                 CurrentGMTTextBox.ViewCaretPosition(ssDocumentInfo, 2);
                 CurrentGMTTextBox.ViewCountLinesColumns(ssDocumentInfo, 1);
                 TextInsertMode(ssDocumentInfo, 3, CurrentGMTTextBox.InsertKeyMode == InsertKeyMode.Insert ? "INS" : "OVR");
-                RulerCheckState();
+                ShowRuler();
+                InvalidateCurrentLine();
+                InvalidatePreferredLine();
                 //string text = CurrentTB.Text;
                 //ThreadPool.QueueUserWorkItem((o) => ReBuildObjectExplorer(text));
             }
@@ -219,16 +221,25 @@ namespace VisualGMT
             interBtnHTFind = btnHTFind;
         }
 
-        // Ruler mainMenu CheckState
-        void RulerCheckState()
+        // Show/Hide Ruler for GMT TextBox
+        private void ShowRuler()
         {
-            if ((CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible)
+            try
             {
-                rulerToolStripMenuItem.CheckState = CheckState.Checked;
+                if (rulerToolStripMenuItem.Checked)
+                {
+                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtRuler.Visible = true;
+                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible = true;
+                }
+                else
+                {
+                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtRuler.Visible = false;
+                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible = false;
+                }
             }
-            else
+            catch (Exception exception)
             {
-                rulerToolStripMenuItem.CheckState = CheckState.Unchecked;
+                RulerError(exception, null);
             }
         }
 
@@ -269,6 +280,26 @@ namespace VisualGMT
                 CurrentGMTTextBox.Invalidate();
         }
 
+        // Show/Hide Preferred Line in GMT TextBox
+        private void HighLightPreferredLine()
+        {
+            foreach (GMT_FATabStripItem tab in gmt_FATabStripCollection.Items)
+            {
+                if (preferredLineToolStripMenuItem.Checked)
+                    (tab.Controls[0] as FastColoredTextBox).PreferredLineWidth = 150;
+                else
+                    (tab.Controls[0] as FastColoredTextBox).PreferredLineWidth = 0;
+            }
+        }
+
+        // Invalidate Preferred Line in Gmt TextBox
+        private void InvalidatePreferredLine()
+        {
+            HighLightPreferredLine();
+            if (CurrentGMTTextBox != null)
+                CurrentGMTTextBox.Invalidate();
+        }
+
         //Fill context menu with all present Bookmarks
         private void FillBookmarksItems(ToolStripItemCollection itemsCollection)
         {
@@ -299,7 +330,7 @@ namespace VisualGMT
 
         #endregion
 
-        #region Status Stip
+        #region Status Strip
 
         private void tsmiScale200_Click(object sender, EventArgs e)
         {
@@ -459,23 +490,7 @@ namespace VisualGMT
         // View -> Ruler
         private void rulerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (!(CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible)
-                {
-                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtRuler.Visible = true;
-                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible = true;
-                }
-                else
-                {
-                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtRuler.Visible = false;
-                    (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRulerVisible = false;
-                }
-            }
-            catch (Exception exception)
-            {
-                RulerError(exception, e);
-            }
+            ShowRuler();
         }
 
         // Edit -> Find
@@ -542,6 +557,14 @@ namespace VisualGMT
             FillBookmarksItems(AllBookmarksToolStripMenuItem.DropDownItems);
         }
 
+        // Show/Hide Preferred Line in Gmt TextBox
+        private void preferredLineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InvalidatePreferredLine();
+        }
+
         #endregion
+
+
     }
 }

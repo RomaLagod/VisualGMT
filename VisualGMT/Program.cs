@@ -29,7 +29,6 @@ namespace VisualGMT
 
             #endregion
 
-
             Application.Run(visualGmt);
         }
     }

@@ -37,7 +37,7 @@ namespace GMT_BLL
 
         public void SaveContent(string content, string filePath)
         {
-            SaveContent(content, filePath, _defaultEncoding);
+            File.WriteAllText(filePath, content);
         }
 
         public void SaveContent(string content, string filePath, Encoding encoding)

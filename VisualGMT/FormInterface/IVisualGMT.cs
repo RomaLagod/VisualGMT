@@ -61,8 +61,6 @@ namespace VisualGMT.FormInterface
         event EventHandler FileOpenClick;
         // Event SaveFile
         event EventHandler FileSaveClick;
-        // Event SaveFile As
-        event EventHandler FileSaveAsClick;
         // Event ContentChanged
         event EventHandler ContentChanged;
 

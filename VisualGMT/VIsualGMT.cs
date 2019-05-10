@@ -75,7 +75,11 @@ namespace VisualGMT
         public string Content
         {
             get { return CurrentGMTTextBox.Text; }
-            set { CurrentGMTTextBox.Text = value; }
+            set
+            {
+                //CurrentGMTTextBox.Text = value;
+                NewGMTDocument(FilePath);
+            }
         }
 
         // On Form Load
@@ -90,8 +94,6 @@ namespace VisualGMT
         public event EventHandler FileOpenClick;
         // On SaveFile
         public event EventHandler FileSaveClick;
-        // On SaveFile As
-        public event EventHandler FileSaveAsClick;
         // On ContentChanged
         public event EventHandler ContentChanged;
 
@@ -118,7 +120,7 @@ namespace VisualGMT
             //var fastDocumentCollection = new GMT_FATabStripCollection();
 
             //Create new GMT Document when Form Load
-            NewGMTDocument();
+            NewGMTDocument(null);
 
             //// Initializing ToolTips for main form
             //ToolTipsInitializing();
@@ -198,10 +200,10 @@ namespace VisualGMT
         #region Methods
 
         // Create new GMT Document
-        private void NewGMTDocument()
+        private void NewGMTDocument(string fileName)
         {
             //Create new GMT document and add new tab
-            var tab = new GMT_FATabStripItem(null);
+            var tab = new GMT_FATabStripItem(fileName);
             gmt_FATabStripCollection.AddTab(tab);
             gmt_FATabStripCollection.SelectedItem = tab;
 
@@ -374,6 +376,38 @@ namespace VisualGMT
             }
         }
 
+        // Save to file
+        private bool Save(GMT_FATabStripItem tab)
+        {
+            var tb = (tab.Controls[0] as GMT_FastColoredTextBox);
+            if (tab.Tag == null)
+            {
+                if (sfdGeneralSave.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                    return false;
+                tab.Title = Path.GetFileName(sfdGeneralSave.FileName);
+                tab.Tag = sfdGeneralSave.FileName;
+                FilePath = sfdGeneralSave.FileName;
+            }
+
+            try
+            {
+                //File.WriteAllText(tab.Tag as string, tb.Text);
+                if (FileSaveClick != null) FileSaveClick(this, EventArgs.Empty);
+                tb.IsChanged = false;
+            }
+            catch (Exception ex)
+            {
+                if (MessageBox.Show(ex.Message + ex.StackTrace, "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                    return Save(tab);
+                else
+                    return false;
+            }
+
+            tb.Invalidate();
+
+            return true;
+        }
+
         #endregion
 
         #region Status Strip
@@ -426,7 +460,7 @@ namespace VisualGMT
         // New Document Click
         private void btnHTNew_Click(object sender, EventArgs e)
         {
-            NewGMTDocument();
+            NewGMTDocument(null);
         }
 
         // Copy selected Text to clipboard
@@ -498,12 +532,9 @@ namespace VisualGMT
         // Open GMT File
         private void btnHTOpen_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Text file|*.txt|BAT file|*.bat|Shell Script file|*.sh|All files|*.*";
-
-            if (dlg.ShowDialog() == DialogResult.OK)
+            if (ofdGeneralOpen.ShowDialog() == DialogResult.OK)
             {
-                FilePath = dlg.FileName;
+                FilePath = ofdGeneralOpen.FileName;
                 if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
             }
         }
@@ -511,7 +542,8 @@ namespace VisualGMT
         // Save GMT File
         private void btnHTSave_Click(object sender, EventArgs e)
         {
-
+            if (gmt_FATabStripCollection.SelectedItem != null)
+                Save(tab: gmt_FATabStripCollection.SelectedItem as GMT_FATabStripItem);
         }
 
         #endregion
@@ -637,7 +669,17 @@ namespace VisualGMT
         // Save As GMT File (File -> SaveAs...)
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (gmt_FATabStripCollection.SelectedItem != null)
+            {
+                string oldFile = gmt_FATabStripCollection.SelectedItem.Tag as string;
+                gmt_FATabStripCollection.SelectedItem.Tag = null;
+                if (!Save(tab: gmt_FATabStripCollection.SelectedItem as GMT_FATabStripItem))
+                    if (oldFile != null)
+                    {
+                        gmt_FATabStripCollection.SelectedItem.Tag = oldFile;
+                        gmt_FATabStripCollection.SelectedItem.Title = Path.GetFileName(oldFile);
+                    }
+            }
         }
 
         #endregion

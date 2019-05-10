@@ -22,8 +22,6 @@ namespace VisualGMT
 
         #region Properties
 
-        private string _currentFilePath;
-
         #endregion
 
         #region Constructor
@@ -46,7 +44,6 @@ namespace VisualGMT
             _view.RulerError += _view_RulerError;
             _view.DocumentMapError += _view_DocumentMapError;
             _view.FileOpenClick += _view_FileOpenClick;
-            _view.FileSaveAsClick += _view_FileSaveAsClick;
             _view.FileSaveClick += _view_FileSaveClick;
 
             #endregion
@@ -96,7 +93,6 @@ namespace VisualGMT
                     return;
                 }
 
-                _currentFilePath = filePath;
                 string content = _manager.GetContent(filePath);
 
                 _view.Content = content;
@@ -107,27 +103,19 @@ namespace VisualGMT
             }
         }
 
-        // Event when File Save As Click
-        private void _view_FileSaveAsClick(object sender, EventArgs e)
+        // Event when File Save Click
+        private void _view_FileSaveClick(object sender, EventArgs e)
         {
             try
             {
+                string filePath = _view.FilePath;
                 string content = _view.Content;
-
-                _manager.SaveContent(content, _currentFilePath);
-
-                _messageService.ShowMessage("File successfully saved.");
+                _manager.SaveContent(content, filePath);
             }
             catch (Exception ex)
             {
                 _messageService.ShowError(ex.Message);
             }
-        }
-
-        // Event when File Save Click
-        private void _view_FileSaveClick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion

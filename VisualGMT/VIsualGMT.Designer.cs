@@ -160,6 +160,8 @@
             this.tsmiScale150 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiScale200 = new System.Windows.Forms.ToolStripMenuItem();
             this.tspbTime = new System.Windows.Forms.ToolStripProgressBar();
+            this.ofdGeneralOpen = new System.Windows.Forms.OpenFileDialog();
+            this.sfdGeneralSave = new System.Windows.Forms.SaveFileDialog();
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
             this.btnHTBookmarks = new GMT_GUI_component.SplitButton();
             this.msGeneralMenu.SuspendLayout();
@@ -220,6 +222,7 @@
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.openToolStripMenuItem.Text = "Open...";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.btnHTOpen_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -227,6 +230,7 @@
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.btnHTSave_Click);
             // 
             // saveAsToolStripMenuItem
             // 
@@ -1467,6 +1471,17 @@
             this.tspbTime.Size = new System.Drawing.Size(100, 18);
             this.tspbTime.Visible = false;
             // 
+            // ofdGeneralOpen
+            // 
+            this.ofdGeneralOpen.Filter = "Text file(*.txt)|*.txt|BAT file(*.bat)|*.bat|Shell Script file(*.sh)|*.sh|All fil" +
+    "es|*.*";
+            this.ofdGeneralOpen.FilterIndex = 2;
+            // 
+            // sfdGeneralSave
+            // 
+            this.sfdGeneralSave.Filter = "Text file|*.txt|BAT file|*.bat|Shell Script file|*.sh";
+            this.sfdGeneralSave.FilterIndex = 2;
+            // 
             // gmt_FATabStripCollection
             // 
             this.gmt_FATabStripCollection.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1658,6 +1673,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
         private System.Windows.Forms.ToolStripMenuItem test1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem preferredLineToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog ofdGeneralOpen;
+        private System.Windows.Forms.SaveFileDialog sfdGeneralSave;
     }
 }
 

@@ -46,9 +46,9 @@ namespace GMT_GUI_component
             this.Controls.Add(GmtTextBox);
             this.Title = fileName != null ? Path.GetFileName(fileName) : "[new]";
             FileName = fileName;
-            //this.Tag = fileName;
-            //if (fileName != null)
-            //    GmtTextBox.OpenFile(fileName);
+            this.Tag = fileName;
+            if (fileName != null)
+                GmtTextBox.OpenFile(fileName);
 
             // Create Ruler
             GmtRuler = new GMT_Ruler(GmtTextBox);

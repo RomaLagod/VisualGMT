@@ -78,7 +78,7 @@ namespace VisualGMT
             set
             {
                 //CurrentGMTTextBox.Text = value;
-                NewGMTDocument(FilePath);
+                NewGMTDocument(FilePath, value);
             }
         }
 
@@ -127,6 +127,25 @@ namespace VisualGMT
 
             //On VisualGMT form Load event
             if (VisualGMTLoad != null) VisualGMTLoad(this, e);
+        }
+
+        // When Main Form closing ask about Save Open Documents
+        private void VisualGMT_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            List<GMT_FATabStripItem> list = new List<GMT_FATabStripItem>();
+            foreach (GMT_FATabStripItem tab in gmt_FATabStripCollection.Items)
+                list.Add(tab);
+            foreach (var tab in list)
+            {
+                FarsiLibrary.Win.TabStripItemClosingEventArgs args = new FarsiLibrary.Win.TabStripItemClosingEventArgs(tab);
+                gmt_FATabStripCollection_TabStripItemClosing(args);
+                if (args.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                gmt_FATabStripCollection.RemoveTab(tab);
+            }
         }
 
         #endregion
@@ -197,13 +216,35 @@ namespace VisualGMT
 
         #endregion
 
+        #region TabStripCollection Events
+
+        // When closing all tabs from tab collection
+        private void gmt_FATabStripCollection_TabStripItemClosing(FarsiLibrary.Win.TabStripItemClosingEventArgs e)
+        {
+            if ((e.Item.Controls[0] as GMT_FastColoredTextBox).IsChanged)
+            {
+                switch (MessageBox.Show("Do you want save " + e.Item.Title + " ?", "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
+                {
+                    case System.Windows.Forms.DialogResult.Yes:
+                        if (!Save(e.Item as GMT_FATabStripItem))
+                            e.Cancel = true;
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
+        }
+
+        #endregion
+
         #region Methods
 
         // Create new GMT Document
-        private void NewGMTDocument(string fileName)
+        private void NewGMTDocument(string fileName, string content = null)
         {
             //Create new GMT document and add new tab
-            var tab = new GMT_FATabStripItem(fileName);
+            var tab = new GMT_FATabStripItem(fileName, content);
             gmt_FATabStripCollection.AddTab(tab);
             gmt_FATabStripCollection.SelectedItem = tab;
 
@@ -546,6 +587,20 @@ namespace VisualGMT
                 Save(tab: gmt_FATabStripCollection.SelectedItem as GMT_FATabStripItem);
         }
 
+        // Print button
+        private void btnHTPrint_Click(object sender, EventArgs e)
+        {
+            if (CurrentGMTTextBox != null)
+            {
+                var settings = new PrintDialogSettings();
+                settings.Title = gmt_FATabStripCollection.SelectedItem.Title;
+                settings.Header = "&b&w&b";
+                settings.Footer = "&b&p";
+                settings.IncludeLineNumbers = true;
+                CurrentGMTTextBox.Print(settings);
+            }
+        }
+
         #endregion
 
         #region MainMenu
@@ -687,6 +742,45 @@ namespace VisualGMT
         {
             AboutBox aboutBox = new AboutBox();
             aboutBox.ShowDialog();
+        }
+
+        #endregion
+
+        #region Timer work (Update Interface)
+
+        // When timer tick
+        private void tmUpdateInterface_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (CurrentGMTTextBox != null && gmt_FATabStripCollection.Items.Count > 0)
+                {
+                    var tb = CurrentGMTTextBox;
+                    btnHTUndo.Enabled = undoToolStripMenuItem.Enabled = tb.UndoEnabled;
+                    btnHTRedo.Enabled = redoToolStripMenuItem.Enabled = tb.RedoEnabled;
+                    btnHTSave.Enabled = saveToolStripMenuItem.Enabled = tb.IsChanged;
+                    saveAsToolStripMenuItem.Enabled = true;
+                    btnHTPaste.Enabled = pasteToolStripMenuItem.Enabled = true;
+                    btnHTCut.Enabled = cutToolStripMenuItem.Enabled =
+                    btnHTCopy.Enabled = copyToolStripMenuItem.Enabled = !tb.Selection.IsEmpty;
+                    btnHTPrint.Enabled = printToolStripMenuItem.Enabled = true;
+                }
+                else
+                {
+                    btnHTSave.Enabled = saveToolStripMenuItem.Enabled = false;
+                    saveAsToolStripMenuItem.Enabled = false;
+                    btnHTCut.Enabled = cutToolStripMenuItem.Enabled =
+                    btnHTCopy.Enabled = copyToolStripMenuItem.Enabled = false;
+                    btnHTPaste.Enabled = pasteToolStripMenuItem.Enabled = false;
+                    btnHTPrint.Enabled = printToolStripMenuItem.Enabled = false;
+                    btnHTUndo.Enabled = undoToolStripMenuItem.Enabled = false;
+                    btnHTRedo.Enabled = redoToolStripMenuItem.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Time error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         #endregion

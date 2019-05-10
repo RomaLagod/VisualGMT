@@ -37,7 +37,6 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.pageSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,6 +119,7 @@
             this.splitter6 = new System.Windows.Forms.Splitter();
             this.btnHTRun = new System.Windows.Forms.Button();
             this.splitter5 = new System.Windows.Forms.Splitter();
+            this.btnHTBookmarks = new GMT_GUI_component.SplitButton();
             this.cmsBookmarks = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
@@ -163,7 +163,7 @@
             this.ofdGeneralOpen = new System.Windows.Forms.OpenFileDialog();
             this.sfdGeneralSave = new System.Windows.Forms.SaveFileDialog();
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
-            this.btnHTBookmarks = new GMT_GUI_component.SplitButton();
+            this.tmUpdateInterface = new System.Windows.Forms.Timer(this.components);
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
             this.cmsBookmarks.SuspendLayout();
@@ -195,7 +195,6 @@
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.pageSetupToolStripMenuItem,
             this.printToolStripMenuItem,
             this.toolStripMenuItem2,
             this.settingsToolStripMenuItem,
@@ -246,18 +245,13 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(183, 6);
             // 
-            // pageSetupToolStripMenuItem
-            // 
-            this.pageSetupToolStripMenuItem.Name = "pageSetupToolStripMenuItem";
-            this.pageSetupToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.pageSetupToolStripMenuItem.Text = "Page Setup...";
-            // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
             this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.printToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.printToolStripMenuItem.Text = "Print...";
+            this.printToolStripMenuItem.Click += new System.EventHandler(this.btnHTPrint_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -805,7 +799,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -960,6 +954,24 @@
             this.splitter5.Size = new System.Drawing.Size(1, 29);
             this.splitter5.TabIndex = 43;
             this.splitter5.TabStop = false;
+            // 
+            // btnHTBookmarks
+            // 
+            this.btnHTBookmarks.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTBookmarks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTBookmarks.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTBookmarks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTBookmarks.ForeColor = System.Drawing.Color.White;
+            this.btnHTBookmarks.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHTBookmarks.ImageIndex = 17;
+            this.btnHTBookmarks.ImageList = this.ilToolBarImages_24;
+            this.btnHTBookmarks.Location = new System.Drawing.Point(514, 1);
+            this.btnHTBookmarks.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTBookmarks.Menu = this.cmsBookmarks;
+            this.btnHTBookmarks.Name = "btnHTBookmarks";
+            this.btnHTBookmarks.Size = new System.Drawing.Size(52, 29);
+            this.btnHTBookmarks.TabIndex = 42;
+            this.btnHTBookmarks.UseVisualStyleBackColor = false;
             // 
             // cmsBookmarks
             // 
@@ -1296,6 +1308,7 @@
             this.btnHTPrint.Size = new System.Drawing.Size(30, 29);
             this.btnHTPrint.TabIndex = 6;
             this.btnHTPrint.UseVisualStyleBackColor = false;
+            this.btnHTPrint.Click += new System.EventHandler(this.btnHTPrint_Click);
             // 
             // btnHTSave
             // 
@@ -1492,25 +1505,14 @@
             this.gmt_FATabStripCollection.Size = new System.Drawing.Size(935, 194);
             this.gmt_FATabStripCollection.TabIndex = 0;
             this.gmt_FATabStripCollection.Text = "gmT_FATabStripCollection1";
+            this.gmt_FATabStripCollection.TabStripItemClosing += new FarsiLibrary.Win.TabStripItemClosingHandler(this.gmt_FATabStripCollection_TabStripItemClosing);
             this.gmt_FATabStripCollection.TabStripItemSelectionChanged += new FarsiLibrary.Win.TabStripItemChangedHandler(this.gmt_FATabStripCollection_TabStripItemSelectionChanged);
             // 
-            // btnHTBookmarks
+            // tmUpdateInterface
             // 
-            this.btnHTBookmarks.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTBookmarks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTBookmarks.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTBookmarks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTBookmarks.ForeColor = System.Drawing.Color.White;
-            this.btnHTBookmarks.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHTBookmarks.ImageIndex = 17;
-            this.btnHTBookmarks.ImageList = this.ilToolBarImages_24;
-            this.btnHTBookmarks.Location = new System.Drawing.Point(514, 1);
-            this.btnHTBookmarks.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTBookmarks.Menu = this.cmsBookmarks;
-            this.btnHTBookmarks.Name = "btnHTBookmarks";
-            this.btnHTBookmarks.Size = new System.Drawing.Size(52, 29);
-            this.btnHTBookmarks.TabIndex = 42;
-            this.btnHTBookmarks.UseVisualStyleBackColor = false;
+            this.tmUpdateInterface.Enabled = true;
+            this.tmUpdateInterface.Interval = 400;
+            this.tmUpdateInterface.Tick += new System.EventHandler(this.tmUpdateInterface_Tick);
             // 
             // VisualGMT
             // 
@@ -1526,6 +1528,7 @@
             this.MainMenuStrip = this.msGeneralMenu;
             this.Name = "VisualGMT";
             this.Text = "VisualGMT";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VisualGMT_FormClosing);
             this.Load += new System.EventHandler(this.VisualGMT_Load);
             this.msGeneralMenu.ResumeLayout(false);
             this.msGeneralMenu.PerformLayout();
@@ -1577,7 +1580,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem pageSetupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
@@ -1676,6 +1678,7 @@
         private System.Windows.Forms.ToolStripMenuItem preferredLineToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog ofdGeneralOpen;
         private System.Windows.Forms.SaveFileDialog sfdGeneralSave;
+        private System.Windows.Forms.Timer tmUpdateInterface;
     }
 }
 

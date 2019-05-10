@@ -37,7 +37,8 @@ namespace GMT_GUI_component
             //GmtTextBox = new GMT_FastColoredTextBox();
         }
 
-        // special constructor for new tab item
+        // special constructor for new tab item without content
+        // This constructor produce bad load Cyrilic symbols
         // include: GMT_FastColoredTextBox
         public GMT_FATabStripItem(string fileName) : base()
         {
@@ -49,6 +50,32 @@ namespace GMT_GUI_component
             this.Tag = fileName;
             if (fileName != null)
                 GmtTextBox.OpenFile(fileName);
+
+            // Create Ruler
+            GmtRuler = new GMT_Ruler(GmtTextBox);
+            this.Controls.Add(GmtRuler);
+
+            //GMT Splitter between DocumentMap and GmtTextBox
+            GmtSplitter = new GMT_Splitter();
+            this.Controls.Add(GmtSplitter);
+
+            // Create Document Map
+            GmtDocumentMap = new GMT_DocumentMap(GmtTextBox);
+            this.Controls.Add(GmtDocumentMap);
+        }
+
+        // Second special constructor for new tab item with Content
+        // include: GMT_FastColoredTextBox
+        public GMT_FATabStripItem(string fileName, string content) : base()
+        {
+            // Create GMT_FastColoredTextBox
+            GmtTextBox = new GMT_FastColoredTextBox();
+            this.Controls.Add(GmtTextBox);
+            this.Title = fileName != null ? Path.GetFileName(fileName) : "[new]";
+            FileName = fileName;
+            this.Tag = fileName;
+            if (fileName != null)
+                GmtTextBox.Text = content;
 
             // Create Ruler
             GmtRuler = new GMT_Ruler(GmtTextBox);

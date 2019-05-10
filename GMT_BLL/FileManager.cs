@@ -26,7 +26,8 @@ namespace GMT_BLL
 
         public string GetContent(string filePath)
         {
-            return GetContent(filePath, _defaultEncoding);
+            string content = File.ReadAllText(filePath);
+            return content;
         }
 
         public string GetContent(string filePath, Encoding encoding)

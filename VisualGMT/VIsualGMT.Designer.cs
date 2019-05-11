@@ -60,7 +60,7 @@
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
             this.bookmarksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toobleBookmarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toogleBookmarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteBookmarksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AllBookmarksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.test1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -164,6 +164,7 @@
             this.sfdGeneralSave = new System.Windows.Forms.SaveFileDialog();
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
             this.tmUpdateInterface = new System.Windows.Forms.Timer(this.components);
+            this.CloseAllTabstoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
             this.cmsBookmarks.SuspendLayout();
@@ -202,6 +203,7 @@
             this.recentFilesToolStripMenuItem,
             this.toolStripMenuItem4,
             this.closeTabToolStripMenuItem,
+            this.CloseAllTabstoolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -412,21 +414,21 @@
             // bookmarksToolStripMenuItem
             // 
             this.bookmarksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toobleBookmarkToolStripMenuItem,
+            this.toogleBookmarkToolStripMenuItem,
             this.DeleteBookmarksToolStripMenuItem,
             this.AllBookmarksToolStripMenuItem});
             this.bookmarksToolStripMenuItem.Name = "bookmarksToolStripMenuItem";
             this.bookmarksToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.bookmarksToolStripMenuItem.Text = "Bookmarks";
             // 
-            // toobleBookmarkToolStripMenuItem
+            // toogleBookmarkToolStripMenuItem
             // 
-            this.toobleBookmarkToolStripMenuItem.Name = "toobleBookmarkToolStripMenuItem";
-            this.toobleBookmarkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.toogleBookmarkToolStripMenuItem.Name = "toogleBookmarkToolStripMenuItem";
+            this.toogleBookmarkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.B)));
-            this.toobleBookmarkToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.toobleBookmarkToolStripMenuItem.Text = "Toogle Bookmark";
-            this.toobleBookmarkToolStripMenuItem.Click += new System.EventHandler(this.btnHTSetBookmark_Click);
+            this.toogleBookmarkToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.toogleBookmarkToolStripMenuItem.Text = "Toogle Bookmark";
+            this.toogleBookmarkToolStripMenuItem.Click += new System.EventHandler(this.btnHTSetBookmark_Click);
             // 
             // DeleteBookmarksToolStripMenuItem
             // 
@@ -449,7 +451,7 @@
             // test1ToolStripMenuItem
             // 
             this.test1ToolStripMenuItem.Name = "test1ToolStripMenuItem";
-            this.test1ToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.test1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.test1ToolStripMenuItem.Text = "test1";
             // 
             // viewToolStripMenuItem
@@ -793,13 +795,13 @@
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem1.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -1440,42 +1442,42 @@
             // tsmiScale20
             // 
             this.tsmiScale20.Name = "tsmiScale20";
-            this.tsmiScale20.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale20.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale20.Text = "20%";
             this.tsmiScale20.Click += new System.EventHandler(this.tsmiScale20_Click);
             // 
             // tsmiScale50
             // 
             this.tsmiScale50.Name = "tsmiScale50";
-            this.tsmiScale50.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale50.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale50.Text = "50%";
             this.tsmiScale50.Click += new System.EventHandler(this.tsmiScale50_Click);
             // 
             // tsmiScale70
             // 
             this.tsmiScale70.Name = "tsmiScale70";
-            this.tsmiScale70.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale70.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale70.Text = "70%";
             this.tsmiScale70.Click += new System.EventHandler(this.tsmiScale70_Click);
             // 
             // tsmiScale100
             // 
             this.tsmiScale100.Name = "tsmiScale100";
-            this.tsmiScale100.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale100.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale100.Text = "100%";
             this.tsmiScale100.Click += new System.EventHandler(this.tsmiScale100_Click);
             // 
             // tsmiScale150
             // 
             this.tsmiScale150.Name = "tsmiScale150";
-            this.tsmiScale150.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale150.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale150.Text = "150%";
             this.tsmiScale150.Click += new System.EventHandler(this.tsmiScale150_Click);
             // 
             // tsmiScale200
             // 
             this.tsmiScale200.Name = "tsmiScale200";
-            this.tsmiScale200.Size = new System.Drawing.Size(102, 22);
+            this.tsmiScale200.Size = new System.Drawing.Size(180, 22);
             this.tsmiScale200.Text = "200%";
             this.tsmiScale200.Click += new System.EventHandler(this.tsmiScale200_Click);
             // 
@@ -1513,6 +1515,12 @@
             this.tmUpdateInterface.Enabled = true;
             this.tmUpdateInterface.Interval = 400;
             this.tmUpdateInterface.Tick += new System.EventHandler(this.tmUpdateInterface_Tick);
+            // 
+            // CloseAllTabstoolStripMenuItem
+            // 
+            this.CloseAllTabstoolStripMenuItem.Name = "CloseAllTabstoolStripMenuItem";
+            this.CloseAllTabstoolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.CloseAllTabstoolStripMenuItem.Text = "Close All Tabs";
             // 
             // VisualGMT
             // 
@@ -1603,7 +1611,7 @@
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem bookmarksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toobleBookmarkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toogleBookmarkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DeleteBookmarksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AllBookmarksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
@@ -1679,6 +1687,7 @@
         private System.Windows.Forms.OpenFileDialog ofdGeneralOpen;
         private System.Windows.Forms.SaveFileDialog sfdGeneralSave;
         private System.Windows.Forms.Timer tmUpdateInterface;
+        private System.Windows.Forms.ToolStripMenuItem CloseAllTabstoolStripMenuItem;
     }
 }
 

@@ -243,17 +243,25 @@ namespace VisualGMT
         // Create new GMT Document
         private void NewGMTDocument(string fileName, string content = null)
         {
-            //Create new GMT document and add new tab
-            var tab = new GMT_FATabStripItem(fileName, content);
-            gmt_FATabStripCollection.AddTab(tab);
-            gmt_FATabStripCollection.SelectedItem = tab;
+            try
+            {
+                //Create new GMT document and add new tab
+                var tab = new GMT_FATabStripItem(fileName, content);
+                gmt_FATabStripCollection.AddTab(tab);
+                gmt_FATabStripCollection.SelectedItem = tab;
 
-            //// Event in GMTTextBox
-            tab.GmtTextBox.TextChanged += GmtTextBoxChanged;
-            tab.GmtTextBox.SelectionChanged += GmtCursorChanged;
-            tab.GmtTextBox.ZoomChanged += GmtZoomChanged;
-            tab.GmtTextBox.KeyDown += GmtDownPress;
-            tab.GmtTextBox.TextChangedDelayed += TextChangedDelayed;
+                //// Event in GMTTextBox
+                tab.GmtTextBox.TextChanged += GmtTextBoxChanged;
+                tab.GmtTextBox.SelectionChanged += GmtCursorChanged;
+                tab.GmtTextBox.ZoomChanged += GmtZoomChanged;
+                tab.GmtTextBox.KeyDown += GmtDownPress;
+                tab.GmtTextBox.TextChangedDelayed += TextChangedDelayed;
+            }
+            catch (Exception ex)
+            {
+                if (MessageBox.Show(ex.Message, "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.Retry)
+                    NewGMTDocument(fileName, content);
+            }
         }
 
         // Component initialization for Presetner
@@ -764,6 +772,23 @@ namespace VisualGMT
                     btnHTCut.Enabled = cutToolStripMenuItem.Enabled =
                     btnHTCopy.Enabled = copyToolStripMenuItem.Enabled = !tb.Selection.IsEmpty;
                     btnHTPrint.Enabled = printToolStripMenuItem.Enabled = true;
+
+                    btnHTSetBookmark.Enabled = toogleBookmarkToolStripMenuItem.Enabled = true;
+                    btnHTDeleteBookmark.Enabled = DeleteBookmarksToolStripMenuItem.Enabled = true;
+                    btnHTBookmarks.Enabled = bookmarksToolStripMenuItem.Enabled = AllBookmarksToolStripMenuItem.Enabled = true;
+                    deleteToolStripMenuItem.Enabled = true;
+                    selectAllToolStripMenuItem.Enabled = true;
+                    findAndReplaceToolStripMenuItem.Enabled = findToolStripMenuItem.Enabled = true;
+                    ZoomtoolStripMenuItem.Enabled = tssbScaleDefault.Enabled = true;
+                    btnHTComment.Enabled = commentSelectedLinesToolStripMenuItem.Enabled =
+                    btnHTUnComment.Enabled = uncommentSelectedLinesToolStripMenuItem.Enabled = true;
+                    collapseToolStripMenuItem.Enabled = expandtoolStripMenuItem.Enabled = true;
+                    goLeftBrackedToolStripMenuItem.Enabled = goRightBracketToolStripMenuItem.Enabled = true;
+                    btnHTRun.Enabled = runInEmbededConsoleToolStripMenuItem.Enabled =
+                    runInShellToolStripMenuItem.Enabled = runInWinConsoleToolStripMenuItem.Enabled =
+                    checkUpToolStripMenuItem.Enabled = true;
+                    autoIndentSelectedTextToolStripMenuItem.Enabled = true;
+                    closeTabToolStripMenuItem.Enabled = CloseAllTabstoolStripMenuItem.Enabled = true;
                 }
                 else
                 {
@@ -775,6 +800,23 @@ namespace VisualGMT
                     btnHTPrint.Enabled = printToolStripMenuItem.Enabled = false;
                     btnHTUndo.Enabled = undoToolStripMenuItem.Enabled = false;
                     btnHTRedo.Enabled = redoToolStripMenuItem.Enabled = false;
+
+                    btnHTSetBookmark.Enabled = toogleBookmarkToolStripMenuItem.Enabled = false;
+                    btnHTDeleteBookmark.Enabled = DeleteBookmarksToolStripMenuItem.Enabled = false;
+                    btnHTBookmarks.Enabled = bookmarksToolStripMenuItem.Enabled = AllBookmarksToolStripMenuItem.Enabled = false;
+                    deleteToolStripMenuItem.Enabled = false;
+                    selectAllToolStripMenuItem.Enabled = false;
+                    findAndReplaceToolStripMenuItem.Enabled = findToolStripMenuItem.Enabled = false;
+                    ZoomtoolStripMenuItem.Enabled = tssbScaleDefault.Enabled = false;
+                    btnHTComment.Enabled = commentSelectedLinesToolStripMenuItem.Enabled =
+                    btnHTUnComment.Enabled = uncommentSelectedLinesToolStripMenuItem.Enabled = false;
+                    collapseToolStripMenuItem.Enabled = expandtoolStripMenuItem.Enabled = false;
+                    goLeftBrackedToolStripMenuItem.Enabled = goRightBracketToolStripMenuItem.Enabled = false;
+                    btnHTRun.Enabled = runInEmbededConsoleToolStripMenuItem.Enabled =
+                    runInShellToolStripMenuItem.Enabled = runInWinConsoleToolStripMenuItem.Enabled =
+                    checkUpToolStripMenuItem.Enabled = false;
+                    autoIndentSelectedTextToolStripMenuItem.Enabled = false;
+                    closeTabToolStripMenuItem.Enabled = CloseAllTabstoolStripMenuItem.Enabled = false;
                 }
             }
             catch (Exception ex)

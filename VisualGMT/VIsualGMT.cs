@@ -752,6 +752,23 @@ namespace VisualGMT
             aboutBox.ShowDialog();
         }
 
+        // File -> Close All Tabs
+        private void CloseAllTabstoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            while (gmt_FATabStripCollection.Items.Count > 0)
+            {
+                try
+                {
+                    GMT_FATabStripItem tab = gmt_FATabStripCollection.Items[0] as GMT_FATabStripItem;
+                    gmt_FATabStripCollection.RemoveTab(tab);
+                }
+                catch (Exception exception)
+                {
+                    CloseTabError(exception, e);
+                }
+            }
+        }
+
         #endregion
 
         #region Timer work (Update Interface)
@@ -826,5 +843,7 @@ namespace VisualGMT
         }
 
         #endregion
+
+
     }
 }

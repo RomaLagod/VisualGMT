@@ -1521,6 +1521,7 @@
             this.CloseAllTabstoolStripMenuItem.Name = "CloseAllTabstoolStripMenuItem";
             this.CloseAllTabstoolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.CloseAllTabstoolStripMenuItem.Text = "Close All Tabs";
+            this.CloseAllTabstoolStripMenuItem.Click += new System.EventHandler(this.CloseAllTabstoolStripMenuItem_Click);
             // 
             // VisualGMT
             // 

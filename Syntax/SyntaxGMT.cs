@@ -45,11 +45,12 @@ namespace Syntax
 
         //KeyWords
         public static string KeyWords = @"\b(blockmean|blockmedian|blockmode|filter1d|fitcircle|gmt2kml|gmt5syntax|gmtcolors|colors|connect|convert|defaults|get|"+
-                                        @"info|logo|math)\b";
+                                        @"info|logo|math|regress|select|set|simplify|spatial|switch|gmtswitch|vector|which|grd2cpt|grd2rgb|grd2xyz|grdblend|)\b";
 
         #endregion
 
         #region Math 
+
         //page80 in manpages GMT
         public static string MathOperators = @"\b(ABS|ACOS|ACOSH|ACSC|ACOT|ADD|AND|ASEC|ASIN|ASINH|ATAN|ATAN2|ATANH|BCDF|BPDF|BEI|BER|BITAND|BITLEFT|BITNOT|BITOR|"+
                                              @"BITRIGHT|BITTEST|BITXOR|CEIL|CHICRIT|CHICDF|CHIPDF|COL|COMB|CORRCOEFF|COS|COSD|COSH|COT|COTD|CSC|CSCD|DDT|D2DT2|"+
@@ -61,6 +62,7 @@ namespace Syntax
                                              @"TANH|TAPER|TN|TCRIT|TPDF|TCDF|UPPER|VAR|VARW|WCDF|WCRIT|WPDF|XOR|Y0|Y1|YN|ZCDF|ZPDF|ZCRIT|ROOTS|)\b";
         //Constants
         public static string MathConstatnts = @"\b(PI|E|EULER|EPS_F|EPS_D|TMIN|TMAX|TRANGE|TINC|N|T|TNORM|TROW)\b";
+
         #endregion
 
         #region Arguments

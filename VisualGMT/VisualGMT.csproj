@@ -109,6 +109,10 @@
       <Project>{17bf47f1-8995-434d-a3af-da8c62d19797}</Project>
       <Name>GMT_GUI_component</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Syntax\Syntax.csproj">
+      <Project>{16e089fe-c6ef-44a3-9b70-06a84878d1b2}</Project>
+      <Name>Syntax</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="images\outline_visibility_black_18dp.png" />

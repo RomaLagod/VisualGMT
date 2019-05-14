@@ -6,7 +6,48 @@ using System.Threading.Tasks;
 
 namespace Syntax
 {
-    internal class SyntaxBAT
+    internal static class SyntaxBAT
     {
+        #region Brackets
+
+        //Brackets
+        public static char LeftBracket = '(';
+        public static char RightBracket = ')';
+        public static char LeftBracket2 = '\x0';
+        public static char RightBracket2 = '\x0';
+
+        #endregion
+
+        #region Strings
+        //Strings
+        #endregion
+
+        #region Comments
+        //Comments
+        #endregion
+
+        #region Numbers
+        //Numbers
+        #endregion
+
+        #region Attributes
+        //Attribute
+        #endregion
+
+        #region ClassNames
+        //Class name
+        #endregion
+
+        #region Keywords
+        //KeyWords
+        #endregion
+
+        #region Arguments
+        //Arguments
+        #endregion
+
+        #region Folding Markers
+        //Folding Markers
+        #endregion
     }
 }

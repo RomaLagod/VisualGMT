@@ -44,6 +44,7 @@
             this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.closeTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CloseAllTabstoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -164,7 +165,6 @@
             this.sfdGeneralSave = new System.Windows.Forms.SaveFileDialog();
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
             this.tmUpdateInterface = new System.Windows.Forms.Timer(this.components);
-            this.CloseAllTabstoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
             this.cmsBookmarks.SuspendLayout();
@@ -289,6 +289,13 @@
             this.closeTabToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.closeTabToolStripMenuItem.Text = "Close Tab";
             this.closeTabToolStripMenuItem.Click += new System.EventHandler(this.closeTabToolStripMenuItem_Click);
+            // 
+            // CloseAllTabstoolStripMenuItem
+            // 
+            this.CloseAllTabstoolStripMenuItem.Name = "CloseAllTabstoolStripMenuItem";
+            this.CloseAllTabstoolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.CloseAllTabstoolStripMenuItem.Text = "Close All Tabs";
+            this.CloseAllTabstoolStripMenuItem.Click += new System.EventHandler(this.CloseAllTabstoolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -451,7 +458,7 @@
             // test1ToolStripMenuItem
             // 
             this.test1ToolStripMenuItem.Name = "test1ToolStripMenuItem";
-            this.test1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.test1ToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.test1ToolStripMenuItem.Text = "test1";
             // 
             // viewToolStripMenuItem
@@ -795,13 +802,13 @@
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
             this.helpToolStripMenuItem1.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -1442,42 +1449,42 @@
             // tsmiScale20
             // 
             this.tsmiScale20.Name = "tsmiScale20";
-            this.tsmiScale20.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale20.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale20.Text = "20%";
             this.tsmiScale20.Click += new System.EventHandler(this.tsmiScale20_Click);
             // 
             // tsmiScale50
             // 
             this.tsmiScale50.Name = "tsmiScale50";
-            this.tsmiScale50.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale50.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale50.Text = "50%";
             this.tsmiScale50.Click += new System.EventHandler(this.tsmiScale50_Click);
             // 
             // tsmiScale70
             // 
             this.tsmiScale70.Name = "tsmiScale70";
-            this.tsmiScale70.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale70.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale70.Text = "70%";
             this.tsmiScale70.Click += new System.EventHandler(this.tsmiScale70_Click);
             // 
             // tsmiScale100
             // 
             this.tsmiScale100.Name = "tsmiScale100";
-            this.tsmiScale100.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale100.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale100.Text = "100%";
             this.tsmiScale100.Click += new System.EventHandler(this.tsmiScale100_Click);
             // 
             // tsmiScale150
             // 
             this.tsmiScale150.Name = "tsmiScale150";
-            this.tsmiScale150.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale150.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale150.Text = "150%";
             this.tsmiScale150.Click += new System.EventHandler(this.tsmiScale150_Click);
             // 
             // tsmiScale200
             // 
             this.tsmiScale200.Name = "tsmiScale200";
-            this.tsmiScale200.Size = new System.Drawing.Size(180, 22);
+            this.tsmiScale200.Size = new System.Drawing.Size(102, 22);
             this.tsmiScale200.Text = "200%";
             this.tsmiScale200.Click += new System.EventHandler(this.tsmiScale200_Click);
             // 
@@ -1515,13 +1522,6 @@
             this.tmUpdateInterface.Enabled = true;
             this.tmUpdateInterface.Interval = 400;
             this.tmUpdateInterface.Tick += new System.EventHandler(this.tmUpdateInterface_Tick);
-            // 
-            // CloseAllTabstoolStripMenuItem
-            // 
-            this.CloseAllTabstoolStripMenuItem.Name = "CloseAllTabstoolStripMenuItem";
-            this.CloseAllTabstoolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.CloseAllTabstoolStripMenuItem.Text = "Close All Tabs";
-            this.CloseAllTabstoolStripMenuItem.Click += new System.EventHandler(this.CloseAllTabstoolStripMenuItem_Click);
             // 
             // VisualGMT
             // 

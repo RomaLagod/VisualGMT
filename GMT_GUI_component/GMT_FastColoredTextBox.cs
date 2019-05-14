@@ -20,10 +20,15 @@ namespace GMT_GUI_component
         // Insert Key MODE (Keyboard KeyMode (INS, OVR))
         public InsertKeyMode InsertKeyMode = InsertKeyMode.Insert;
 
+        //Custom languages
+        public enum CustomLanguages { GMTwithBAT, GMTwithSH}
+        public CustomLanguages lang { get; set; } = CustomLanguages.GMTwithBAT;
+
         // static constructor
         static GMT_FastColoredTextBox()
         {
-            SameWordsStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(50, SystemColors.Control)));
+            //SameWordsStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(50, SystemColors.Control)));
+            SameWordsStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(40, Color.Gray)));
         }
 
         // default constructor
@@ -37,7 +42,9 @@ namespace GMT_GUI_component
             this.BookmarkColor = Color.DodgerBlue;
             //tb.VirtualSpace = true;
             this.LeftPadding = 50;//17 ;
-            //this.Language = Language.CSharp;
+
+            this.Language = Language.Custom;
+
             this.AddStyle(SameWordsStyle);//same words style
 
             //this.Tag = new TbInfo();

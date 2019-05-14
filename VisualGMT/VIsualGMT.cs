@@ -13,6 +13,7 @@ using VisualGMT.FormInterface;
 using FastColoredTextBoxNS;
 using System.Text.RegularExpressions;
 using System.IO;
+using Syntax;
 
 namespace VisualGMT
 {
@@ -81,6 +82,9 @@ namespace VisualGMT
                 NewGMTDocument(FilePath, value);
             }
         }
+
+        //SyntaxHighLight
+        private GMTwithBAT _GMTwithBAT = new GMTwithBAT();
 
         // On Form Load
         public event EventHandler VisualGMTLoad;
@@ -185,7 +189,18 @@ namespace VisualGMT
         // Set text count information in status strip
         private void GmtTextBoxChanged(object sender, TextChangedEventArgs e)
         {
+            //Status Strip
             (sender as GMT_FastColoredTextBox).ViewCountLinesColumns(ssDocumentInfo, 1);
+
+            //SyntaxHighLight
+            if ((sender as GMT_FastColoredTextBox).lang == GMT_FastColoredTextBox.CustomLanguages.GMTwithBAT)
+            {
+                _GMTwithBAT.SyntaxHighlight((sender as GMT_FastColoredTextBox), e);
+            }
+            else
+            {
+                //This will be another syntax Please insert HERE
+            }
         }
 
         // On selection tab changed
@@ -245,7 +260,7 @@ namespace VisualGMT
         {
             try
             {
-                //Create new GMT document and add new tab
+                // Create new GMT document and add new tab
                 var tab = new GMT_FATabStripItem(fileName, content);
                 gmt_FATabStripCollection.AddTab(tab);
                 gmt_FATabStripCollection.SelectedItem = tab;
@@ -256,6 +271,9 @@ namespace VisualGMT
                 tab.GmtTextBox.ZoomChanged += GmtZoomChanged;
                 tab.GmtTextBox.KeyDown += GmtDownPress;
                 tab.GmtTextBox.TextChangedDelayed += TextChangedDelayed;
+
+                // default syntax highlight
+                DefaultGMTTextBoxLanguageSettings(null);
             }
             catch (Exception ex)
             {
@@ -425,6 +443,27 @@ namespace VisualGMT
             }
         }
 
+        //DefaultLanguageSettings
+        private void DefaultGMTTextBoxLanguageSettings(string fileType)
+        {
+            //set language
+            CurrentGMTTextBox.ClearStylesBuffer();
+            CurrentGMTTextBox.Range.ClearStyle(StyleIndex.All);
+            //CurrentGMTTextBox.AutoIndentNeeded -= fctb_AutoIndentNeeded;
+
+            if (fileType == ".sh")
+            {
+                CurrentGMTTextBox.lang = GMT_FastColoredTextBox.CustomLanguages.GMTwithSH;
+            }
+            else
+            {
+                CurrentGMTTextBox.lang = GMT_FastColoredTextBox.CustomLanguages.GMTwithBAT;
+            }
+
+            CurrentGMTTextBox.OnTextChanged();
+            CurrentGMTTextBox.OnSyntaxHighlight(new TextChangedEventArgs(CurrentGMTTextBox.Range));
+        }
+
         // Save to file
         private bool Save(GMT_FATabStripItem tab)
         {
@@ -443,6 +482,7 @@ namespace VisualGMT
                 //File.WriteAllText(tab.Tag as string, tb.Text);
                 if (FileSaveClick != null) FileSaveClick(this, EventArgs.Empty);
                 tb.IsChanged = false;
+                DefaultGMTTextBoxLanguageSettings(Path.GetExtension(tab.Tag.ToString()));
             }
             catch (Exception ex)
             {
@@ -585,6 +625,7 @@ namespace VisualGMT
             {
                 FilePath = ofdGeneralOpen.FileName;
                 if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
+                DefaultGMTTextBoxLanguageSettings(Path.GetExtension(FilePath));
             }
         }
 
@@ -843,7 +884,5 @@ namespace VisualGMT
         }
 
         #endregion
-
-
     }
 }

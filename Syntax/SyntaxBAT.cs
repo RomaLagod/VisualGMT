@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Syntax
 {
-    class BATSyntax
+    internal class SyntaxBAT
     {
     }
 }

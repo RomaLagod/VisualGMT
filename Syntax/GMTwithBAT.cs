@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Syntax
 {
-    public class Class1
+    public class GMTwithBAT
     {
     }
 }

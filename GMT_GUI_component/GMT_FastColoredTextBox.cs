@@ -61,7 +61,7 @@ namespace GMT_GUI_component
             this.ChangedLineColor = _changedLineColor;
             //if (btHighlightCurrentLine.Checked)
             //    this.CurrentLineColor = _currentLineColor;
-            //this.ShowFoldingLines = btShowFoldingLines.Checked;
+            //this.ShowFoldingLines = btShowFoldingLines.Checked;            
             this.HighlightingRangeType = HighlightingRangeType.VisibleRange;
 
             //create autocomplete popup menu

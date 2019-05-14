@@ -24,6 +24,8 @@ namespace Syntax
         TextStyle RedStyle = new TextStyle(Brushes.Red, null, FontStyle.Regular);
         TextStyle OrangeStyle = new TextStyle(Brushes.DarkOrange, null, FontStyle.Regular);
         TextStyle VioletStyle = new TextStyle(Brushes.DarkViolet, null, FontStyle.Regular);
+        TextStyle OliveStyle = new TextStyle(Brushes.DarkOliveGreen, null, FontStyle.Regular);
+
 
 
 
@@ -38,18 +40,19 @@ namespace Syntax
             TextBox.RightBracket2 = '\x0';
 
             //clear style of changed range
-            e.ChangedRange.ClearStyle(BlueStyle, BoldStyle, GrayStyle, MagentaStyle, GreenStyle, BrownStyle, MaroonStyle, RedStyle, OrangeStyle, VioletStyle);
+            e.ChangedRange.ClearStyle(BlueStyle, BoldStyle, GrayStyle, MagentaStyle, GreenStyle, BrownStyle, MaroonStyle, RedStyle, OrangeStyle, VioletStyle, OliveStyle);
 
             //string highlighting
-            //e.ChangedRange.SetStyle(BrownStyle, @"""""|@""""|''|@"".*?""|(?<!@)(?<range>"".*?[^\\]"")|'.*?[^\\]'");
+            e.ChangedRange.SetStyle(BrownStyle, SyntaxGMT.GMTStrings);
 
             //comment highlighting
-            //e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
+            TextBox.CommentPrefix = "REM";
+            e.ChangedRange.SetStyle(GreenStyle, SyntaxBAT.Comments, RegexOptions.Multiline);
             //e.ChangedRange.SetStyle(GreenStyle, @"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline);
             //e.ChangedRange.SetStyle(GreenStyle, @"(/\*.*?\*/)|(.*\*/)", RegexOptions.Singleline | RegexOptions.RightToLeft);
 
             //number highlighting
-            //e.ChangedRange.SetStyle(MagentaStyle, @"\b\d+[\.]?\d*([eE]\-?\d+)?[lLdDfF]?\b|\b0x[a-fA-F\d]+\b");
+            e.ChangedRange.SetStyle(MagentaStyle, SyntaxGMT.Numbers);
 
             //attribute highlighting
             //e.ChangedRange.SetStyle(GrayStyle, @"^\s*(?<range>\[.+?\])\s*$", RegexOptions.Multiline);
@@ -64,16 +67,23 @@ namespace Syntax
             e.ChangedRange.SetStyle(BlueStyle, SyntaxGMT.KeyWords);
 
             //Math Operators and constants
-            e.ChangedRange.SetStyle(MaroonStyle, SyntaxGMT.MathOperators);
+            e.ChangedRange.SetStyle(OliveStyle, SyntaxGMT.MathOperators);
             e.ChangedRange.SetStyle(VioletStyle, SyntaxGMT.MathConstatnts);
 
             //Arguments
+
+            //Symbols
+            e.ChangedRange.SetStyle(RedStyle, SyntaxBAT.Symbols);
 
             //clear folding markers
             e.ChangedRange.ClearFoldingMarkers();
 
             //set folding markers
-            //e.ChangedRange.SetFoldingMarkers("{", "}");//allow to collapse brackets block
+            e.ChangedRange.SetFoldingMarkers(SyntaxBAT.FoldingMarkerLeft1, SyntaxBAT.FoldingMarkerRight1);
+            e.ChangedRange.SetFoldingMarkers(SyntaxBAT.FoldingMarkerLeft2, SyntaxBAT.FoldingMarkerRight2);
+            e.ChangedRange.SetFoldingMarkers(SyntaxBAT.FoldingMarkerLeft3, SyntaxBAT.FoldingMarkerRight3);
+
+            //e.ChangedRange.SetFoldingMarkers("REM{", "REM}");//allow to collapse brackets block
             //e.ChangedRange.SetFoldingMarkers(@"#region\b", @"#endregion\b");//allow to collapse #region blocks
             //e.ChangedRange.SetFoldingMarkers(@"/\*", @"\*/");//allow to collapse comment block
         }

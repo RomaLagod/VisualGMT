@@ -23,7 +23,10 @@ namespace Syntax
         #endregion
 
         #region Comments
+
         //Comments
+        public static string Comments = @"REM.*$";
+
         #endregion
 
         #region Numbers
@@ -47,7 +50,21 @@ namespace Syntax
         #endregion
 
         #region Folding Markers
+
         //Folding Markers
+        public static string FoldingMarkerLeft1 = @"REM{";
+        public static string FoldingMarkerRight1 = @"REM}";
+        public static string FoldingMarkerLeft2 = @"REM\(";
+        public static string FoldingMarkerRight2 = @"REM\)";
+        public static string FoldingMarkerLeft3 = @"REM<";
+        public static string FoldingMarkerRight3 = @"REM>";
+
+        #endregion
+
+        #region SpecialSymbols
+
+        public static string Symbols = @">|>>|\||\+|\-|\/";
+
         #endregion
     }
 }

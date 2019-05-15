@@ -186,15 +186,18 @@ namespace VisualGMT
         private void GmtCursorChanged(object sender, EventArgs e)
         {
             (sender as GMT_FastColoredTextBox).ViewCaretPosition(ssDocumentInfo, 2);
+
+            // View document status in Status Strip
+            DocumentStatus((sender as GMT_FastColoredTextBox));
         }
 
         // Set text count information in status strip
         private void GmtTextBoxChanged(object sender, TextChangedEventArgs e)
         {
-            //Status Strip
+            // Status Strip
             (sender as GMT_FastColoredTextBox).ViewCountLinesColumns(ssDocumentInfo, 1);
 
-            //SyntaxHighLight
+            // SyntaxHighLight
             if ((sender as GMT_FastColoredTextBox).lang == GMT_FastColoredTextBox.CustomLanguages.GMTwithBAT)
             {
                 _GMTwithBAT.SyntaxHighlight((sender as GMT_FastColoredTextBox), e);
@@ -220,6 +223,7 @@ namespace VisualGMT
                 InvalidateCurrentLine();
                 InvalidatePreferredLine();
                 ShowFolderLines();
+                DocumentStatus(CurrentGMTTextBox);
                 //string text = CurrentTB.Text;
                 //ThreadPool.QueueUserWorkItem((o) => ReBuildObjectExplorer(text));
             }
@@ -544,6 +548,34 @@ namespace VisualGMT
             //process.Close();
         }
 
+        // Parameter Line for Status Strip (isChanged and file type)
+        private void DocumentStatus(GMT_FastColoredTextBox TextBox)
+        {
+            string documentType = String.Empty;
+
+            if ((TextBox.Parent as GMT_FATabStripItem).Tag != null)
+            {
+                if (Path.GetExtension((TextBox.Parent as GMT_FATabStripItem).Tag.ToString()) == ".bat")
+                {
+                    documentType = @"[Current File Type : BAT, Syntax-BAT] ";
+                }
+                else if (Path.GetExtension((TextBox.Parent as GMT_FATabStripItem).Tag.ToString()) == ".sh")
+                {
+                    documentType = @"[Current File Type : SH, Syntax-SH] ";
+                }
+                else if (Path.GetExtension((TextBox.Parent as GMT_FATabStripItem).Tag.ToString()) == ".txt")
+                {
+                    documentType = @"[Current File Type : TXT, Syntax-BAT] ";
+                }
+            }
+            else
+            {
+                documentType = @"[Current document type : UNKNOUN, Syntax-BAT] ";
+            }
+
+            ViewTextDocumentStatus(ssDocumentInfo, 0, documentType);
+        }
+
         #endregion
 
         #region Status Strip
@@ -587,6 +619,12 @@ namespace VisualGMT
         private void TextInsertMode(StatusStrip statusStrip, int col, string insertKeyMode)
         {
             statusStrip.Items[col].Text = $"{insertKeyMode}";
+        }
+
+        // Set document status
+        private void ViewTextDocumentStatus(StatusStrip statusStrip, int col, string documentInfo)
+        {
+            statusStrip.Items[col].Text = $"{documentInfo}";
         }
 
         #endregion
@@ -701,6 +739,25 @@ namespace VisualGMT
         {
             ShowFolderLines();
             showFolderLinesToolStripMenuItem.CheckState = (sender as CheckBox).CheckState;
+        }
+
+        // Collapse all Folding blocks
+        private void btnHTCodeFolders_CheckedChanged(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.CollapseAllFoldingBlocks();
+            (sender as CheckBox).CheckState = CheckState.Unchecked;
+        }
+
+        // Comment selected
+        private void btnHTComment_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.InsertLinePrefix(CurrentGMTTextBox.CommentPrefix);
+        }
+
+        // Uncoment Selected
+        private void btnHTUnComment_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.RemoveLinePrefix(CurrentGMTTextBox.CommentPrefix);
         }
 
         #endregion
@@ -870,6 +927,54 @@ namespace VisualGMT
             btnHTFolderLines.CheckState = (sender as ToolStripMenuItem).CheckState;
         }
 
+        // View -> Collapse All Folding Blocks
+        private void collapseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.CollapseAllFoldingBlocks();
+        }
+
+        // View -> Expand All Folding Blocks
+        private void expandtoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.ExpandAllFoldingBlocks();
+        }
+
+        // View -> Navigate Backward
+        private void goBakcwardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.NavigateBackward();
+        }
+
+        // View -> Navigate Forward
+        private void goForwardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.NavigateForward();
+        }
+
+        //Edit -> Set Selected As Read Only
+        private void setSelectedAsReadOnlyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Selection.ReadOnly = true;
+        }
+
+        //Edit -> Set Selected As Writable
+        private void setSelectedAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.Selection.ReadOnly = false;
+        }
+
+        // Edit -> Increase Indent (+Tabulation)
+        private void increaseIndentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.IncreaseIndent();
+        }
+
+        // Edit -> Decrease Indent (-Tabulation)
+        private void decreaseIndentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CurrentGMTTextBox.DecreaseIndent();
+        }
+
         #endregion
 
         #region Timer work (Update Interface)
@@ -901,12 +1006,23 @@ namespace VisualGMT
                     btnHTComment.Enabled = commentSelectedLinesToolStripMenuItem.Enabled =
                     btnHTUnComment.Enabled = uncommentSelectedLinesToolStripMenuItem.Enabled = true;
                     collapseToolStripMenuItem.Enabled = expandtoolStripMenuItem.Enabled = true;
-                    goLeftBrackedToolStripMenuItem.Enabled = goRightBracketToolStripMenuItem.Enabled = true;
                     btnHTRun.Enabled = runInEmbededConsoleToolStripMenuItem.Enabled =
                     runInShellToolStripMenuItem.Enabled = runInWinConsoleToolStripMenuItem.Enabled =
                     checkUpToolStripMenuItem.Enabled = true;
                     autoIndentSelectedTextToolStripMenuItem.Enabled = true;
                     closeTabToolStripMenuItem.Enabled = CloseAllTabstoolStripMenuItem.Enabled = true;
+
+                    btnHTFolderLines.Enabled = showFolderLinesToolStripMenuItem.Enabled = true;
+                    btnHTCodeFolders.Enabled = collapseToolStripMenuItem.Enabled = expandtoolStripMenuItem.Enabled = true;
+                    setSelectedAsReadOnlyToolStripMenuItem.Enabled = setSelectedAsToolStripMenuItem.Enabled = true;
+                    increaseIndentToolStripMenuItem.Enabled = decreaseIndentToolStripMenuItem.Enabled = true;
+
+                    goBakcwardToolStripMenuItem.Enabled = goForwardToolStripMenuItem.Enabled = true;
+                    btnHTHighlightCurrentLine.Enabled = highlightCurrentLineToolStripMenuItem.Enabled = true;
+                    btnHTInvisibleSymbols.Enabled = showInvisibleCharToolStripMenuItem.Enabled = true;
+                    rulerToolStripMenuItem.Enabled = true;
+                    preferredLineToolStripMenuItem.Enabled = true;
+                    documentMapToolStripMenuItem.Enabled = true;
                 }
                 else
                 {
@@ -929,12 +1045,23 @@ namespace VisualGMT
                     btnHTComment.Enabled = commentSelectedLinesToolStripMenuItem.Enabled =
                     btnHTUnComment.Enabled = uncommentSelectedLinesToolStripMenuItem.Enabled = false;
                     collapseToolStripMenuItem.Enabled = expandtoolStripMenuItem.Enabled = false;
-                    goLeftBrackedToolStripMenuItem.Enabled = goRightBracketToolStripMenuItem.Enabled = false;
                     btnHTRun.Enabled = runInEmbededConsoleToolStripMenuItem.Enabled =
                     runInShellToolStripMenuItem.Enabled = runInWinConsoleToolStripMenuItem.Enabled =
                     checkUpToolStripMenuItem.Enabled = false;
                     autoIndentSelectedTextToolStripMenuItem.Enabled = false;
                     closeTabToolStripMenuItem.Enabled = CloseAllTabstoolStripMenuItem.Enabled = false;
+
+                    btnHTFolderLines.Enabled = showFolderLinesToolStripMenuItem.Enabled = false;
+                    btnHTCodeFolders.Enabled = collapseToolStripMenuItem.Enabled = expandtoolStripMenuItem.Enabled = false;
+                    setSelectedAsReadOnlyToolStripMenuItem.Enabled = setSelectedAsToolStripMenuItem.Enabled = false;
+                    increaseIndentToolStripMenuItem.Enabled = decreaseIndentToolStripMenuItem.Enabled = false;
+
+                    goBakcwardToolStripMenuItem.Enabled = goForwardToolStripMenuItem.Enabled = false;
+                    btnHTHighlightCurrentLine.Enabled = highlightCurrentLineToolStripMenuItem.Enabled = false;
+                    btnHTInvisibleSymbols.Enabled = showInvisibleCharToolStripMenuItem.Enabled = false;
+                    rulerToolStripMenuItem.Enabled = false;
+                    preferredLineToolStripMenuItem.Enabled = false;
+                    documentMapToolStripMenuItem.Enabled = false;
                 }
             }
             catch (Exception ex)

@@ -91,9 +91,6 @@
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripSeparator();
             this.autoIndentSelectedTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripSeparator();
-            this.goLeftBrackedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.goRightBracketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripSeparator();
             this.rulerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferredLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -165,6 +162,12 @@
             this.sfdGeneralSave = new System.Windows.Forms.SaveFileDialog();
             this.tmUpdateInterface = new System.Windows.Forms.Timer(this.components);
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
+            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripSeparator();
+            this.setSelectedAsReadOnlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setSelectedAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripSeparator();
+            this.increaseIndentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decreaseIndentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
             this.cmsBookmarks.SuspendLayout();
@@ -321,7 +324,13 @@
             this.toolStripMenuItem7,
             this.selectAllToolStripMenuItem,
             this.toolStripMenuItem8,
-            this.bookmarksToolStripMenuItem});
+            this.bookmarksToolStripMenuItem,
+            this.toolStripMenuItem16,
+            this.setSelectedAsReadOnlyToolStripMenuItem,
+            this.setSelectedAsToolStripMenuItem,
+            this.toolStripMenuItem20,
+            this.increaseIndentToolStripMenuItem,
+            this.decreaseIndentToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -483,9 +492,6 @@
             this.toolStripMenuItem14,
             this.autoIndentSelectedTextToolStripMenuItem,
             this.toolStripMenuItem15,
-            this.goLeftBrackedToolStripMenuItem,
-            this.goRightBracketToolStripMenuItem,
-            this.toolStripMenuItem16,
             this.rulerToolStripMenuItem,
             this.preferredLineToolStripMenuItem,
             this.documentMapToolStripMenuItem});
@@ -583,16 +589,18 @@
             // 
             this.collapseToolStripMenuItem.Name = "collapseToolStripMenuItem";
             this.collapseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D0)));
-            this.collapseToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
-            this.collapseToolStripMenuItem.Text = "Collaps";
+            this.collapseToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.collapseToolStripMenuItem.Text = "Collaps All Folding Blocks";
+            this.collapseToolStripMenuItem.Click += new System.EventHandler(this.collapseToolStripMenuItem_Click);
             // 
             // expandtoolStripMenuItem
             // 
             this.expandtoolStripMenuItem.Name = "expandtoolStripMenuItem";
             this.expandtoolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D0)));
-            this.expandtoolStripMenuItem.Size = new System.Drawing.Size(291, 22);
-            this.expandtoolStripMenuItem.Text = "Expand";
+            this.expandtoolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.expandtoolStripMenuItem.Text = "Expand All Folding Blocks";
+            this.expandtoolStripMenuItem.Click += new System.EventHandler(this.expandtoolStripMenuItem_Click);
             // 
             // toolStripMenuItem11
             // 
@@ -616,15 +624,17 @@
             // 
             this.commentSelectedLinesToolStripMenuItem.Name = "commentSelectedLinesToolStripMenuItem";
             this.commentSelectedLinesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.commentSelectedLinesToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.commentSelectedLinesToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.commentSelectedLinesToolStripMenuItem.Text = "Comment Selected Lines";
+            this.commentSelectedLinesToolStripMenuItem.Click += new System.EventHandler(this.btnHTComment_Click);
             // 
             // uncommentSelectedLinesToolStripMenuItem
             // 
             this.uncommentSelectedLinesToolStripMenuItem.Name = "uncommentSelectedLinesToolStripMenuItem";
             this.uncommentSelectedLinesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.uncommentSelectedLinesToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
+            this.uncommentSelectedLinesToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.uncommentSelectedLinesToolStripMenuItem.Text = "Uncomment Selected Lines";
+            this.uncommentSelectedLinesToolStripMenuItem.Click += new System.EventHandler(this.btnHTUnComment_Click);
             // 
             // toolStripMenuItem13
             // 
@@ -634,14 +644,16 @@
             // goBakcwardToolStripMenuItem
             // 
             this.goBakcwardToolStripMenuItem.Name = "goBakcwardToolStripMenuItem";
-            this.goBakcwardToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.goBakcwardToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.goBakcwardToolStripMenuItem.Text = "Go Backward";
+            this.goBakcwardToolStripMenuItem.Click += new System.EventHandler(this.goBakcwardToolStripMenuItem_Click);
             // 
             // goForwardToolStripMenuItem
             // 
             this.goForwardToolStripMenuItem.Name = "goForwardToolStripMenuItem";
-            this.goForwardToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.goForwardToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.goForwardToolStripMenuItem.Text = "Go Forward";
+            this.goForwardToolStripMenuItem.Click += new System.EventHandler(this.goForwardToolStripMenuItem_Click);
             // 
             // toolStripMenuItem14
             // 
@@ -658,23 +670,6 @@
             // 
             this.toolStripMenuItem15.Name = "toolStripMenuItem15";
             this.toolStripMenuItem15.Size = new System.Drawing.Size(288, 6);
-            // 
-            // goLeftBrackedToolStripMenuItem
-            // 
-            this.goLeftBrackedToolStripMenuItem.Name = "goLeftBrackedToolStripMenuItem";
-            this.goLeftBrackedToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
-            this.goLeftBrackedToolStripMenuItem.Text = "Go Left Bracket";
-            // 
-            // goRightBracketToolStripMenuItem
-            // 
-            this.goRightBracketToolStripMenuItem.Name = "goRightBracketToolStripMenuItem";
-            this.goRightBracketToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
-            this.goRightBracketToolStripMenuItem.Text = "Go Right Bracket";
-            // 
-            // toolStripMenuItem16
-            // 
-            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
-            this.toolStripMenuItem16.Size = new System.Drawing.Size(288, 6);
             // 
             // rulerToolStripMenuItem
             // 
@@ -1064,6 +1059,7 @@
             this.btnHTUnComment.Size = new System.Drawing.Size(30, 29);
             this.btnHTUnComment.TabIndex = 38;
             this.btnHTUnComment.UseVisualStyleBackColor = false;
+            this.btnHTUnComment.Click += new System.EventHandler(this.btnHTUnComment_Click);
             // 
             // btnHTComment
             // 
@@ -1080,6 +1076,7 @@
             this.btnHTComment.Size = new System.Drawing.Size(30, 29);
             this.btnHTComment.TabIndex = 37;
             this.btnHTComment.UseVisualStyleBackColor = false;
+            this.btnHTComment.Click += new System.EventHandler(this.btnHTComment_Click);
             // 
             // btnHTFolderLines
             // 
@@ -1117,6 +1114,7 @@
             this.btnHTCodeFolders.Size = new System.Drawing.Size(30, 29);
             this.btnHTCodeFolders.TabIndex = 35;
             this.btnHTCodeFolders.UseVisualStyleBackColor = true;
+            this.btnHTCodeFolders.CheckedChanged += new System.EventHandler(this.btnHTCodeFolders_CheckedChanged);
             // 
             // btnHTInvisibleSymbols
             // 
@@ -1526,6 +1524,44 @@
             this.gmt_FATabStripCollection.TabStripItemClosing += new FarsiLibrary.Win.TabStripItemClosingHandler(this.gmt_FATabStripCollection_TabStripItemClosing);
             this.gmt_FATabStripCollection.TabStripItemSelectionChanged += new FarsiLibrary.Win.TabStripItemChangedHandler(this.gmt_FATabStripCollection_TabStripItemSelectionChanged);
             // 
+            // toolStripMenuItem16
+            // 
+            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(215, 6);
+            // 
+            // setSelectedAsReadOnlyToolStripMenuItem
+            // 
+            this.setSelectedAsReadOnlyToolStripMenuItem.Name = "setSelectedAsReadOnlyToolStripMenuItem";
+            this.setSelectedAsReadOnlyToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.setSelectedAsReadOnlyToolStripMenuItem.Text = "Set Selected As Read Only";
+            this.setSelectedAsReadOnlyToolStripMenuItem.Click += new System.EventHandler(this.setSelectedAsReadOnlyToolStripMenuItem_Click);
+            // 
+            // setSelectedAsToolStripMenuItem
+            // 
+            this.setSelectedAsToolStripMenuItem.Name = "setSelectedAsToolStripMenuItem";
+            this.setSelectedAsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.setSelectedAsToolStripMenuItem.Text = "Set Selected As Writable";
+            this.setSelectedAsToolStripMenuItem.Click += new System.EventHandler(this.setSelectedAsToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem20
+            // 
+            this.toolStripMenuItem20.Name = "toolStripMenuItem20";
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(215, 6);
+            // 
+            // increaseIndentToolStripMenuItem
+            // 
+            this.increaseIndentToolStripMenuItem.Name = "increaseIndentToolStripMenuItem";
+            this.increaseIndentToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.increaseIndentToolStripMenuItem.Text = "Increase Indent [Tab]";
+            this.increaseIndentToolStripMenuItem.Click += new System.EventHandler(this.increaseIndentToolStripMenuItem_Click);
+            // 
+            // decreaseIndentToolStripMenuItem
+            // 
+            this.decreaseIndentToolStripMenuItem.Name = "decreaseIndentToolStripMenuItem";
+            this.decreaseIndentToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.decreaseIndentToolStripMenuItem.Text = "Decrease Indent [Shift+Tab]";
+            this.decreaseIndentToolStripMenuItem.Click += new System.EventHandler(this.decreaseIndentToolStripMenuItem_Click);
+            // 
             // VisualGMT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1635,9 +1671,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem14;
         private System.Windows.Forms.ToolStripMenuItem autoIndentSelectedTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem15;
-        private System.Windows.Forms.ToolStripMenuItem goLeftBrackedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem goRightBracketToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem16;
         private System.Windows.Forms.ToolStripMenuItem rulerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem documentMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scriptToolStripMenuItem;
@@ -1692,6 +1725,12 @@
         private System.Windows.Forms.SaveFileDialog sfdGeneralSave;
         private System.Windows.Forms.Timer tmUpdateInterface;
         private System.Windows.Forms.ToolStripMenuItem CloseAllTabstoolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem16;
+        private System.Windows.Forms.ToolStripMenuItem setSelectedAsReadOnlyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setSelectedAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem20;
+        private System.Windows.Forms.ToolStripMenuItem increaseIndentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem decreaseIndentToolStripMenuItem;
     }
 }
 

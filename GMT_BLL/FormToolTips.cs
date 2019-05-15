@@ -47,7 +47,7 @@ namespace GMT_BLL
             Redo = "Redo";
             HighlightCurrentLine = "Highlight Current Line";
             InvisibleChars = "Show/Hide Invisible Chars";
-            Folders = "Expand/Hide Sections";
+            Folders = "Collapse All Folder Blocks";
             FolderLines = "Show/Hide Sections Lines";
             Comment = "Comment";
             UnComment = "Uncomment";

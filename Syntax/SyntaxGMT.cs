@@ -8,10 +8,6 @@ namespace Syntax
 {
     internal static class SyntaxGMT
     {
-        #region Brackets
-        //Brackets EMPTY
-        #endregion
-
         #region Strings
 
         //Strings
@@ -19,19 +15,11 @@ namespace Syntax
 
         #endregion
 
-        #region Comments
-        //Comments EMPTY
-        #endregion
-
         #region Numbers
 
         //Numbers -- don't correct
-        public static string Numbers = @"\b*\d+[\.]?\d*([eE]\-?\d+)?[a-zA-Z]?\b|\b0x[a-fA-F\d]+\b";
+        public static string Numbers = @"[0-9]?[\.]?[0-9]?";//@"\b*\d+[\.]?\d*([eE]\-?\d+)?[a-zA-Z]?\b|\b0x[a-fA-F\d]+\b";
 
-        #endregion
-
-        #region Attributes
-        //Attribute EMPTY
         #endregion
 
         #region ClassNames
@@ -81,14 +69,6 @@ namespace Syntax
         //Constants
         public static string MathConstatnts = @"\b(PI|E|EULER|EPS_F|EPS_D|TMIN|TMAX|XMIN|XMAX|XRANGE|TRANGE|TINC|XINC|NX|YMIN|YMAX|YRANGE|YINC|X|Y|XNORM|YNORM|XCOL|YROW|NODE|N|T|TNORM|TROW)\b";
 
-        #endregion
-
-        #region Arguments
-        //Arguments
-        #endregion
-
-        #region Folding Markers
-        //Folding Markers
         #endregion
     }
 }

@@ -16,20 +16,18 @@ namespace Syntax
         //styles
         TextStyle BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
         TextStyle BoldStyle = new TextStyle(null, null, FontStyle.Bold);
-        TextStyle GrayStyle = new TextStyle(Brushes.Gray, null, FontStyle.Regular);
+        TextStyle GrayStyle = new TextStyle(Brushes.Gray, null, FontStyle.Regular); // free
         TextStyle MagentaStyle = new TextStyle(Brushes.Magenta, null, FontStyle.Regular);
         TextStyle GreenStyle = new TextStyle(Brushes.Green, null, FontStyle.Italic);
         TextStyle BrownStyle = new TextStyle(Brushes.Brown, null, FontStyle.Italic);
-        TextStyle MaroonStyle = new TextStyle(Brushes.Maroon, null, FontStyle.Regular);
+        TextStyle MaroonStyle = new TextStyle(Brushes.Maroon, null, FontStyle.Regular); // free
         TextStyle RedStyle = new TextStyle(Brushes.Red, null, FontStyle.Regular);
         TextStyle OrangeStyle = new TextStyle(Brushes.DarkOrange, null, FontStyle.Regular);
         TextStyle VioletStyle = new TextStyle(Brushes.DarkViolet, null, FontStyle.Regular);
         TextStyle OliveStyle = new TextStyle(Brushes.DarkOliveGreen, null, FontStyle.Regular);
+        TextStyle IndigoStyle = new TextStyle(Brushes.Indigo, null, FontStyle.Italic|FontStyle.Bold);
 
-
-
-
-        MarkerStyle SameWordsStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(40, Color.Gray)));
+        MarkerStyle SameWordsStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(40, Color.Gray))); // free
 
         public void SyntaxHighlight(GMT_FastColoredTextBox TextBox, TextChangedEventArgs e)
         {
@@ -42,20 +40,13 @@ namespace Syntax
             //clear style of changed range
             e.ChangedRange.ClearStyle(BlueStyle, BoldStyle, GrayStyle, MagentaStyle, GreenStyle, BrownStyle, MaroonStyle, RedStyle, OrangeStyle, VioletStyle, OliveStyle);
 
-            //string highlighting
-            e.ChangedRange.SetStyle(BrownStyle, SyntaxGMT.GMTStrings);
-
             //comment highlighting
             TextBox.CommentPrefix = "REM";
-            e.ChangedRange.SetStyle(GreenStyle, SyntaxBAT.Comments, RegexOptions.Multiline);
-            //e.ChangedRange.SetStyle(GreenStyle, @"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline);
-            //e.ChangedRange.SetStyle(GreenStyle, @"(/\*.*?\*/)|(.*\*/)", RegexOptions.Singleline | RegexOptions.RightToLeft);
+            e.ChangedRange.SetStyle(GreenStyle, SyntaxBAT.Comments, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            e.ChangedRange.SetStyle(GreenStyle, SyntaxBAT.Comments2, RegexOptions.Multiline);
 
-            //number highlighting
-            e.ChangedRange.SetStyle(MagentaStyle, SyntaxGMT.Numbers);
-
-            //attribute highlighting
-            //e.ChangedRange.SetStyle(GrayStyle, @"^\s*(?<range>\[.+?\])\s*$", RegexOptions.Multiline);
+            //string highlighting
+            e.ChangedRange.SetStyle(BrownStyle, SyntaxGMT.GMTStrings);
 
             //class name highlighting
             e.ChangedRange.SetStyle(BoldStyle, SyntaxGMT.ClassNames);
@@ -66,11 +57,16 @@ namespace Syntax
             //keyword highlighting
             e.ChangedRange.SetStyle(BlueStyle, SyntaxGMT.KeyWords);
 
+            //number highlighting
+            e.ChangedRange.SetStyle(MagentaStyle, SyntaxGMT.Numbers);
+
             //Math Operators and constants
             e.ChangedRange.SetStyle(OliveStyle, SyntaxGMT.MathOperators);
             e.ChangedRange.SetStyle(VioletStyle, SyntaxGMT.MathConstatnts);
 
-            //Arguments
+            //Console bathc scripting (commands)
+            e.ChangedRange.SetStyle(IndigoStyle, SyntaxBAT.InternalCommands, RegexOptions.IgnoreCase);
+            e.ChangedRange.SetStyle(IndigoStyle, SyntaxBAT.ExternalCommands, RegexOptions.IgnoreCase);
 
             //Symbols
             e.ChangedRange.SetStyle(RedStyle, SyntaxBAT.Symbols);
@@ -82,10 +78,6 @@ namespace Syntax
             e.ChangedRange.SetFoldingMarkers(SyntaxBAT.FoldingMarkerLeft1, SyntaxBAT.FoldingMarkerRight1);
             e.ChangedRange.SetFoldingMarkers(SyntaxBAT.FoldingMarkerLeft2, SyntaxBAT.FoldingMarkerRight2);
             e.ChangedRange.SetFoldingMarkers(SyntaxBAT.FoldingMarkerLeft3, SyntaxBAT.FoldingMarkerRight3);
-
-            //e.ChangedRange.SetFoldingMarkers("REM{", "REM}");//allow to collapse brackets block
-            //e.ChangedRange.SetFoldingMarkers(@"#region\b", @"#endregion\b");//allow to collapse #region blocks
-            //e.ChangedRange.SetFoldingMarkers(@"/\*", @"\*/");//allow to collapse comment block
         }
     }
 }

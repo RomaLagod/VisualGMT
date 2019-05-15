@@ -120,6 +120,7 @@
             this.splitter6 = new System.Windows.Forms.Splitter();
             this.btnHTRun = new System.Windows.Forms.Button();
             this.splitter5 = new System.Windows.Forms.Splitter();
+            this.btnHTBookmarks = new GMT_GUI_component.SplitButton();
             this.cmsBookmarks = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
@@ -164,7 +165,6 @@
             this.sfdGeneralSave = new System.Windows.Forms.SaveFileDialog();
             this.tmUpdateInterface = new System.Windows.Forms.Timer(this.components);
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
-            this.btnHTBookmarks = new GMT_GUI_component.SplitButton();
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
             this.cmsBookmarks.SuspendLayout();
@@ -601,9 +601,11 @@
             // 
             // showFolderLinesToolStripMenuItem
             // 
+            this.showFolderLinesToolStripMenuItem.CheckOnClick = true;
             this.showFolderLinesToolStripMenuItem.Name = "showFolderLinesToolStripMenuItem";
             this.showFolderLinesToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
             this.showFolderLinesToolStripMenuItem.Text = "Show Folder Lines";
+            this.showFolderLinesToolStripMenuItem.Click += new System.EventHandler(this.showFolderLinesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem12
             // 
@@ -620,9 +622,8 @@
             // uncommentSelectedLinesToolStripMenuItem
             // 
             this.uncommentSelectedLinesToolStripMenuItem.Name = "uncommentSelectedLinesToolStripMenuItem";
-            this.uncommentSelectedLinesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.K)));
-            this.uncommentSelectedLinesToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.uncommentSelectedLinesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
+            this.uncommentSelectedLinesToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
             this.uncommentSelectedLinesToolStripMenuItem.Text = "Uncomment Selected Lines";
             // 
             // toolStripMenuItem13
@@ -965,6 +966,24 @@
             this.splitter5.TabIndex = 43;
             this.splitter5.TabStop = false;
             // 
+            // btnHTBookmarks
+            // 
+            this.btnHTBookmarks.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTBookmarks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTBookmarks.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTBookmarks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTBookmarks.ForeColor = System.Drawing.Color.White;
+            this.btnHTBookmarks.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHTBookmarks.ImageIndex = 17;
+            this.btnHTBookmarks.ImageList = this.ilToolBarImages_24;
+            this.btnHTBookmarks.Location = new System.Drawing.Point(514, 1);
+            this.btnHTBookmarks.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTBookmarks.Menu = this.cmsBookmarks;
+            this.btnHTBookmarks.Name = "btnHTBookmarks";
+            this.btnHTBookmarks.Size = new System.Drawing.Size(52, 29);
+            this.btnHTBookmarks.TabIndex = 42;
+            this.btnHTBookmarks.UseVisualStyleBackColor = false;
+            // 
             // cmsBookmarks
             // 
             this.cmsBookmarks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1079,6 +1098,7 @@
             this.btnHTFolderLines.Size = new System.Drawing.Size(30, 29);
             this.btnHTFolderLines.TabIndex = 36;
             this.btnHTFolderLines.UseVisualStyleBackColor = true;
+            this.btnHTFolderLines.CheckedChanged += new System.EventHandler(this.btnHTFolderLines_CheckedChanged);
             // 
             // btnHTCodeFolders
             // 
@@ -1505,24 +1525,6 @@
             this.gmt_FATabStripCollection.Text = "gmT_FATabStripCollection1";
             this.gmt_FATabStripCollection.TabStripItemClosing += new FarsiLibrary.Win.TabStripItemClosingHandler(this.gmt_FATabStripCollection_TabStripItemClosing);
             this.gmt_FATabStripCollection.TabStripItemSelectionChanged += new FarsiLibrary.Win.TabStripItemChangedHandler(this.gmt_FATabStripCollection_TabStripItemSelectionChanged);
-            // 
-            // btnHTBookmarks
-            // 
-            this.btnHTBookmarks.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTBookmarks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTBookmarks.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTBookmarks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTBookmarks.ForeColor = System.Drawing.Color.White;
-            this.btnHTBookmarks.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHTBookmarks.ImageIndex = 17;
-            this.btnHTBookmarks.ImageList = this.ilToolBarImages_24;
-            this.btnHTBookmarks.Location = new System.Drawing.Point(514, 1);
-            this.btnHTBookmarks.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTBookmarks.Menu = this.cmsBookmarks;
-            this.btnHTBookmarks.Name = "btnHTBookmarks";
-            this.btnHTBookmarks.Size = new System.Drawing.Size(52, 29);
-            this.btnHTBookmarks.TabIndex = 42;
-            this.btnHTBookmarks.UseVisualStyleBackColor = false;
             // 
             // VisualGMT
             // 

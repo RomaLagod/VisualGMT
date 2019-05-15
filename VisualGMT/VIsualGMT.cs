@@ -219,6 +219,7 @@ namespace VisualGMT
                 ShowGmtDocumentMap();
                 InvalidateCurrentLine();
                 InvalidatePreferredLine();
+                ShowFolderLines();
                 //string text = CurrentTB.Text;
                 //ThreadPool.QueueUserWorkItem((o) => ReBuildObjectExplorer(text));
             }
@@ -417,6 +418,15 @@ namespace VisualGMT
                 CurrentGMTTextBox.Invalidate();
         }
 
+        // Show/Hide Folder Lines in GMT TextBox
+        private void ShowFolderLines()
+        {
+            foreach (GMT_FATabStripItem tab in gmt_FATabStripCollection.Items)
+                (tab.Controls[0] as GMT_FastColoredTextBox).ShowFoldingLines = btnHTFolderLines.Checked;
+            if (CurrentGMTTextBox != null)
+                CurrentGMTTextBox.Invalidate();
+        }
+
         //Fill context menu with all present Bookmarks
         private void FillBookmarksItems(ToolStripItemCollection itemsCollection)
         {
@@ -510,7 +520,7 @@ namespace VisualGMT
             processInfo.CreateNoWindow = false;
             processInfo.UseShellExecute = false;
             processInfo.WindowStyle = ProcessWindowStyle.Normal;
-            processInfo.
+            //processInfo.
             //processInfo.WorkingDirectory = Application.StartupPath;// + "\\txtmanipulator";
 
             // *** Redirect the output ***
@@ -686,6 +696,13 @@ namespace VisualGMT
             }
         }
 
+        // Show/Hide Folding Lines
+        private void btnHTFolderLines_CheckedChanged(object sender, EventArgs e)
+        {
+            ShowFolderLines();
+            showFolderLinesToolStripMenuItem.CheckState = (sender as CheckBox).CheckState;
+        }
+
         #endregion
 
         #region MainMenu
@@ -844,6 +861,13 @@ namespace VisualGMT
                     CloseTabError(exception, e);
                 }
             }
+        }
+
+        // View -> Show/Hide Folder Lines
+        private void showFolderLinesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowFolderLines();
+            btnHTFolderLines.CheckState = (sender as ToolStripMenuItem).CheckState;
         }
 
         #endregion

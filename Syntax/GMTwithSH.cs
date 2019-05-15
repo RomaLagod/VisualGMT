@@ -52,8 +52,9 @@ namespace Syntax
 
             //othes gmt options highlight
             e.ChangedRange.SetStyle(OrangeStyle, SyntaxGMT.OtherOptions);
-            
+
             //Console bathc scripting (commands)
+            e.ChangedRange.SetStyle(IndigoStyle, SyntaxSH.LongCommands, RegexOptions.IgnoreCase);
             e.ChangedRange.SetStyle(IndigoStyle, SyntaxSH.Commands, RegexOptions.IgnoreCase);
 
             //keyword highlighting

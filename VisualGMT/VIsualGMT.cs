@@ -85,6 +85,7 @@ namespace VisualGMT
 
         //SyntaxHighLight
         private GMTwithBAT _GMTwithBAT = new GMTwithBAT();
+        private GMTwithSH _GMTwithSH = new GMTwithSH();
 
         // On Form Load
         public event EventHandler VisualGMTLoad;
@@ -199,7 +200,7 @@ namespace VisualGMT
             }
             else
             {
-                //This will be another syntax Please insert HERE
+                _GMTwithSH.SyntaxHighlight((sender as GMT_FastColoredTextBox), e);
             }
         }
 
@@ -273,7 +274,7 @@ namespace VisualGMT
                 tab.GmtTextBox.TextChangedDelayed += TextChangedDelayed;
 
                 // default syntax highlight
-                DefaultGMTTextBoxLanguageSettings(null);
+                DefaultGMTTextBoxLanguageSettings(Path.GetExtension(fileName));
             }
             catch (Exception ex)
             {
@@ -625,7 +626,6 @@ namespace VisualGMT
             {
                 FilePath = ofdGeneralOpen.FileName;
                 if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
-                DefaultGMTTextBoxLanguageSettings(Path.GetExtension(FilePath));
             }
         }
 

@@ -14,6 +14,7 @@ using FastColoredTextBoxNS;
 using System.Text.RegularExpressions;
 using System.IO;
 using Syntax;
+using System.Diagnostics;
 
 namespace VisualGMT
 {
@@ -498,6 +499,41 @@ namespace VisualGMT
             return true;
         }
 
+        //Execute BAT command in CMD
+        static void ExecuteCommand(string command)
+        {
+            int exitCode;
+            ProcessStartInfo processInfo;
+            Process process;
+
+            processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
+            processInfo.CreateNoWindow = false;
+            processInfo.UseShellExecute = false;
+            processInfo.WindowStyle = ProcessWindowStyle.Normal;
+            processInfo.
+            //processInfo.WorkingDirectory = Application.StartupPath;// + "\\txtmanipulator";
+
+            // *** Redirect the output ***
+            processInfo.RedirectStandardError = true;
+            processInfo.RedirectStandardOutput = true;
+
+            process = Process.Start(processInfo);
+            //process.WaitForExit(Int32.MaxValue);
+
+
+            // *** Read the streams ***
+            // Warning: This approach can lead to deadlocks, see Edit #2
+            //string output = process.StandardOutput.ReadToEnd();
+            //string error = process.StandardError.ReadToEnd();
+
+            //exitCode = process.ExitCode;
+
+            //MessageBox.Show("output>>" + (String.IsNullOrEmpty(output) ? "(none)" : output));
+            //MessageBox.Show("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error));
+            //MessageBox.Show("ExitCode: " + exitCode.ToString(), "ExecuteCommand");
+            //process.Close();
+        }
+
         #endregion
 
         #region Status Strip
@@ -884,5 +920,12 @@ namespace VisualGMT
         }
 
         #endregion
+
+        private void btnHTRun_Click(object sender, EventArgs e)
+        {
+            //ExecuteCommand("echo testing");
+            ExecuteCommand("ping google.com");
+
+        }
     }
 }

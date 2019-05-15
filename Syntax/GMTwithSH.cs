@@ -16,11 +16,11 @@ namespace Syntax
         //styles
         TextStyle BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
         TextStyle BoldStyle = new TextStyle(null, null, FontStyle.Bold);
-        TextStyle GrayStyle = new TextStyle(Brushes.Gray, null, FontStyle.Regular); // free
+        TextStyle GrayStyle = new TextStyle(Brushes.Gray, null, FontStyle.Regular | FontStyle.Bold);
         TextStyle MagentaStyle = new TextStyle(Brushes.Magenta, null, FontStyle.Regular);
         TextStyle GreenStyle = new TextStyle(Brushes.Green, null, FontStyle.Italic);
         TextStyle BrownStyle = new TextStyle(Brushes.Brown, null, FontStyle.Italic);
-        TextStyle MaroonStyle = new TextStyle(Brushes.Maroon, null, FontStyle.Regular); // free
+        TextStyle MaroonStyle = new TextStyle(Brushes.Maroon, null, FontStyle.Regular | FontStyle.Bold); // free
         TextStyle RedStyle = new TextStyle(Brushes.Red, null, FontStyle.Regular);
         TextStyle OrangeStyle = new TextStyle(Brushes.DarkOrange, null, FontStyle.Regular);
         TextStyle VioletStyle = new TextStyle(Brushes.DarkViolet, null, FontStyle.Regular);
@@ -52,6 +52,9 @@ namespace Syntax
 
             //othes gmt options highlight
             e.ChangedRange.SetStyle(OrangeStyle, SyntaxGMT.OtherOptions);
+            
+            //Console bathc scripting (commands)
+            e.ChangedRange.SetStyle(IndigoStyle, SyntaxSH.Commands, RegexOptions.IgnoreCase);
 
             //keyword highlighting
             e.ChangedRange.SetStyle(BlueStyle, SyntaxGMT.KeyWords);
@@ -63,9 +66,8 @@ namespace Syntax
             e.ChangedRange.SetStyle(OliveStyle, SyntaxGMT.MathOperators);
             e.ChangedRange.SetStyle(VioletStyle, SyntaxGMT.MathConstatnts);
 
-            //Console bathc scripting (commands)
-            e.ChangedRange.SetStyle(IndigoStyle, SyntaxSH.InternalCommands, RegexOptions.IgnoreCase);
-            e.ChangedRange.SetStyle(IndigoStyle, SyntaxSH.ExternalCommands, RegexOptions.IgnoreCase);
+            //Variables highlight
+            e.ChangedRange.SetStyle(GrayStyle, SyntaxSH.Variables);
 
             //Symbols
             e.ChangedRange.SetStyle(RedStyle, SyntaxSH.Symbols);

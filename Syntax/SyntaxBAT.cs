@@ -21,7 +21,7 @@ namespace Syntax
         //KeyWords
         public static string InternalCommands = @"\b(ASSOC|BREAK|CALL|CD|CHDIR|CHCP|CLS|COLOR|COPY|DATE|DEL|ERASE|DIR|ECHO|ELSE|ENDLOCAL|EXIT|FOR|FTYPE|IF|MD|MKDIR|" +
                                                 @"MOVE|PATH|PAUSE|POPD|PROMPT|PUSHD|RD|RMDIR|REN|RENAME|SET|SETLOCAL|SHIFT|START|TIME|TITLE|TYPE|VER|VERIFY|VOL|GOTO|"+
-                                                @"EXIST|ELSE|IN|DO|NOT|MKLINK|)\b";
+                                                @"EXIST|ELSE|IN|DO|NOT|MKLINK)\b";
 
         public static string ExternalCommands = @"\b(ARP|AT|ATTRIB|BCDEDIT|CACLS|CHCP|CHKDSK|CHKNTFS|CHOISE|CIPHER|CLIP|CMD|COMP|COMPACT|CONVERT|DEBUG|DISKCOMP|DISKCOPY|"+
                                                 @"DISKPART|DOSKEY|DRIVEQUERY|EXPAND|FC|FIND|FINDSTR|FORFILES|FORMAT|FSUTIL|GPRESULT|GRAFTABL|HELP|ICACLS|IPCONFIG|"+
@@ -45,7 +45,7 @@ namespace Syntax
 
         #region SpecialSymbols
 
-        public static string Symbols = @"[>\|\+\-\/\=\\\*\@\%\!\~\#\$\^\?\:\;\,\<\&]";
+        public static string Symbols = @"[>\|\+\-\/\=\\\*\@\%\!\~\#\$\^\?\:\;\,\<\&\`]";
 
         #endregion
     }

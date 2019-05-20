@@ -96,6 +96,8 @@ namespace VisualGMT
         public event EventHandler CloseTabError;
         // On DocumentMap Error
         public event EventHandler DocumentMapError;
+        // On Embedded Console Error
+        public event EventHandler EmbeddedConsoleError;
         // On OpenFile
         public event EventHandler FileOpenClick;
         // On SaveFile
@@ -224,6 +226,7 @@ namespace VisualGMT
                 InvalidatePreferredLine();
                 ShowFolderLines();
                 DocumentStatus(CurrentGMTTextBox);
+                ShowGmtEmbeddedConsole();
                 //string text = CurrentTB.Text;
                 //ThreadPool.QueueUserWorkItem((o) => ReBuildObjectExplorer(text));
             }
@@ -279,8 +282,12 @@ namespace VisualGMT
                 tab.GmtTextBox.KeyDown += GmtDownPress;
                 tab.GmtTextBox.TextChangedDelayed += TextChangedDelayed;
 
+                //// Event in EmbeddedConsole
+                tab.GmtPanel.StopConsole.Click += GmtStopEmbeddedConsole;
+                tab.GmtPanel.HideConsole.Click += GmtHideEmbeddedConsole;
+
                 // default syntax highlight
-                DefaultGMTTextBoxLanguageSettings(Path.GetExtension(fileName));
+                DefaultGMTTextBoxLanguageSettings(fileName);
             }
             catch (Exception ex)
             {
@@ -349,19 +356,45 @@ namespace VisualGMT
                 {
                     if (documentMapToolStripMenuItem.Checked)
                     {
-                        tab.GmtDocumentMap.Visible = true;
                         tab.GmtSplitter.Visible = true;
+                        tab.GmtDocumentMap.Visible = true;
                     }
                     else
                     {
-                        tab.GmtDocumentMap.Visible = false;
                         tab.GmtSplitter.Visible = false;
+                        tab.GmtDocumentMap.Visible = false;
                     }
                 }
             }
             catch (Exception exception)
             {
                 DocumentMapError(exception, EventArgs.Empty);
+            }
+        }
+
+        // Show/Hide Embeded Console for Gmt TextBox
+        private void ShowGmtEmbeddedConsole()
+        {
+            try
+            {
+                foreach (GMT_FATabStripItem tab in gmt_FATabStripCollection.Items)
+                {
+                    if (btnHTConsole.Checked)
+                    {
+                        tab.GmtSplitterConsole.Visible = true;
+                        tab.GmtPanel.Visible = true;
+                    }
+                    else
+                    {
+                        tab.GmtSplitterConsole.Visible = false;
+                        tab.GmtPanel.Visible = false;
+                    }
+                }
+                openEmbededConsoleToolStripMenuItem.CheckState = btnHTConsole.CheckState;
+            }
+            catch (Exception exception)
+            {
+                EmbeddedConsoleError(exception, EventArgs.Empty);
             }
         }
 
@@ -467,8 +500,9 @@ namespace VisualGMT
             CurrentGMTTextBox.Range.ClearStyle(StyleIndex.All);
             //CurrentGMTTextBox.AutoIndentNeeded -= fctb_AutoIndentNeeded;
 
-            if (fileType == ".sh")
+            if (fileType != null && fileType.ToLower() == ".sh".ToLower())
             {
+                fileType = Path.GetExtension(fileType);
                 CurrentGMTTextBox.lang = GMT_FastColoredTextBox.CustomLanguages.GMTwithSH;
             }
             else
@@ -498,7 +532,7 @@ namespace VisualGMT
                 //File.WriteAllText(tab.Tag as string, tb.Text);
                 if (FileSaveClick != null) FileSaveClick(this, EventArgs.Empty);
                 tb.IsChanged = false;
-                DefaultGMTTextBoxLanguageSettings(Path.GetExtension(tab.Tag.ToString()));
+                DefaultGMTTextBoxLanguageSettings(tab.Tag.ToString());
             }
             catch (Exception ex)
             {
@@ -513,17 +547,49 @@ namespace VisualGMT
             return true;
         }
 
-        //Execute BAT command in CMD
-        static void ExecuteCommand(string command)
+        // Parameter Line for Status Strip (isChanged and file type)
+        private void DocumentStatus(GMT_FastColoredTextBox TextBox)
+        {
+            string documentType = String.Empty;
+
+            if ((TextBox.Parent as GMT_FATabStripItem).Tag != null)
+            {
+                if (Path.GetExtension((TextBox.Parent as GMT_FATabStripItem).Tag.ToString().ToLower()) == ".bat".ToLower())
+                {
+                    documentType = @"[Current File Type : BAT, Syntax-BAT] ";
+                }
+                else if (Path.GetExtension((TextBox.Parent as GMT_FATabStripItem).Tag.ToString().ToLower()) == ".sh".ToLower())
+                {
+                    documentType = @"[Current File Type : SH, Syntax-SH] ";
+                }
+                else if (Path.GetExtension((TextBox.Parent as GMT_FATabStripItem).Tag.ToString().ToLower()) == ".txt".ToLower())
+                {
+                    documentType = @"[Current File Type : TXT, Syntax-BAT] ";
+                }
+            }
+            else
+            {
+                documentType = @"[Current document type : UNKNOUN, Syntax-BAT] ";
+            }
+
+            ViewTextDocumentStatus(ssDocumentInfo, 0, documentType);
+        }
+
+        #endregion
+
+        #region Script Runners
+
+        // Execute BAT command in embeded CMD
+        private void ExecuteBATCommand(string command)
         {
             int exitCode;
             ProcessStartInfo processInfo;
             Process process;
 
             processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
-            processInfo.CreateNoWindow = false;
+            processInfo.CreateNoWindow = true;
             processInfo.UseShellExecute = false;
-            processInfo.WindowStyle = ProcessWindowStyle.Normal;
+            //processInfo.WindowStyle = ProcessWindowStyle.Normal;
             //processInfo.
             //processInfo.WorkingDirectory = Application.StartupPath;// + "\\txtmanipulator";
 
@@ -531,8 +597,16 @@ namespace VisualGMT
             processInfo.RedirectStandardError = true;
             processInfo.RedirectStandardOutput = true;
 
+            // new process
+            process = new Process();
+
+            object button1 = null;
+            // event handlers for output & error
+            process.OutputDataReceived += process_OutputDataReceived;
+            process.ErrorDataReceived += process_ErrorDataReceived;
+
             process = Process.Start(processInfo);
-            //process.WaitForExit(Int32.MaxValue);
+            process.WaitForExit();
 
 
             // *** Read the streams ***
@@ -548,32 +622,74 @@ namespace VisualGMT
             //process.Close();
         }
 
-        // Parameter Line for Status Strip (isChanged and file type)
-        private void DocumentStatus(GMT_FastColoredTextBox TextBox)
+        // Embeded console -> Error Data Receive
+        void process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            string documentType = String.Empty;
+            Process p = sender as Process;
+            if (p == null)
+                return;
+            Console.WriteLine(e.Data);
+        }
 
-            if ((TextBox.Parent as GMT_FATabStripItem).Tag != null)
+        // Embeded console -> Data Receive
+        void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Process p = sender as Process;
+            if (p == null)
+                return;
+            Console.WriteLine(e.Data);
+        }
+
+
+        // Execute BAT File in external Console (Win CMD)
+        private void ExecuteBATFile(string fileName)
+        {
+            Process process = new Process();
+            ProcessStartInfo psi = new ProcessStartInfo("cmd.exe", "/k " + fileName);
+            psi.UseShellExecute = true;
+            process.StartInfo = psi;
+
+            try
             {
-                if (Path.GetExtension((TextBox.Parent as GMT_FATabStripItem).Tag.ToString()) == ".bat")
+                process.Start();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Embedded Console (Methods and Events)
+
+        // Button -> Hide Embedded Console
+        private void GmtHideEmbeddedConsole(object sender, EventArgs e)
+        {
+            btnHTConsole.Checked = false;
+            ShowGmtEmbeddedConsole();
+        }
+
+        // Button -> Stop Run script in Embedded Console
+        private void GmtStopEmbeddedConsole(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Add strings to Embedded Console
+        private void AddInfoToEmbeddedConsole(string info)
+        {
+            if (CurrentGMTTextBox != null)
+            {
+                try
                 {
-                    documentType = @"[Current File Type : BAT, Syntax-BAT] ";
+
                 }
-                else if (Path.GetExtension((TextBox.Parent as GMT_FATabStripItem).Tag.ToString()) == ".sh")
+                catch (Exception ex)
                 {
-                    documentType = @"[Current File Type : SH, Syntax-SH] ";
-                }
-                else if (Path.GetExtension((TextBox.Parent as GMT_FATabStripItem).Tag.ToString()) == ".txt")
-                {
-                    documentType = @"[Current File Type : TXT, Syntax-BAT] ";
+                    MessageBox.Show(ex.Message, "Embedded Console Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
-            {
-                documentType = @"[Current document type : UNKNOUN, Syntax-BAT] ";
-            }
-
-            ViewTextDocumentStatus(ssDocumentInfo, 0, documentType);
         }
 
         #endregion
@@ -758,6 +874,12 @@ namespace VisualGMT
         private void btnHTUnComment_Click(object sender, EventArgs e)
         {
             CurrentGMTTextBox.RemoveLinePrefix(CurrentGMTTextBox.CommentPrefix);
+        }
+
+        // Show/Hide Embedded Console
+        private void btnHTConsole_CheckedChanged(object sender, EventArgs e)
+        {
+            ShowGmtEmbeddedConsole();
         }
 
         #endregion
@@ -975,6 +1097,13 @@ namespace VisualGMT
             CurrentGMTTextBox.DecreaseIndent();
         }
 
+        // Tools -> Show/Hide Embedded Console
+        private void openEmbededConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnHTConsole.Checked = !btnHTConsole.Checked;
+            ShowGmtEmbeddedConsole();
+        }
+
         #endregion
 
         #region Timer work (Update Interface)
@@ -1072,11 +1201,56 @@ namespace VisualGMT
 
         #endregion
 
+        #region RUN
+
+        // Run Script (BAT Script) in Embeded Console
         private void btnHTRun_Click(object sender, EventArgs e)
         {
-            //ExecuteCommand("echo testing");
-            ExecuteCommand("ping google.com");
+            // Save File
+            btnHTSave.PerformClick();
 
+            // Check
+            if ((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag != null && Path.GetExtension((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString().ToLower()) == ".bat".ToLower())
+            {
+                // Execute
+                ExecuteBATCommand((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString());
+            }
+            else
+            {
+                if (MessageBox.Show("For RUN this BAT script, Save script (*.bat), please!", "Run script", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
+                {
+                    btnHTSave.PerformClick();
+                }
+            }
         }
+
+        // Run Script (BAT Script) in Embeded Console
+        private void runInEmbededConsoleToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            btnHTRun.PerformClick();
+        }
+
+        // Run Script (BAT FILE) in Win Console (CMD)
+        private void runInWinConsoleToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // Save File
+            btnHTSave.PerformClick();
+
+            // Check
+            if ((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag != null && Path.GetExtension((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString().ToLower()) == ".bat".ToLower())
+            {
+                // Execute
+                ExecuteBATFile((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString());
+            }
+            else
+            {
+                if (MessageBox.Show("For RUN this BAT File, Save script (*.bat), please!","Run script", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
+                {
+                    btnHTSave.PerformClick();
+                }
+            }
+        }
+
+        #endregion
     }
 }

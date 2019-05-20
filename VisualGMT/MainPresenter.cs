@@ -43,6 +43,7 @@ namespace VisualGMT
             _view.CloseTabError += _view_CloseTabError;
             _view.RulerError += _view_RulerError;
             _view.DocumentMapError += _view_DocumentMapError;
+            _view.EmbeddedConsoleError += _view_EmbeddedConsoleError;
             _view.FileOpenClick += _view_FileOpenClick;
             _view.FileSaveClick += _view_FileSaveClick;
 
@@ -74,6 +75,12 @@ namespace VisualGMT
 
         // Event when DocumentMap error
         private void _view_DocumentMapError(object sender, EventArgs e)
+        {
+            _messageService.ShowError(sender.ToString());
+        }
+
+        // Event when DocumentMap error
+        private void _view_EmbeddedConsoleError(object sender, EventArgs e)
         {
             _messageService.ShowError(sender.ToString());
         }

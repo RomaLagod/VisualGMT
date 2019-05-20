@@ -55,7 +55,7 @@ namespace GMT_BLL
             GetBookmark = "Go To Bookmark";
             Bookmarks = "Bookmarks";
             Run = "Run Script";
-            Console = "Show Console...";
+            Console = "Show Embedded Console Output...";
             ShowScriptResult = "View graphical results...";
             Settings = "Settings...";
             Find = "Find";

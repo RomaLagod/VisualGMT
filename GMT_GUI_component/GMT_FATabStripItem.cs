@@ -23,8 +23,17 @@ namespace GMT_GUI_component
         // Splitter for Document Map
         public GMT_Splitter GmtSplitter { get; set; }
 
+        // Splitter for Console
+        public GMT_Splitter GmtSplitterConsole { get; set; }
+
         // File
         public String FileName { get; set; }
+
+        // Console (cmd)
+        public GMT_Console GmtConsole { get; }
+
+        // Panel with console
+        public GMT_Panel GmtPanel { get; }
 
         #endregion
 
@@ -62,6 +71,16 @@ namespace GMT_GUI_component
             // Create Document Map
             GmtDocumentMap = new GMT_DocumentMap(GmtTextBox);
             this.Controls.Add(GmtDocumentMap);
+
+            //GMT Splitter between DocumentMap and GmtTextBox
+            GmtSplitterConsole = new GMT_Splitter();
+            GmtSplitterConsole.Dock = DockStyle.Bottom;
+            this.Controls.Add(GmtSplitterConsole);
+
+            // Gmt Console (cmd)
+            GmtPanel = new GMT_Panel();
+            this.Controls.Add(GmtPanel);
+            GmtConsole = GmtPanel.gmt_Console;
         }
 
         // Second special constructor for new tab item with Content
@@ -88,6 +107,16 @@ namespace GMT_GUI_component
             // Create Document Map
             GmtDocumentMap = new GMT_DocumentMap(GmtTextBox);
             this.Controls.Add(GmtDocumentMap);
+
+            //GMT Splitter between DocumentMap and GmtTextBox
+            GmtSplitterConsole = new GMT_Splitter();
+            GmtSplitterConsole.Dock = DockStyle.Bottom;
+            this.Controls.Add(GmtSplitterConsole);
+
+            // Gmt Console (cmd)
+            GmtPanel = new GMT_Panel();
+            this.Controls.Add(GmtPanel);
+            GmtConsole = GmtPanel.gmt_Console;
         }
 
         #endregion

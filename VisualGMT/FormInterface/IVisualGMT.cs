@@ -57,6 +57,8 @@ namespace VisualGMT.FormInterface
         event EventHandler CloseTabError;
         // Event DocumentMap error
         event EventHandler DocumentMapError;
+        // Event Embedded Console Error
+        event EventHandler EmbeddedConsoleError;
         // Event OpenFile
         event EventHandler FileOpenClick;
         // Event SaveFile

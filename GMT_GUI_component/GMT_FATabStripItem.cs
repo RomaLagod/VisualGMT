@@ -38,6 +38,9 @@ namespace GMT_GUI_component
         // Panel with console
         public GMT_Panel GmtPanel { get; }
 
+        // Embedded Console Process
+        public Process CurrentCMDProcess { get; set; }
+
         #endregion
 
         #region Events Embedded Console
@@ -45,23 +48,37 @@ namespace GMT_GUI_component
         // Embeded console -> Error Data Receive
         public void OnErrorDataReceivedFromCmd(object sender, DataReceivedEventArgs e)
         {
-            //Process p = sender as Process;
-            //if (p == null)
-            //    return;
-            AddErrorToEmbeddedConsole(e.Data);
+            Process p = sender as Process;
+            if (p == null)
+                return;
+            if (GmtConsole.InvokeRequired)
+            {
+                GmtConsole.BeginInvoke(new DataReceivedEventHandler(OnErrorDataReceivedFromCmd), new object[] { sender, e });
+            }
+            else
+            {
+                AddErrorToEmbeddedConsole(e.Data);
+            }
         }
 
         // Embeded console -> Data Receive
         public void OnOutputDataReceivedFromCmd(object sender, DataReceivedEventArgs e)
         {
-            //Process p = sender as Process;
-            //if (p == null)
-            //    return;
-            AddInfoToEmbeddedConsole(e.Data);
+            Process p = sender as Process;
+            if (p == null)
+                return;
+            if (GmtConsole.InvokeRequired)
+            {
+                GmtConsole.BeginInvoke(new DataReceivedEventHandler(OnOutputDataReceivedFromCmd), new object[] { sender, e });
+            }
+            else
+            {
+                AddInfoToEmbeddedConsole(e.Data);
+            }
         }
 
         // Add strings to Embedded Console
-        private void AddInfoToEmbeddedConsole(string info)
+        public void AddInfoToEmbeddedConsole(string info)
         {
             try
             {

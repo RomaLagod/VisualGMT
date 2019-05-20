@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using Syntax;
 using System.Diagnostics;
+using System.Threading;
 
 namespace VisualGMT
 {
@@ -582,7 +583,7 @@ namespace VisualGMT
         #region Script Runners
 
         // Execute BAT command in embeded CMD
-        private void ExecuteBATCommand(string command)
+        private void ExecuteBATCommand(object command)
         {
             ProcessStartInfo processInfo;
             Process process;
@@ -600,8 +601,9 @@ namespace VisualGMT
 
 ;
             // event handlers for output & error
-            process.OutputDataReceived += (CurrentGMTTextBox.Parent as GMT_FATabStripItem).OnOutputDataReceivedFromCmd;
-            process.ErrorDataReceived += (CurrentGMTTextBox.Parent as GMT_FATabStripItem).OnErrorDataReceivedFromCmd;
+            process.OutputDataReceived += new DataReceivedEventHandler((CurrentGMTTextBox.Parent as GMT_FATabStripItem).OnOutputDataReceivedFromCmd);
+            process.ErrorDataReceived += new DataReceivedEventHandler((CurrentGMTTextBox.Parent as GMT_FATabStripItem).OnErrorDataReceivedFromCmd);
+            (CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcess = process;
 
             process.StartInfo = processInfo;
             process.Start();
@@ -609,19 +611,33 @@ namespace VisualGMT
             process.BeginErrorReadLine();
             process.BeginOutputReadLine();
             process.WaitForExit();
+        }
 
-
-            // *** Read the streams ***
-            // Warning: This approach can lead to deadlocks, see Edit #2
-            //string output = process.StandardOutput.ReadToEnd();
-            //string error = process.StandardError.ReadToEnd();
-
-            //exitCode = process.ExitCode;
-
-            //MessageBox.Show("output>>" + (String.IsNullOrEmpty(output) ? "(none)" : output));
-            //MessageBox.Show("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error));
-            //MessageBox.Show("ExitCode: " + exitCode.ToString(), "ExecuteCommand");
-            //process.Close();
+        public void ExecuteBATCommandAsync(string command)
+        {
+            try
+            {
+                //Asynchronously start the Thread to process the Execute command request.
+                Thread objThread = new Thread(new ParameterizedThreadStart(ExecuteBATCommand));
+                //Make the thread as background thread.
+                objThread.IsBackground = true;
+                //Set the Priority of the thread.
+                objThread.Priority = ThreadPriority.AboveNormal;
+                //Start the thread.
+                objThread.Start(command);
+            }
+            catch (ThreadStartException objException)
+            {
+                MessageBox.Show(objException.Message, "Thread Start", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ThreadAbortException objException)
+            {
+                MessageBox.Show(objException.Message, "Thread Abort", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception objException)
+            {
+                MessageBox.Show(objException.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Execute BAT File in external Console (Win CMD)
@@ -656,7 +672,10 @@ namespace VisualGMT
         // Button -> Stop Run script in Embedded Console
         private void GmtStopEmbeddedConsole(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if((CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcess != null)
+            {
+                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcess.Close();
+            }
         }
 
         // Button -> Save Console Output
@@ -1189,10 +1208,12 @@ namespace VisualGMT
             // Check
             if ((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag != null && Path.GetExtension((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString().ToLower()) == ".bat".ToLower())
             {
-                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtSplitterConsole.Visible = true;
-                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtPanel.Visible = true;
+                if (!openEmbededConsoleToolStripMenuItem.Checked)
+                {
+                    openEmbededConsoleToolStripMenuItem.PerformClick();
+                }
                 // Execute
-                ExecuteBATCommand((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString());
+                ExecuteBATCommandAsync((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString());
             }
             else
             {

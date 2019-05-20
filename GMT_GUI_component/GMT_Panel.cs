@@ -16,6 +16,8 @@ namespace GMT_GUI_component
         public Button StopConsole { get; }
         public Button ClearConsole { get; }
         public Button HideConsole { get; }
+        public Button SaveConsole { get; }
+
 
         #endregion
 
@@ -37,6 +39,13 @@ namespace GMT_GUI_component
             panelForButtons.Dock = DockStyle.Left;
             panelForButtons.Width = 45;
             panelForButtons.BackColor = Color.DarkGray;
+            //--
+            SaveConsole = new Button();
+            SaveConsole.Text = "Save";
+            SaveConsole.FlatStyle = FlatStyle.Flat;
+            SaveConsole.ForeColor = Color.Maroon;
+            SaveConsole.Dock = DockStyle.Top;
+            panelForButtons.Controls.Add(SaveConsole);
             //--
             HideConsole = new Button();
             HideConsole.Text = "Hide";

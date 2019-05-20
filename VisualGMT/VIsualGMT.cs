@@ -285,6 +285,8 @@ namespace VisualGMT
                 //// Event in EmbeddedConsole
                 tab.GmtPanel.StopConsole.Click += GmtStopEmbeddedConsole;
                 tab.GmtPanel.HideConsole.Click += GmtHideEmbeddedConsole;
+                tab.GmtPanel.SaveConsole.Click += GmtSaveEmbeddedConsole;
+
 
                 // default syntax highlight
                 DefaultGMTTextBoxLanguageSettings(fileName);
@@ -492,7 +494,7 @@ namespace VisualGMT
             }
         }
 
-        //DefaultLanguageSettings
+        // DefaultLanguageSettings
         private void DefaultGMTTextBoxLanguageSettings(string fileType)
         {
             //set language
@@ -582,16 +584,12 @@ namespace VisualGMT
         // Execute BAT command in embeded CMD
         private void ExecuteBATCommand(string command)
         {
-            int exitCode;
             ProcessStartInfo processInfo;
             Process process;
 
             processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
             processInfo.CreateNoWindow = true;
             processInfo.UseShellExecute = false;
-            //processInfo.WindowStyle = ProcessWindowStyle.Normal;
-            //processInfo.
-            //processInfo.WorkingDirectory = Application.StartupPath;// + "\\txtmanipulator";
 
             // *** Redirect the output ***
             processInfo.RedirectStandardError = true;
@@ -600,12 +598,16 @@ namespace VisualGMT
             // new process
             process = new Process();
 
-            object button1 = null;
+;
             // event handlers for output & error
-            process.OutputDataReceived += process_OutputDataReceived;
-            process.ErrorDataReceived += process_ErrorDataReceived;
+            process.OutputDataReceived += (CurrentGMTTextBox.Parent as GMT_FATabStripItem).OnOutputDataReceivedFromCmd;
+            process.ErrorDataReceived += (CurrentGMTTextBox.Parent as GMT_FATabStripItem).OnErrorDataReceivedFromCmd;
 
-            process = Process.Start(processInfo);
+            process.StartInfo = processInfo;
+            process.Start();
+
+            process.BeginErrorReadLine();
+            process.BeginOutputReadLine();
             process.WaitForExit();
 
 
@@ -621,25 +623,6 @@ namespace VisualGMT
             //MessageBox.Show("ExitCode: " + exitCode.ToString(), "ExecuteCommand");
             //process.Close();
         }
-
-        // Embeded console -> Error Data Receive
-        void process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            Process p = sender as Process;
-            if (p == null)
-                return;
-            Console.WriteLine(e.Data);
-        }
-
-        // Embeded console -> Data Receive
-        void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            Process p = sender as Process;
-            if (p == null)
-                return;
-            Console.WriteLine(e.Data);
-        }
-
 
         // Execute BAT File in external Console (Win CMD)
         private void ExecuteBATFile(string fileName)
@@ -676,22 +659,12 @@ namespace VisualGMT
             throw new NotImplementedException();
         }
 
-        // Add strings to Embedded Console
-        private void AddInfoToEmbeddedConsole(string info)
+        // Button -> Save Console Output
+
+        private void GmtSaveEmbeddedConsole(object sender, EventArgs e)
         {
-            if (CurrentGMTTextBox != null)
-            {
-                try
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Embedded Console Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            throw new NotImplementedException();
         }
-
         #endregion
 
         #region Status Strip
@@ -1152,6 +1125,8 @@ namespace VisualGMT
                     rulerToolStripMenuItem.Enabled = true;
                     preferredLineToolStripMenuItem.Enabled = true;
                     documentMapToolStripMenuItem.Enabled = true;
+
+                    btnHTConsole.Enabled = openEmbededConsoleToolStripMenuItem.Enabled = true;
                 }
                 else
                 {
@@ -1191,6 +1166,8 @@ namespace VisualGMT
                     rulerToolStripMenuItem.Enabled = false;
                     preferredLineToolStripMenuItem.Enabled = false;
                     documentMapToolStripMenuItem.Enabled = false;
+
+                    btnHTConsole.Enabled = openEmbededConsoleToolStripMenuItem.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1212,6 +1189,8 @@ namespace VisualGMT
             // Check
             if ((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag != null && Path.GetExtension((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString().ToLower()) == ".bat".ToLower())
             {
+                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtSplitterConsole.Visible = true;
+                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).GmtPanel.Visible = true;
                 // Execute
                 ExecuteBATCommand((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString());
             }

@@ -754,13 +754,13 @@
             // 
             this.checkUpToolStripMenuItem.Name = "checkUpToolStripMenuItem";
             this.checkUpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.checkUpToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.checkUpToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.checkUpToolStripMenuItem.Text = "Check Up";
             // 
             // toolStripMenuItem17
             // 
             this.toolStripMenuItem17.Name = "toolStripMenuItem17";
-            this.toolStripMenuItem17.Size = new System.Drawing.Size(223, 6);
+            this.toolStripMenuItem17.Size = new System.Drawing.Size(230, 6);
             // 
             // runInEmbededConsoleToolStripMenuItem
             // 
@@ -773,14 +773,14 @@
             // 
             this.runInWinConsoleToolStripMenuItem.Name = "runInWinConsoleToolStripMenuItem";
             this.runInWinConsoleToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
-            this.runInWinConsoleToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.runInWinConsoleToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.runInWinConsoleToolStripMenuItem.Text = "Run In Win Console";
             // 
             // runInShellToolStripMenuItem
             // 
             this.runInShellToolStripMenuItem.Name = "runInShellToolStripMenuItem";
             this.runInShellToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F6)));
-            this.runInShellToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.runInShellToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.runInShellToolStripMenuItem.Text = "Run In Shell";
             // 
             // toolsToolStripMenuItem
@@ -808,26 +808,26 @@
             // 
             this.winConsoleToolStripMenuItem.Name = "winConsoleToolStripMenuItem";
             this.winConsoleToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F11)));
-            this.winConsoleToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.winConsoleToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.winConsoleToolStripMenuItem.Text = "Win Console";
             // 
             // shellToolStripMenuItem
             // 
             this.shellToolStripMenuItem.Name = "shellToolStripMenuItem";
             this.shellToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F12)));
-            this.shellToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.shellToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.shellToolStripMenuItem.Text = "Shell";
             // 
             // toolStripMenuItem18
             // 
             this.toolStripMenuItem18.Name = "toolStripMenuItem18";
-            this.toolStripMenuItem18.Size = new System.Drawing.Size(224, 6);
+            this.toolStripMenuItem18.Size = new System.Drawing.Size(231, 6);
             // 
             // postScriptToolStripMenuItem
             // 
             this.postScriptToolStripMenuItem.Name = "postScriptToolStripMenuItem";
             this.postScriptToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F2)));
-            this.postScriptToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.postScriptToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.postScriptToolStripMenuItem.Text = "Post Script";
             // 
             // helpToolStripMenuItem
@@ -1008,7 +1008,7 @@
             this.runInWinConsoleToolStripMenuItem1,
             this.runInTerminalToolStripMenuItem});
             this.cmsRun.Name = "cmsRun";
-            this.cmsRun.Size = new System.Drawing.Size(215, 92);
+            this.cmsRun.Size = new System.Drawing.Size(215, 70);
             // 
             // runInEmbededConsoleToolStripMenuItem1
             // 
@@ -1020,14 +1020,14 @@
             // runInWinConsoleToolStripMenuItem1
             // 
             this.runInWinConsoleToolStripMenuItem1.Name = "runInWinConsoleToolStripMenuItem1";
-            this.runInWinConsoleToolStripMenuItem1.Size = new System.Drawing.Size(207, 22);
+            this.runInWinConsoleToolStripMenuItem1.Size = new System.Drawing.Size(214, 22);
             this.runInWinConsoleToolStripMenuItem1.Text = "Run In Win Console";
             this.runInWinConsoleToolStripMenuItem1.Click += new System.EventHandler(this.runInWinConsoleToolStripMenuItem1_Click);
             // 
             // runInTerminalToolStripMenuItem
             // 
             this.runInTerminalToolStripMenuItem.Name = "runInTerminalToolStripMenuItem";
-            this.runInTerminalToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.runInTerminalToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.runInTerminalToolStripMenuItem.Text = "Run In Terminal";
             // 
             // splitter5

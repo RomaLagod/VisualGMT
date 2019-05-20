@@ -1,7 +1,10 @@
 ﻿using FarsiLibrary.Win;
 using GMT_GUI_component.ComponentInterface;
 using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace GMT_GUI_component
@@ -37,6 +40,61 @@ namespace GMT_GUI_component
 
         #endregion
 
+        #region Events Embedded Console
+
+        // Embeded console -> Error Data Receive
+        public void OnErrorDataReceivedFromCmd(object sender, DataReceivedEventArgs e)
+        {
+            Process p = sender as Process;
+            if (p == null)
+                return;
+            AddErrorToEmbeddedConsole(e.Data);
+        }
+
+        // Embeded console -> Data Receive
+        public void OnOutputDataReceivedFromCmd(object sender, DataReceivedEventArgs e)
+        {
+            Process p = sender as Process;
+            if (p == null)
+                return;
+            AddInfoToEmbeddedConsole(e.Data);
+        }
+
+        // Add strings to Embedded Console
+        private void AddInfoToEmbeddedConsole(string info)
+        {
+            try
+            {
+                string sortOutput = "";
+                sortOutput = Environment.NewLine + info;
+                GmtConsole.AppendText(sortOutput);
+                GmtConsole.ScrollToCaret();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Embedded Console Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Add error to Embedded Console
+        private void AddErrorToEmbeddedConsole(string error)
+        {
+            try
+            {
+                GmtConsole.SelectionColor = Color.Red;
+                string sortOutput = "";
+                sortOutput = Environment.NewLine + error;
+                GmtConsole.AppendText(sortOutput);
+                GmtConsole.SelectionColor = Color.Black;
+                GmtConsole.ScrollToCaret();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Embedded Console Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
 
         #region Constructors
 

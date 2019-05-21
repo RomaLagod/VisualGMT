@@ -16,6 +16,7 @@ using System.IO;
 using Syntax;
 using System.Diagnostics;
 using System.Threading;
+using System.Management;
 
 namespace VisualGMT
 {
@@ -228,6 +229,7 @@ namespace VisualGMT
                 ShowFolderLines();
                 DocumentStatus(CurrentGMTTextBox);
                 ShowGmtEmbeddedConsole();
+                RunningCheck();
                 //string text = CurrentTB.Text;
                 //ThreadPool.QueueUserWorkItem((o) => ReBuildObjectExplorer(text));
             }
@@ -550,6 +552,27 @@ namespace VisualGMT
             return true;
         }
 
+        // Save to file
+        private bool SaveLog(GMT_FATabStripItem tab)
+        {
+            var tb = tab.GmtConsole;
+            if (saveLog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                return false;
+
+            try
+            {
+                File.WriteAllText(saveLog.FileName, tb.Text);
+            }
+            catch (Exception ex)
+            {
+                if (MessageBox.Show(ex.Message + ex.StackTrace, "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                    return SaveLog(tab);
+                else
+                    return false;
+            }
+            return true;
+        }
+
         // Parameter Line for Status Strip (isChanged and file type)
         private void DocumentStatus(GMT_FastColoredTextBox TextBox)
         {
@@ -578,6 +601,26 @@ namespace VisualGMT
             ViewTextDocumentStatus(ssDocumentInfo, 0, documentType);
         }
 
+        // Is script running
+        private void RunningCheck()
+        {
+            if (CurrentGMTTextBox != null)
+            {
+                if ((CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRunning)
+                {
+                    btnHTRun.Enabled = runInEmbededConsoleToolStripMenuItem.Enabled =
+                    runInShellToolStripMenuItem.Enabled = runInWinConsoleToolStripMenuItem.Enabled =
+                    checkUpToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    btnHTRun.Enabled = runInEmbededConsoleToolStripMenuItem.Enabled =
+                    runInShellToolStripMenuItem.Enabled = runInWinConsoleToolStripMenuItem.Enabled =
+                    checkUpToolStripMenuItem.Enabled = true;
+                }
+            }
+        }
+
         #endregion
 
         #region Script Runners
@@ -595,14 +638,16 @@ namespace VisualGMT
             // *** Redirect the output ***
             processInfo.RedirectStandardError = true;
             processInfo.RedirectStandardOutput = true;
-
+            
             // new process
             process = new Process();
 
 ;
             // event handlers for output & error
+            process.EnableRaisingEvents = true;
             process.OutputDataReceived += new DataReceivedEventHandler((CurrentGMTTextBox.Parent as GMT_FATabStripItem).OnOutputDataReceivedFromCmd);
             process.ErrorDataReceived += new DataReceivedEventHandler((CurrentGMTTextBox.Parent as GMT_FATabStripItem).OnErrorDataReceivedFromCmd);
+            process.Exited += OnEmbededProcesExit;
             (CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcess = process;
 
             process.StartInfo = processInfo;
@@ -613,12 +658,30 @@ namespace VisualGMT
             process.WaitForExit();
         }
 
+        // On Exit from Embedded Console
+        private void OnEmbededProcesExit(object sender, EventArgs e)
+        {
+            // Script Running
+            (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRunning = false;
+
+            // Show infor for finished calculation
+            if ((sender as Process).ExitCode == 0)
+            {
+                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).AddErrorToEmbeddedConsole("Calculation finished. " +
+                 "Start Time : " + (CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcess.StartTime +
+                 " / End Time : " + (CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcess.ExitTime +
+                 " / Calc time : " + (CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcess.TotalProcessorTime.TotalSeconds + "sec.");
+            }
+        }
+
         public void ExecuteBATCommandAsync(string command)
         {
             try
             {
                 //Asynchronously start the Thread to process the Execute command request.
                 Thread objThread = new Thread(new ParameterizedThreadStart(ExecuteBATCommand));
+                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcessThread = objThread;
+
                 //Make the thread as background thread.
                 objThread.IsBackground = true;
                 //Set the Priority of the thread.
@@ -647,15 +710,24 @@ namespace VisualGMT
             ProcessStartInfo psi = new ProcessStartInfo("cmd.exe", "/k " + fileName);
             psi.UseShellExecute = true;
             process.StartInfo = psi;
+            process.EnableRaisingEvents = true;
 
             try
             {
+                process.Exited += OnExitFromCMD;
                 process.Start();
             }
             catch (Exception Ex)
             {
                 MessageBox.Show(Ex.Message);
             }
+        }
+
+        // On Exit CMD
+        private void OnExitFromCMD(object sender, EventArgs e)
+        {
+            // Script Running
+            (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRunning = false;
         }
 
         #endregion
@@ -672,18 +744,63 @@ namespace VisualGMT
         // Button -> Stop Run script in Embedded Console
         private void GmtStopEmbeddedConsole(object sender, EventArgs e)
         {
-            if((CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcess != null)
+            if ((CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRunning)
             {
-                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcess.Close();
+                KillProcessAndChildrens((CurrentGMTTextBox.Parent as GMT_FATabStripItem).CurrentCMDProcess.Id);
+            }
+        }
+
+        public void KillProcess(int pid)
+        {
+            Process[] process = Process.GetProcesses();
+
+            foreach (Process prs in process)
+            {
+                if (prs.Id == pid)
+                {
+                    prs.Kill();
+                    break;
+                }
+            }
+        }
+
+        private void KillProcessAndChildrens(int pid)
+        {
+            ManagementObjectSearcher processSearcher = new ManagementObjectSearcher
+              ("Select * From Win32_Process Where ParentProcessID=" + pid);
+            ManagementObjectCollection processCollection = processSearcher.Get();
+
+            // We must kill child processes first!
+            if (processCollection != null)
+            {
+                foreach (ManagementObject mo in processCollection)
+                {
+                    KillProcessAndChildrens(Convert.ToInt32(mo["ProcessID"])); //kill child processes(also kills childrens of childrens etc.)
+                }
+            }
+
+            // Then kill parents.
+            try
+            {
+                Process proc = Process.GetProcessById(pid);
+                if (!proc.HasExited) proc.Kill();
+                //MessageBox.Show("Embedded console process terminated successfully", "Embedded Console", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).AddErrorToEmbeddedConsole("Embedded console process terminating...");
+            }
+            catch (ArgumentException)
+            {
+                // Process already exited.
+                //MessageBox.Show("Console process already exited", "Embedded Console", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         // Button -> Save Console Output
-
         private void GmtSaveEmbeddedConsole(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (gmt_FATabStripCollection.SelectedItem != null)
+                SaveLog(tab: gmt_FATabStripCollection.SelectedItem as GMT_FATabStripItem);
         }
+
         #endregion
 
         #region Status Strip
@@ -1127,9 +1244,7 @@ namespace VisualGMT
                     btnHTComment.Enabled = commentSelectedLinesToolStripMenuItem.Enabled =
                     btnHTUnComment.Enabled = uncommentSelectedLinesToolStripMenuItem.Enabled = true;
                     collapseToolStripMenuItem.Enabled = expandtoolStripMenuItem.Enabled = true;
-                    btnHTRun.Enabled = runInEmbededConsoleToolStripMenuItem.Enabled =
-                    runInShellToolStripMenuItem.Enabled = runInWinConsoleToolStripMenuItem.Enabled =
-                    checkUpToolStripMenuItem.Enabled = true;
+                    RunningCheck();
                     autoIndentSelectedTextToolStripMenuItem.Enabled = true;
                     closeTabToolStripMenuItem.Enabled = CloseAllTabstoolStripMenuItem.Enabled = true;
 
@@ -1168,9 +1283,7 @@ namespace VisualGMT
                     btnHTComment.Enabled = commentSelectedLinesToolStripMenuItem.Enabled =
                     btnHTUnComment.Enabled = uncommentSelectedLinesToolStripMenuItem.Enabled = false;
                     collapseToolStripMenuItem.Enabled = expandtoolStripMenuItem.Enabled = false;
-                    btnHTRun.Enabled = runInEmbededConsoleToolStripMenuItem.Enabled =
-                    runInShellToolStripMenuItem.Enabled = runInWinConsoleToolStripMenuItem.Enabled =
-                    checkUpToolStripMenuItem.Enabled = false;
+                    RunningCheck();
                     autoIndentSelectedTextToolStripMenuItem.Enabled = false;
                     closeTabToolStripMenuItem.Enabled = CloseAllTabstoolStripMenuItem.Enabled = false;
 
@@ -1212,8 +1325,13 @@ namespace VisualGMT
                 {
                     openEmbededConsoleToolStripMenuItem.PerformClick();
                 }
+
+                // Script Running
+                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRunning = true;
+
                 // Execute
                 ExecuteBATCommandAsync((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString());
+
             }
             else
             {
@@ -1239,6 +1357,9 @@ namespace VisualGMT
             // Check
             if ((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag != null && Path.GetExtension((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString().ToLower()) == ".bat".ToLower())
             {
+                // Script Running
+                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRunning = true;
+
                 // Execute
                 ExecuteBATFile((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString());
             }
@@ -1249,6 +1370,18 @@ namespace VisualGMT
                     btnHTSave.PerformClick();
                 }
             }
+        }
+
+        // Script -> Run Script (BAT Script) in Embeded Console
+        private void runInWinConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            runInWinConsoleToolStripMenuItem1.PerformClick();
+        }
+
+        // Tools -> Open cmd console
+        private void winConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExecuteBATFile("echo CMD opened.");
         }
 
         #endregion

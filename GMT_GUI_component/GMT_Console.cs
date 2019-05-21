@@ -17,12 +17,12 @@ namespace GMT_GUI_component
             this.Enabled = true;
             this.Visible = true;
             this.Dock = DockStyle.Fill;
-            //this.ReadOnly = true;
+            this.ReadOnly = true;
             this.BorderStyle = BorderStyle.None;
             this.BackColor = Color.White;
             this.ScrollBars = RichTextBoxScrollBars.Both;
             this.WordWrap = false;
-            this.Font = new Font("Consolas", 12f);
+            this.Font = new Font("Consolas", 10f);
         }
 
         #endregion

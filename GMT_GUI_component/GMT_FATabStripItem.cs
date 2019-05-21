@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace GMT_GUI_component
@@ -40,6 +41,12 @@ namespace GMT_GUI_component
 
         // Embedded Console Process
         public Process CurrentCMDProcess { get; set; }
+
+        // Embedded Console Process Thread
+        public Thread CurrentCMDProcessThread { get; set; }
+
+        // Script Running
+        public bool IsRunning { get; set; } = false;
 
         #endregion
 
@@ -94,7 +101,7 @@ namespace GMT_GUI_component
         }
 
         // Add error to Embedded Console
-        private void AddErrorToEmbeddedConsole(string error)
+        public void AddErrorToEmbeddedConsole(string error)
         {
             try
             {

@@ -13,6 +13,23 @@ namespace VisualGMT
 {
     public partial class Preferences : Form
     {
+        #region Properties
+
+        public PreferencesXML PreferencesXML { get; set; }
+
+        #endregion
+
+        #region Override
+
+        public PreferencesXML ShowDialog(PreferencesXML preferencesXML)
+        {
+            PreferencesXML = preferencesXML;
+            base.ShowDialog();
+            return PreferencesXML;
+        }
+
+        #endregion
+
         #region Form Creating
 
         public Preferences()
@@ -27,10 +44,10 @@ namespace VisualGMT
 
         private void LoadPathToTextBoxes()
         {
-            tbPathToLinuxTerminal.Text = PreferencesXML.PathToLinuxTerminal;
-            tbPathToGMTMainDirectory.Text = PreferencesXML.PathToGMT;
-            tbPathToPSViewer.Text = PreferencesXML.PathToPSViewer;
-            tbPathToWorkingDirectory.Text = PreferencesXML.PathToWorkingDirectory;
+            tbPathToLinuxTerminal.Text = PreferencesXML.PathToLinuxTerminal != null ? PreferencesXML.PathToLinuxTerminal : String.Empty;
+            tbPathToGMTMainDirectory.Text = PreferencesXML.PathToGMT != null ? PreferencesXML.PathToGMT : String.Empty;
+            tbPathToPSViewer.Text = PreferencesXML.PathToPSViewer != null ? PreferencesXML.PathToPSViewer : String.Empty;
+            tbPathToWorkingDirectory.Text = PreferencesXML.PathToWorkingDirectory != null ? PreferencesXML.PathToWorkingDirectory : String.Empty;
         }
 
         #endregion
@@ -93,6 +110,7 @@ namespace VisualGMT
             PreferencesXML.PathToWorkingDirectory = tbPathToWorkingDirectory.Text;
 
             // Save XML
+            PreferencesXML.SaveXML(PreferencesXML);
 
             // Close form
             this.Close();

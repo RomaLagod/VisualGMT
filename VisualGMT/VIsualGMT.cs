@@ -17,6 +17,7 @@ using Syntax;
 using System.Diagnostics;
 using System.Threading;
 using System.Management;
+using VisualGMT.GlobalPreferences;
 
 namespace VisualGMT
 {
@@ -87,9 +88,12 @@ namespace VisualGMT
             }
         }
 
-        //SyntaxHighLight
+        // SyntaxHighLight
         private GMTwithBAT _GMTwithBAT = new GMTwithBAT();
         private GMTwithSH _GMTwithSH = new GMTwithSH();
+
+        // PreferencesXML
+        public PreferencesXML PreferencesXML { get; set; }
 
         // On Form Load
         public event EventHandler VisualGMTLoad;
@@ -128,6 +132,9 @@ namespace VisualGMT
         // On form Visual GMT Load
         private void VisualGMT_Load(object sender, EventArgs e)
         {
+            // Load Preferences XML
+            PreferencesXML = LoadPreferencesXML();
+
             //var fastDocumentCollection = new GMT_FATabStripCollection();
 
             //Create new GMT Document when Form Load
@@ -1011,7 +1018,7 @@ namespace VisualGMT
         private void btnHTPreferences_Click(object sender, EventArgs e)
         {
             Preferences preferencesForm = new Preferences();
-            preferencesForm.ShowDialog();
+            PreferencesXML = preferencesForm.ShowDialog(PreferencesXML);
         }
 
         #endregion
@@ -1412,6 +1419,17 @@ namespace VisualGMT
         private void winConsoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExecuteBATFile("echo CMD opened.");
+        }
+
+        #endregion
+
+        #region Preferences
+
+        private PreferencesXML LoadPreferencesXML()
+        {
+            PreferencesXML preferencesXML = new PreferencesXML();
+            PreferencesXML.OpenXML(preferencesXML);
+            return preferencesXML;
         }
 
         #endregion

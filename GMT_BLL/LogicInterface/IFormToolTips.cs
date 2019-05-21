@@ -28,5 +28,6 @@ namespace GMT_BLL.LogicInterface
         string Console { get; set; }
         string ShowScriptResult { get; set; }
         string Settings { get; set; }
+        string Preferences { get; set; }
     }
 }

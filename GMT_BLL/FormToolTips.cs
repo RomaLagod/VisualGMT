@@ -31,6 +31,7 @@ namespace GMT_BLL
         public string Console { get; set; }
         public string ShowScriptResult { get; set; }
         public string Settings { get; set; }
+        public string Preferences { get; set; }
         public string Find { get; set; }
 
         public FormToolTips()
@@ -57,7 +58,8 @@ namespace GMT_BLL
             Run = "Run Script";
             Console = "Show Embedded Console Output...";
             ShowScriptResult = "View graphical results...";
-            Settings = "Settings...";
+            Settings = "Environment Settings...";
+            Preferences = "GMT Preferences...";
             Find = "Find";
         }
     }

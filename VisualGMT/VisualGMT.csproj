@@ -61,7 +61,8 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="FormInterface\IVisualGMT.cs" />
-    <Compile Include="GlobalSettings\Settings.cs" />
+    <Compile Include="GlobalPreferences\PreferencesXML.cs" />
+    <Compile Include="GlobalSettings\SettingsXML.cs" />
     <Compile Include="Help.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +98,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preferences.resx">
+      <DependentUpon>Preferences.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

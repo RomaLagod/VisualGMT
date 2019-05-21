@@ -46,6 +46,7 @@ namespace VisualGMT
         public Control interBtnHTConsole { get; set; }
         public Control interBtnHTPostScript { get; set; }
         public Control interBtnHTSettings { get; set; }
+        public Control interBtnHTPreferences { get; set; }
         public Control interBtnHTFind { get; set; }
 
         #endregion
@@ -326,6 +327,7 @@ namespace VisualGMT
             interBtnHTConsole = btnHTConsole;
             interBtnHTPostScript = btnHTPostScript;
             interBtnHTSettings = btnHTSettings;
+            interBtnHTPreferences = btnHTPreferences;
             interBtnHTFind = btnHTFind;
         }
 
@@ -991,6 +993,27 @@ namespace VisualGMT
             ShowGmtEmbeddedConsole();
         }
 
+        // Open PostScript Form
+        private void btnHTPostScript_Click(object sender, EventArgs e)
+        {
+            ViewImage viewImageForm = new ViewImage();
+            viewImageForm.ShowDialog();
+        }
+
+        // Open Settings Form
+        private void btnHTSettings_Click(object sender, EventArgs e)
+        {
+            Settings settingsForm = new Settings();
+            settingsForm.ShowDialog();
+        }
+
+        // GMT preferences
+        private void btnHTPreferences_Click(object sender, EventArgs e)
+        {
+            Preferences preferencesForm = new Preferences();
+            preferencesForm.ShowDialog();
+        }
+
         #endregion
 
         #region MainMenu
@@ -1182,13 +1205,13 @@ namespace VisualGMT
             CurrentGMTTextBox.NavigateForward();
         }
 
-        //Edit -> Set Selected As Read Only
+        // Edit -> Set Selected As Read Only
         private void setSelectedAsReadOnlyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CurrentGMTTextBox.Selection.ReadOnly = true;
         }
 
-        //Edit -> Set Selected As Writable
+        // Edit -> Set Selected As Writable
         private void setSelectedAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CurrentGMTTextBox.Selection.ReadOnly = false;
@@ -1211,6 +1234,13 @@ namespace VisualGMT
         {
             btnHTConsole.Checked = !btnHTConsole.Checked;
             ShowGmtEmbeddedConsole();
+        }
+
+        // ? -> Show help form
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Help helpForm = new Help();
+            helpForm.ShowDialog();
         }
 
         #endregion

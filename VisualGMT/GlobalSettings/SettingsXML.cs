@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace VisualGMT.GlobalSettings
 {
-    public class Settings
+    public class SettingsXML
     {
+
     }
 }

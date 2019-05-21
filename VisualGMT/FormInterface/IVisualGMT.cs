@@ -34,6 +34,7 @@ namespace VisualGMT.FormInterface
         Control interBtnHTConsole { get; set; }
         Control interBtnHTPostScript { get; set; }
         Control interBtnHTSettings { get; set; }
+        Control interBtnHTPreferences { get; set; }
         Control interBtnHTFind { get; set; }
 
         #endregion

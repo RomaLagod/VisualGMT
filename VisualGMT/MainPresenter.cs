@@ -154,6 +154,7 @@ namespace VisualGMT
             _toolTips.ToolTip.SetToolTip(_view.interBtnHTConsole, _toolTips.Console);
             _toolTips.ToolTip.SetToolTip(_view.interBtnHTPostScript, _toolTips.ShowScriptResult);
             _toolTips.ToolTip.SetToolTip(_view.interBtnHTSettings, _toolTips.Settings);
+            _toolTips.ToolTip.SetToolTip(_view.interBtnHTPreferences, _toolTips.Preferences);
             _toolTips.ToolTip.SetToolTip(_view.interBtnHTFind, _toolTips.Find);
         }
 

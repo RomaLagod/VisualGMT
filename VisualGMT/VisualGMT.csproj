@@ -62,7 +62,31 @@
     </Compile>
     <Compile Include="FormInterface\IVisualGMT.cs" />
     <Compile Include="GlobalSettings\Settings.cs" />
+    <Compile Include="Help.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Help.Designer.cs">
+      <DependentUpon>Help.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainPresenter.cs" />
+    <Compile Include="Preferences.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preferences.Designer.cs">
+      <DependentUpon>Preferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewImage.Designer.cs">
+      <DependentUpon>ViewImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="VisualGMT.cs">
       <SubType>Form</SubType>
     </Compile>

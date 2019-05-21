@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
+using System.Windows.Forms;
 
 namespace VisualGMT.GlobalPreferences
 {
@@ -18,6 +19,11 @@ namespace VisualGMT.GlobalPreferences
 
         private string PathToPreferencesXMLFile = Environment.CurrentDirectory + @"Preferences.xml";
 
+        public PreferencesXML()
+        {
+
+        }
+
         public static void SaveXML(PreferencesXML preferences)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(PreferencesXML));
@@ -28,7 +34,7 @@ namespace VisualGMT.GlobalPreferences
             }
         }
 
-        public static void OpenXML(PreferencesXML preferences)
+        public static PreferencesXML OpenXML(PreferencesXML preferences)
         {
             if (File.Exists(preferences.PathToPreferencesXMLFile))
             {
@@ -39,6 +45,7 @@ namespace VisualGMT.GlobalPreferences
                     preferences = (PreferencesXML)formatter.Deserialize(fs);
                 }
             }
+            return preferences;
         }
     }
 }

@@ -1428,7 +1428,7 @@ namespace VisualGMT
         private PreferencesXML LoadPreferencesXML()
         {
             PreferencesXML preferencesXML = new PreferencesXML();
-            PreferencesXML.OpenXML(preferencesXML);
+            preferencesXML = PreferencesXML.OpenXML(preferencesXML);
             return preferencesXML;
         }
 

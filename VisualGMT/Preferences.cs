@@ -24,6 +24,7 @@ namespace VisualGMT
         public PreferencesXML ShowDialog(PreferencesXML preferencesXML)
         {
             PreferencesXML = preferencesXML;
+            LoadPathToTextBoxes();
             base.ShowDialog();
             return PreferencesXML;
         }
@@ -35,7 +36,6 @@ namespace VisualGMT
         public Preferences()
         {
             InitializeComponent();
-            LoadPathToTextBoxes();
         }
 
         #endregion
@@ -44,10 +44,13 @@ namespace VisualGMT
 
         private void LoadPathToTextBoxes()
         {
-            tbPathToLinuxTerminal.Text = PreferencesXML.PathToLinuxTerminal != null ? PreferencesXML.PathToLinuxTerminal : String.Empty;
-            tbPathToGMTMainDirectory.Text = PreferencesXML.PathToGMT != null ? PreferencesXML.PathToGMT : String.Empty;
-            tbPathToPSViewer.Text = PreferencesXML.PathToPSViewer != null ? PreferencesXML.PathToPSViewer : String.Empty;
-            tbPathToWorkingDirectory.Text = PreferencesXML.PathToWorkingDirectory != null ? PreferencesXML.PathToWorkingDirectory : String.Empty;
+            if (PreferencesXML != null)
+            {
+                tbPathToLinuxTerminal.Text = PreferencesXML.PathToLinuxTerminal;
+                tbPathToGMTMainDirectory.Text = PreferencesXML.PathToGMT;
+                tbPathToPSViewer.Text = PreferencesXML.PathToPSViewer;
+                tbPathToWorkingDirectory.Text = PreferencesXML.PathToWorkingDirectory;
+            }
         }
 
         #endregion

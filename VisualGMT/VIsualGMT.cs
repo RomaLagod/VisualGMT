@@ -514,9 +514,13 @@ namespace VisualGMT
             CurrentGMTTextBox.Range.ClearStyle(StyleIndex.All);
             //CurrentGMTTextBox.AutoIndentNeeded -= fctb_AutoIndentNeeded;
 
-            if (fileType != null && fileType.ToLower() == ".sh".ToLower())
+            if (fileType != null)
             {
                 fileType = Path.GetExtension(fileType);
+            }
+
+            if (fileType != null && fileType.ToLower() == ".sh".ToLower())
+            {
                 CurrentGMTTextBox.lang = GMT_FastColoredTextBox.CustomLanguages.GMTwithSH;
             }
             else
@@ -734,6 +738,42 @@ namespace VisualGMT
 
         // On Exit CMD
         private void OnExitFromCMD(object sender, EventArgs e)
+        {
+            // Script Running
+            (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRunning = false;
+        }
+
+        // Execute script SH on Terminal
+        private void ExecuteSHScript(string command)
+        {
+            if (PreferencesXML != null && Path.HasExtension(PreferencesXML.PathToLinuxTerminal))
+            {
+                // Script Running
+                (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRunning = true;
+
+                Process process = new Process();
+                ProcessStartInfo psi = new ProcessStartInfo(PreferencesXML.PathToLinuxTerminal, "-c \" " + command + " ; read -rsp $'Press enter to continue...\n' ; bash \"");// sleep 30");
+                process.StartInfo = psi;
+                process.EnableRaisingEvents = true;
+
+                try
+                {
+                    process.Exited += OnExitFromTerminal;
+                    process.Start();
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Set Path to Terminal in Preferences for run script, please", "Set Preferences", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        // On Exit Terminal
+        private void OnExitFromTerminal(object sender, EventArgs e)
         {
             // Script Running
             (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRunning = false;
@@ -1419,6 +1459,39 @@ namespace VisualGMT
         private void winConsoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExecuteBATFile("echo CMD opened.");
+        }
+
+        // Run Script (SH FILE) in Terminal (Path to terminal in PreferencesXML)
+        private void runInTerminalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Save File
+            btnHTSave.PerformClick();
+
+            // Check
+            if ((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag != null && Path.GetExtension((CurrentGMTTextBox.Parent as GMT_FATabStripItem).Tag.ToString().ToLower()) == ".sh".ToLower())
+            {
+                // Execute
+                ExecuteSHScript(CurrentGMTTextBox.Text);
+            }
+            else
+            {
+                if (MessageBox.Show("For RUN this SH File, Save script (*.sh), please!", "Run script", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
+                {
+                    btnHTSave.PerformClick();
+                }
+            }
+        }
+
+        // Script -> Run Script (SH FILE) in Terminal (Path to terminal in PreferencesXML)
+        private void runInShellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            runInTerminalToolStripMenuItem.PerformClick();
+        }
+
+        // Tools -> Open cmd console
+        private void shellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExecuteSHScript("echo Terminal opened.");
         }
 
         #endregion

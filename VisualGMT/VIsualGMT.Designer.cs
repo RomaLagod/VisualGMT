@@ -106,6 +106,8 @@
             this.runInEmbededConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runInWinConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runInShellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem23 = new System.Windows.Forms.ToolStripSeparator();
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openEmbededConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.winConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,8 +118,9 @@
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pGMTHighlightingTools = new System.Windows.Forms.Panel();
-            this.btnHTSettings = new System.Windows.Forms.Button();
+            this.btnHTPreferences = new System.Windows.Forms.Button();
             this.ilToolBarImages_24 = new System.Windows.Forms.ImageList(this.components);
+            this.btnHTSettings = new System.Windows.Forms.Button();
             this.btnHTPostScript = new System.Windows.Forms.Button();
             this.btnHTConsole = new System.Windows.Forms.CheckBox();
             this.splitter6 = new System.Windows.Forms.Splitter();
@@ -173,9 +176,6 @@
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
             this.btnHTRun = new GMT_GUI_component.SplitButton();
             this.btnHTBookmarks = new GMT_GUI_component.SplitButton();
-            this.toolStripMenuItem23 = new System.Windows.Forms.ToolStripSeparator();
-            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnHTPreferences = new System.Windows.Forms.Button();
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
             this.cmsRun.SuspendLayout();
@@ -789,7 +789,20 @@
             this.runInShellToolStripMenuItem.Name = "runInShellToolStripMenuItem";
             this.runInShellToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F6)));
             this.runInShellToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.runInShellToolStripMenuItem.Text = "Run In Shell...";
+            this.runInShellToolStripMenuItem.Text = "Run In Terminal...";
+            this.runInShellToolStripMenuItem.Click += new System.EventHandler(this.runInShellToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem23
+            // 
+            this.toolStripMenuItem23.Name = "toolStripMenuItem23";
+            this.toolStripMenuItem23.Size = new System.Drawing.Size(230, 6);
+            // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.preferencesToolStripMenuItem.Text = "Preferences...";
+            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.btnHTPreferences_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -825,7 +838,8 @@
             this.shellToolStripMenuItem.Name = "shellToolStripMenuItem";
             this.shellToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F12)));
             this.shellToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.shellToolStripMenuItem.Text = "Shell...";
+            this.shellToolStripMenuItem.Text = "Terminal...";
+            this.shellToolStripMenuItem.Click += new System.EventHandler(this.shellToolStripMenuItem_Click);
             // 
             // toolStripMenuItem18
             // 
@@ -853,14 +867,14 @@
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
             this.helpToolStripMenuItem1.Text = "Help";
             this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -905,22 +919,22 @@
             this.pGMTHighlightingTools.Size = new System.Drawing.Size(935, 30);
             this.pGMTHighlightingTools.TabIndex = 2;
             // 
-            // btnHTSettings
+            // btnHTPreferences
             // 
-            this.btnHTSettings.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTSettings.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTSettings.ForeColor = System.Drawing.Color.White;
-            this.btnHTSettings.ImageIndex = 21;
-            this.btnHTSettings.ImageList = this.ilToolBarImages_24;
-            this.btnHTSettings.Location = new System.Drawing.Point(683, 1);
-            this.btnHTSettings.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTSettings.Name = "btnHTSettings";
-            this.btnHTSettings.Size = new System.Drawing.Size(30, 29);
-            this.btnHTSettings.TabIndex = 48;
-            this.btnHTSettings.UseVisualStyleBackColor = false;
-            this.btnHTSettings.Click += new System.EventHandler(this.btnHTSettings_Click);
+            this.btnHTPreferences.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTPreferences.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTPreferences.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTPreferences.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTPreferences.ForeColor = System.Drawing.Color.White;
+            this.btnHTPreferences.ImageIndex = 23;
+            this.btnHTPreferences.ImageList = this.ilToolBarImages_24;
+            this.btnHTPreferences.Location = new System.Drawing.Point(713, 1);
+            this.btnHTPreferences.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTPreferences.Name = "btnHTPreferences";
+            this.btnHTPreferences.Size = new System.Drawing.Size(30, 29);
+            this.btnHTPreferences.TabIndex = 49;
+            this.btnHTPreferences.UseVisualStyleBackColor = false;
+            this.btnHTPreferences.Click += new System.EventHandler(this.btnHTPreferences_Click);
             // 
             // ilToolBarImages_24
             // 
@@ -950,6 +964,23 @@
             this.ilToolBarImages_24.Images.SetKeyName(21, "outline_settings_black_24dp.png");
             this.ilToolBarImages_24.Images.SetKeyName(22, "baseline_search_black_24dp.png");
             this.ilToolBarImages_24.Images.SetKeyName(23, "outline_perm_data_setting_black_24dp.png");
+            // 
+            // btnHTSettings
+            // 
+            this.btnHTSettings.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTSettings.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTSettings.ForeColor = System.Drawing.Color.White;
+            this.btnHTSettings.ImageIndex = 21;
+            this.btnHTSettings.ImageList = this.ilToolBarImages_24;
+            this.btnHTSettings.Location = new System.Drawing.Point(683, 1);
+            this.btnHTSettings.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTSettings.Name = "btnHTSettings";
+            this.btnHTSettings.Size = new System.Drawing.Size(30, 29);
+            this.btnHTSettings.TabIndex = 48;
+            this.btnHTSettings.UseVisualStyleBackColor = false;
+            this.btnHTSettings.Click += new System.EventHandler(this.btnHTSettings_Click);
             // 
             // btnHTPostScript
             // 
@@ -1025,6 +1056,7 @@
             this.runInTerminalToolStripMenuItem.Name = "runInTerminalToolStripMenuItem";
             this.runInTerminalToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.runInTerminalToolStripMenuItem.Text = "Run In Terminal";
+            this.runInTerminalToolStripMenuItem.Click += new System.EventHandler(this.runInTerminalToolStripMenuItem_Click);
             // 
             // splitter5
             // 
@@ -1621,35 +1653,6 @@
             this.btnHTBookmarks.Size = new System.Drawing.Size(52, 29);
             this.btnHTBookmarks.TabIndex = 42;
             this.btnHTBookmarks.UseVisualStyleBackColor = false;
-            // 
-            // toolStripMenuItem23
-            // 
-            this.toolStripMenuItem23.Name = "toolStripMenuItem23";
-            this.toolStripMenuItem23.Size = new System.Drawing.Size(230, 6);
-            // 
-            // preferencesToolStripMenuItem
-            // 
-            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.preferencesToolStripMenuItem.Text = "Preferences...";
-            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.btnHTPreferences_Click);
-            // 
-            // btnHTPreferences
-            // 
-            this.btnHTPreferences.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTPreferences.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTPreferences.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTPreferences.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTPreferences.ForeColor = System.Drawing.Color.White;
-            this.btnHTPreferences.ImageIndex = 23;
-            this.btnHTPreferences.ImageList = this.ilToolBarImages_24;
-            this.btnHTPreferences.Location = new System.Drawing.Point(713, 1);
-            this.btnHTPreferences.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTPreferences.Name = "btnHTPreferences";
-            this.btnHTPreferences.Size = new System.Drawing.Size(30, 29);
-            this.btnHTPreferences.TabIndex = 49;
-            this.btnHTPreferences.UseVisualStyleBackColor = false;
-            this.btnHTPreferences.Click += new System.EventHandler(this.btnHTPreferences_Click);
             // 
             // VisualGMT
             // 

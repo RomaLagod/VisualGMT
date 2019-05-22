@@ -12,17 +12,31 @@ namespace VisualGMT.GlobalPreferences
     [Serializable]
     public class PreferencesXML
     {
+        #region Properties
+
         public string PathToLinuxTerminal { get; set; }
         public string PathToGMT { get; set; }
         public string PathToPSViewer { get; set; }
         public string PathToWorkingDirectory { get; set; }
 
+        #endregion
+
+        #region Const Path to Preferences
+
         private string PathToPreferencesXMLFile = Environment.CurrentDirectory + @"Preferences.xml";
+
+        #endregion
+
+        #region Constructors
 
         public PreferencesXML()
         {
 
         }
+
+        #endregion
+
+        #region Open / Save Preferences
 
         public static void SaveXML(PreferencesXML preferences)
         {
@@ -47,5 +61,7 @@ namespace VisualGMT.GlobalPreferences
             }
             return preferences;
         }
+
+        #endregion
     }
 }

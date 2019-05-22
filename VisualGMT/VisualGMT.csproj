@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="FormInterface\IVisualGMT.cs" />
     <Compile Include="GlobalPreferences\PreferencesXML.cs" />
+    <Compile Include="GlobalSettings\RecentFile.cs" />
     <Compile Include="GlobalSettings\SettingsXML.cs" />
     <Compile Include="Help.cs">
       <SubType>Form</SubType>

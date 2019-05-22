@@ -18,6 +18,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Management;
 using VisualGMT.GlobalPreferences;
+using VisualGMT.GlobalSettings;
 
 namespace VisualGMT
 {
@@ -85,6 +86,7 @@ namespace VisualGMT
             {
                 //CurrentGMTTextBox.Text = value;
                 NewGMTDocument(FilePath, value);
+                SetRecentFiles(CurrentGMTTextBox);
             }
         }
 
@@ -94,6 +96,9 @@ namespace VisualGMT
 
         // PreferencesXML
         public PreferencesXML PreferencesXML { get; set; }
+
+        // RecentFiles
+        public Queue<RecentFile> RecentFiles { get; set; } = new Queue<RecentFile>();
 
         // On Form Load
         public event EventHandler VisualGMTLoad;
@@ -561,7 +566,7 @@ namespace VisualGMT
             }
 
             tb.Invalidate();
-
+            SetRecentFiles(CurrentGMTTextBox);
             return true;
         }
 
@@ -779,12 +784,38 @@ namespace VisualGMT
             (CurrentGMTTextBox.Parent as GMT_FATabStripItem).IsRunning = false;
         }
 
-        #endregion
+
+        // Open Terminal
+        private void OpenSHTerminal(string command)
+        {
+            if (PreferencesXML != null && Path.HasExtension(PreferencesXML.PathToLinuxTerminal))
+            {
+                Process process = new Process();
+                ProcessStartInfo psi = new ProcessStartInfo(PreferencesXML.PathToLinuxTerminal, "-c \" " + command + " ; bash \"");
+                process.StartInfo = psi;
+                process.EnableRaisingEvents = true;
+
+                try
+                {
+                    process.Exited += OnExitFromTerminal;
+                    process.Start();
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Set Path to Terminal in Preferences for run script, please", "Set Preferences", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            }
+        }
+            #endregion
 
         #region Embedded Console (Methods and Events)
 
-        // Button -> Hide Embedded Console
-        private void GmtHideEmbeddedConsole(object sender, EventArgs e)
+            // Button -> Hide Embedded Console
+            private void GmtHideEmbeddedConsole(object sender, EventArgs e)
         {
             btnHTConsole.Checked = false;
             ShowGmtEmbeddedConsole();
@@ -1491,7 +1522,7 @@ namespace VisualGMT
         // Tools -> Open cmd console
         private void shellToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExecuteSHScript("echo Terminal opened.");
+            OpenSHTerminal("echo Terminal opened.");
         }
 
         #endregion
@@ -1506,5 +1537,62 @@ namespace VisualGMT
         }
 
         #endregion
+
+        #region RecentFiles
+
+        // Add and update recentfiles
+        private void SetRecentFiles(GMT_FastColoredTextBox textBox)
+        {
+            if (textBox != null)
+            {
+                RecentFiles.Enqueue(new RecentFile(textBox));
+            }
+
+            while (RecentFiles.Count > 10)
+            {
+                RecentFiles.Dequeue();
+            }
+        }
+
+        //Fill context menu with all present recentFiles
+        private void FillRecentFilesItems(ToolStripItemCollection itemsCollection)
+        {
+            itemsCollection.Clear();
+            foreach (var recentFile in RecentFiles)
+            {
+                var item = itemsCollection.Add((itemsCollection.Count + 1).ToString() + " " + recentFile.ShortFileName + " (" + recentFile.FullPath + ")");
+                item.Tag = recentFile;
+                item.Click += (o, a) =>
+                {
+                    var b = (RecentFile)(o as ToolStripItem).Tag;
+                    try
+                    {
+                        OpenRecentFile(b.FullPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                };
+            }
+        }
+
+        // Open Recent File
+        private void OpenRecentFile(string filePath)
+        {
+            FilePath = filePath;
+            if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
+        }
+
+        // Event when Open menu -> recent files
+        private void recentFilesToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            FillRecentFilesItems(recentFilesToolStripMenuItem.DropDownItems);
+        }
+
+        #endregion
+
+
     }
 }

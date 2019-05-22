@@ -17,6 +17,7 @@ namespace GMT_GUI_component
         public Color CurrentLineColor { get; } = Color.FromArgb(100, 210, 210, 255);
 
         private Color _changedLineColor = Color.FromArgb(255, 230, 230, 255);
+
         // Insert Key MODE (Keyboard KeyMode (INS, OVR))
         public InsertKeyMode InsertKeyMode = InsertKeyMode.Insert;
 

@@ -124,11 +124,13 @@
             this.btnHTPostScript = new System.Windows.Forms.Button();
             this.btnHTConsole = new System.Windows.Forms.CheckBox();
             this.splitter6 = new System.Windows.Forms.Splitter();
+            this.btnHTRun = new GMT_GUI_component.SplitButton();
             this.cmsRun = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.runInEmbededConsoleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.runInWinConsoleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.runInTerminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitter5 = new System.Windows.Forms.Splitter();
+            this.btnHTBookmarks = new GMT_GUI_component.SplitButton();
             this.cmsBookmarks = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
@@ -174,8 +176,6 @@
             this.tmUpdateInterface = new System.Windows.Forms.Timer(this.components);
             this.saveLog = new System.Windows.Forms.SaveFileDialog();
             this.gmt_FATabStripCollection = new GMT_GUI_component.GMT_FATabStripCollection();
-            this.btnHTRun = new GMT_GUI_component.SplitButton();
-            this.btnHTBookmarks = new GMT_GUI_component.SplitButton();
             this.msGeneralMenu.SuspendLayout();
             this.pGMTHighlightingTools.SuspendLayout();
             this.cmsRun.SuspendLayout();
@@ -289,6 +289,7 @@
             this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
             this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.recentFilesToolStripMenuItem.Text = "Recent Files";
+            this.recentFilesToolStripMenuItem.DropDownOpening += new System.EventHandler(this.recentFilesToolStripMenuItem_DropDownOpening);
             // 
             // toolStripMenuItem4
             // 
@@ -1028,6 +1029,25 @@
             this.splitter6.TabIndex = 45;
             this.splitter6.TabStop = false;
             // 
+            // btnHTRun
+            // 
+            this.btnHTRun.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTRun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTRun.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTRun.ForeColor = System.Drawing.Color.White;
+            this.btnHTRun.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHTRun.ImageIndex = 18;
+            this.btnHTRun.ImageList = this.ilToolBarImages_24;
+            this.btnHTRun.Location = new System.Drawing.Point(567, 1);
+            this.btnHTRun.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTRun.Menu = this.cmsRun;
+            this.btnHTRun.Name = "btnHTRun";
+            this.btnHTRun.Size = new System.Drawing.Size(55, 29);
+            this.btnHTRun.TabIndex = 44;
+            this.btnHTRun.UseVisualStyleBackColor = false;
+            this.btnHTRun.Click += new System.EventHandler(this.btnHTRun_Click);
+            // 
             // cmsRun
             // 
             this.cmsRun.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1067,6 +1087,24 @@
             this.splitter5.Size = new System.Drawing.Size(1, 29);
             this.splitter5.TabIndex = 43;
             this.splitter5.TabStop = false;
+            // 
+            // btnHTBookmarks
+            // 
+            this.btnHTBookmarks.BackColor = System.Drawing.Color.Transparent;
+            this.btnHTBookmarks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHTBookmarks.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHTBookmarks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHTBookmarks.ForeColor = System.Drawing.Color.White;
+            this.btnHTBookmarks.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHTBookmarks.ImageIndex = 17;
+            this.btnHTBookmarks.ImageList = this.ilToolBarImages_24;
+            this.btnHTBookmarks.Location = new System.Drawing.Point(514, 1);
+            this.btnHTBookmarks.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHTBookmarks.Menu = this.cmsBookmarks;
+            this.btnHTBookmarks.Name = "btnHTBookmarks";
+            this.btnHTBookmarks.Size = new System.Drawing.Size(52, 29);
+            this.btnHTBookmarks.TabIndex = 42;
+            this.btnHTBookmarks.UseVisualStyleBackColor = false;
             // 
             // cmsBookmarks
             // 
@@ -1616,43 +1654,6 @@
             this.gmt_FATabStripCollection.Text = "gmT_FATabStripCollection1";
             this.gmt_FATabStripCollection.TabStripItemClosing += new FarsiLibrary.Win.TabStripItemClosingHandler(this.gmt_FATabStripCollection_TabStripItemClosing);
             this.gmt_FATabStripCollection.TabStripItemSelectionChanged += new FarsiLibrary.Win.TabStripItemChangedHandler(this.gmt_FATabStripCollection_TabStripItemSelectionChanged);
-            // 
-            // btnHTRun
-            // 
-            this.btnHTRun.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTRun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTRun.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTRun.ForeColor = System.Drawing.Color.White;
-            this.btnHTRun.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHTRun.ImageIndex = 18;
-            this.btnHTRun.ImageList = this.ilToolBarImages_24;
-            this.btnHTRun.Location = new System.Drawing.Point(567, 1);
-            this.btnHTRun.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTRun.Menu = this.cmsRun;
-            this.btnHTRun.Name = "btnHTRun";
-            this.btnHTRun.Size = new System.Drawing.Size(55, 29);
-            this.btnHTRun.TabIndex = 44;
-            this.btnHTRun.UseVisualStyleBackColor = false;
-            this.btnHTRun.Click += new System.EventHandler(this.btnHTRun_Click);
-            // 
-            // btnHTBookmarks
-            // 
-            this.btnHTBookmarks.BackColor = System.Drawing.Color.Transparent;
-            this.btnHTBookmarks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHTBookmarks.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnHTBookmarks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHTBookmarks.ForeColor = System.Drawing.Color.White;
-            this.btnHTBookmarks.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHTBookmarks.ImageIndex = 17;
-            this.btnHTBookmarks.ImageList = this.ilToolBarImages_24;
-            this.btnHTBookmarks.Location = new System.Drawing.Point(514, 1);
-            this.btnHTBookmarks.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHTBookmarks.Menu = this.cmsBookmarks;
-            this.btnHTBookmarks.Name = "btnHTBookmarks";
-            this.btnHTBookmarks.Size = new System.Drawing.Size(52, 29);
-            this.btnHTBookmarks.TabIndex = 42;
-            this.btnHTBookmarks.UseVisualStyleBackColor = false;
             // 
             // VisualGMT
             // 
